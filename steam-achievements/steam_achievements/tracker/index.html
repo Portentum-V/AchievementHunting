@@ -1,0 +1,410 @@
+<!doctype html>
+<!-- Generic achievement tracker page. Copied into each game folder by
+     `py -m steam_achievements.tracker <folder>`; edit the copy in the library. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Achievement Tracker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2l4 9 10 1-7.5 6.5L25 29l-9-5.5L7 29l2.5-10.5L2 12l10-1z' fill='%23b86b12'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f4efe9; --panel: #fffaf4; --panel-2: #efe6dc; --ink: #241a1a; --muted: #6f5f5a;
+    --line: #dccfc3; --accent: #9b1c24; --accent-soft: #9b1c2418; --accent-2: #b86b12; --accent-2-soft: #b86b1220;
+    --ok: #2f7a4a; --ok-soft: #2f7a4a1c; --shadow: 0 1px 2px #0000000f, 0 4px 14px #0000000a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+      --line: #3a2c2d; --accent: #e0404b; --accent-soft: #e0404b22; --accent-2: #f0a64a; --accent-2-soft: #f0a64a22;
+      --ok: #5cc186; --ok-soft: #5cc18620; --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+    --line: #3a2c2d; --accent: #e0404b; --accent-soft: #e0404b22; --accent-2: #f0a64a; --accent-2-soft: #f0a64a22;
+    --ok: #5cc186; --ok-soft: #5cc18620; --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 30px; margin: 0; letter-spacing: .3px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); margin: 4px 0 0; font-size: 14px; }
+
+  .top { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+  .sync { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--panel); font-size: 13px; color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .pill.live .dot { background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
+  .pill.err .dot { background: var(--accent); }
+  button, select { font: inherit; cursor: pointer; }
+  .btn { border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 5px 12px; border-radius: 8px; font-size: 13px; }
+  .btn:hover { border-color: var(--accent); }
+  a.btn { text-decoration: none; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0 18px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); min-width: 0; }
+  .stat .k { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .stat .v { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .stat .v small { font-size: 15px; color: var(--muted); font-weight: 500; }
+  .bar { height: 6px; background: var(--panel-2); border-radius: 99px; overflow: hidden; margin-top: 8px; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 99px; transition: width .4s; }
+
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 8px;
+    position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 10px 0; }
+  .search { flex: 1 1 220px; min-width: 0; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); font: inherit; }
+  .search:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--panel); }
+  .seg button { border: 0; background: none; color: var(--muted); padding: 7px 12px; font-size: 13px; }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .sort { border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 7px 10px; border-radius: 8px; font-size: 13px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chip { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 4px 11px; border-radius: 999px; font-size: 13px; }
+  .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .chip b { font-weight: 600; font-variant-numeric: tabular-nums; margin-left: 4px; }
+
+  section h2 { font-family: Georgia, serif; font-weight: 600; font-size: 19px; margin: 26px 0 10px; display: flex; align-items: baseline; gap: 10px; }
+  section h2 small { font-family: "Segoe UI", system-ui, sans-serif; font-size: 13px; color: var(--muted); font-weight: 500; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 10px; }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+    display: grid; grid-template-columns: 56px 1fr; gap: 12px; box-shadow: var(--shadow); position: relative; min-width: 0; }
+  .card.done { border-color: color-mix(in srgb, var(--ok) 45%, var(--line)); }
+  .card.done::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; border-radius: 12px 0 0 12px; background: var(--ok); }
+  .card.wide { grid-column: 1 / -1; }
+  .icon { width: 56px; height: 56px; border-radius: 8px; background: var(--panel-2); object-fit: cover; }
+  .card:not(.done) .icon { filter: grayscale(1); opacity: .6; }
+  .head { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+  .name { font-weight: 650; font-size: 15.5px; line-height: 1.3; }
+  .g { font-size: 12px; font-weight: 700; color: var(--accent-2); background: var(--accent-2-soft); padding: 2px 7px; border-radius: 6px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .desc { color: var(--muted); font-size: 13.5px; margin: 2px 0 6px; }
+  .tip { font-size: 13.5px; margin: 0 0 6px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+  .tag { font-size: 11.5px; padding: 2px 8px; border-radius: 6px; background: var(--panel-2); color: var(--muted); }
+  .tag.t1 { background: var(--accent-soft); color: var(--accent); }
+  .tag.t2 { background: var(--accent-2-soft); color: var(--accent-2); }
+  .tag.ok { background: var(--ok-soft); color: var(--ok); font-weight: 600; }
+  .manual { margin-left: auto; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; user-select: none; }
+  details { margin-top: 8px; border-top: 1px dashed var(--line); padding-top: 6px; }
+  summary { font-size: 13px; color: var(--muted); cursor: pointer; }
+  summary b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  ul.steps { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 3px; }
+  ul.steps.cols { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); column-gap: 12px; }
+  ul.steps label { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; cursor: pointer; }
+  ul.steps input { margin-top: 3px; flex: none; }
+  ul.steps input:checked + span { color: var(--muted); text-decoration: line-through; }
+  input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; }
+  .empty { color: var(--muted); padding: 30px 0; text-align: center; }
+  .foot { color: var(--muted); font-size: 12.5px; margin-top: 36px; border-top: 1px solid var(--line); padding-top: 12px; }
+  .foot code { background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(120px); background: var(--panel);
+    border: 1px solid var(--ok); color: var(--ink); padding: 10px 16px; border-radius: 10px; box-shadow: var(--shadow);
+    transition: transform .35s; z-index: 20; max-width: calc(100% - 32px); }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats .stat:last-child { grid-column: span 2; }
+    .grid { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1 id="title">Achievement Tracker</h1>
+      <p class="sub" id="subtitle">Synced from Steam</p>
+    </div>
+    <div class="sync">
+      <a class="btn" id="hubLink" href="../" hidden>All games</a>
+      <span class="pill" id="syncPill"><span class="dot"></span><span id="syncText">Loading</span></span>
+      <button class="btn" id="refresh" title="Fetch from Steam now">Refresh</button>
+      <button class="btn" id="theme" title="Toggle light or dark">Theme</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Unlocked</div><div class="v" id="sCount">0</div><div class="bar"><i id="sBar" style="width:0"></i></div></div>
+    <div class="stat" id="stat2"></div>
+    <div class="stat" id="stat3"></div>
+  </div>
+
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="Search name, description, or tip">
+    <div class="seg" id="statusSeg">
+      <button data-v="all">All</button>
+      <button data-v="todo">Remaining</button>
+      <button data-v="done">Unlocked</button>
+    </div>
+    <select class="sort" id="sort" aria-label="Sort">
+      <option value="guide">Guide order</option>
+      <option value="rarity">Rarest first</option>
+      <option value="recent">Recently unlocked</option>
+    </select>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div id="list"></div>
+
+  <div class="foot">
+    <span id="credit"></span>
+    Unlock state comes from your Steam account through the steam_achievements library.
+    Run <code>py -m steam_achievements.tracker &lt;folder&gt;</code> for live tracking, or add <code>--once</code> to refresh the offline snapshot.
+    Checklists and manual marks save in this browser.
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="guide.js"></script>
+<script src="steam_status.js"></script>
+<script>
+(() => {
+  const G = window.GUIDE || { categories: [], achievements: {} };
+  const LS = G.storageKey || "tracker-" + (G.appid || "game");
+  const POLL_MS = 60000;
+  const live = location.protocol.startsWith("http");
+  const FLAGS = G.flags || {};
+  const cats = (G.categories || []).slice();
+
+  let store = { steps: {}, manual: {}, theme: null, status: G.defaultStatus || "all", sort: "guide" };
+  try { Object.assign(store, JSON.parse(localStorage.getItem(LS)) || {}); } catch {}
+  const save = () => { try { localStorage.setItem(LS, JSON.stringify(store)); } catch {} };
+
+  if (store.theme) document.documentElement.dataset.theme = store.theme;
+  let steam = window.STEAM || null;
+  let ui = { q: "", cat: "all" };
+
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  // Header from the guide.
+  if (G.title) {
+    const acc = G.titleAccent && G.title.includes(G.titleAccent) ? G.titleAccent : "";
+    $("#title").innerHTML = acc ? esc(G.title).replace(esc(acc), `<span>${esc(acc)}</span>`) : esc(G.title);
+    document.title = G.title + " Achievements";
+  }
+  $("#subtitle").textContent = G.subtitle || "Achievement tracker, synced from Steam";
+  $("#credit").textContent = G.credit ? G.credit + " " : "";
+  if (G.colors) {
+    const v = c => `--accent:${c.accent};--accent-soft:${c.accent}22;--accent-2:${c.accent2};--accent-2-soft:${c.accent2}22;`;
+    const st = document.createElement("style");
+    st.textContent = (G.colors.light ? `:root{${v(G.colors.light)}}` : "") + (G.colors.dark ?
+      `@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){${v(G.colors.dark)}}} :root[data-theme="dark"]{${v(G.colors.dark)}}` : "");
+    document.head.appendChild(st);
+  }
+
+  // Merge the guide with Steam data. Steam text wins; achievements missing from the guide land in "Other".
+  function model() {
+    const byApi = {};
+    (steam?.achievements || []).forEach(a => byApi[a.api] = a);
+    const keys = [...new Set(Object.keys(G.achievements).concat(Object.keys(byApi)))];
+    return keys.map((api, order) => {
+      const g = G.achievements[api] || {};
+      const s = byApi[api] || {};
+      const steps = g.steps || [];
+      const stepState = store.steps[api] || {};
+      const tip = Array.isArray(g.tip) ? g.tip : g.tip ? [g.tip] : [];
+      return {
+        api, order, cat: cats.some(c => c[0] === g.cat) ? g.cat : "other",
+        g: g.g, tip, flag: g.flag, steps, stepState, wide: !!g.wide,
+        name: s.name || g.name || api, desc: s.desc || "",
+        icon: s.icon || "", iconLocked: s.iconLocked || s.icon || "",
+        pct: typeof s.pct === "number" ? s.pct : null, hidden: !!s.hidden,
+        steamDone: !!s.unlocked, time: s.time,
+        manualDone: !!store.manual[api],
+        done: !!s.unlocked || !!store.manual[api],
+        stepsDone: steps.filter(x => stepState[x]).length,
+      };
+    });
+  }
+
+  function sorted(list) {
+    const by = {
+      guide: (a, b) => a.order - b.order,
+      rarity: (a, b) => (a.pct ?? 101) - (b.pct ?? 101),
+      recent: (a, b) => (b.time || 0) - (a.time || 0) || a.order - b.order,
+    }[store.sort] || ((a, b) => a.order - b.order);
+    return list.slice().sort(by);
+  }
+
+  const pctText = p => p == null ? "" : p < 10 ? p.toFixed(1) + "%" : Math.round(p) + "%";
+
+  function renderStats(all, got) {
+    $("#sCount").innerHTML = `${got.length}<small> / ${all.length}</small>`;
+    $("#sBar").style.width = (all.length ? 100 * got.length / all.length : 0) + "%";
+
+    const pts = all.reduce((n, a) => n + (a.g || 0), 0);
+    if (pts) {
+      const have = got.reduce((n, a) => n + (a.g || 0), 0);
+      $("#stat2").innerHTML = `<div class="k" title="${esc(G.pointsNote || "")}">${esc(G.pointsLabel || "Points")}</div>
+        <div class="v">${have}<small> / ${pts}</small></div><div class="bar"><i style="width:${100 * have / pts}%"></i></div>`;
+    } else {
+      const last = all.filter(a => a.time).sort((a, b) => b.time - a.time)[0];
+      $("#stat2").innerHTML = `<div class="k">Latest unlock</div><div class="v" style="font-size:19px">${last ? esc(last.name) : "-"}</div>
+        <div class="sub">${last ? new Date(last.time * 1000).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : ""}</div>`;
+    }
+
+    const h = G.highlight;
+    if (h) {
+      const set = all.filter(a => a.flag === h.flag);
+      $("#stat3").innerHTML = `<div class="k">${esc(h.label)}</div><div class="v">${set.filter(a => !a.done).length}<small> / ${set.length}</small></div>
+        <div class="sub">${esc(h.note || "")}</div>`;
+    } else {
+      const left = all.filter(a => !a.done && a.pct != null).sort((a, b) => a.pct - b.pct);
+      $("#stat3").innerHTML = `<div class="k">Rarest remaining</div><div class="v" style="font-size:19px">${left[0] ? esc(left[0].name) : "All done"}</div>
+        <div class="sub">${left[0] ? pctText(left[0].pct) + " of players have it" : ""}</div>`;
+    }
+  }
+
+  function render() {
+    const all = model();
+    const got = all.filter(a => a.done);
+    renderStats(all, got);
+    document.querySelectorAll("#statusSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === store.status));
+    $("#sort").value = store.sort;
+
+    const shownCats = cats.concat(all.some(a => a.cat === "other") ? [["other", "Other"]] : []);
+    $("#chips").innerHTML = [["all", "All"]].concat(shownCats).map(([id, label]) => {
+      const inCat = all.filter(a => id === "all" || a.cat === id);
+      return `<button class="chip" data-cat="${id}" aria-pressed="${ui.cat === id}">${esc(label)}<b>${inCat.filter(a => a.done).length}/${inCat.length}</b></button>`;
+    }).join("");
+
+    const q = ui.q.trim().toLowerCase();
+    const shown = sorted(all.filter(a =>
+      (ui.cat === "all" || a.cat === ui.cat) &&
+      (store.status === "all" || (store.status === "done") === a.done) &&
+      (!q || [a.name, a.desc, ...a.tip, ...a.steps].join(" ").toLowerCase().includes(q))));
+
+    const html = shownCats.map(([id, label]) => {
+      const items = shown.filter(a => a.cat === id);
+      if (!items.length) return "";
+      const inCat = all.filter(a => a.cat === id);
+      return `<section><h2>${esc(label)} <small>${inCat.filter(a => a.done).length} of ${inCat.length}</small></h2>
+        <div class="grid">${items.map(card).join("")}</div></section>`;
+    }).join("");
+    $("#list").innerHTML = html || `<div class="empty">${store.status === "todo" && !q ? "Everything here is unlocked." : "Nothing matches these filters."}</div>`;
+  }
+
+  function card(a) {
+    const img = a.done ? a.icon : a.iconLocked;
+    const f = FLAGS[a.flag];
+    const flagTag = f ? `<span class="tag ${f.tone === "accent2" ? "t2" : "t1"}">${esc(f.label)}</span>` : "";
+    const pct = a.pct != null ? `<span class="tag" title="Share of Steam players who have it">${pctText(a.pct)} of players</span>` : "";
+    const when = a.time ? new Date(a.time * 1000).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "";
+    const status = a.steamDone ? `<span class="tag ok">Unlocked${when ? " " + when : ""}</span>`
+      : `<label class="manual" title="Mark done by hand. Steam unlocks override this."><input type="checkbox" data-manual="${esc(a.api)}" ${a.manualDone ? "checked" : ""}>Mark done</label>`;
+    const steps = a.steps.length ? `<details ${a.done ? "" : "open"}><summary>Checklist <b>${a.stepsDone}/${a.steps.length}</b></summary>
+      <ul class="steps ${a.steps.length > 6 && a.steps.every(s => s.length <= 22) ? "cols" : ""}">${a.steps.map(s => `<li><label><input type="checkbox" data-api="${esc(a.api)}" data-step="${esc(s)}" ${a.stepState[s] ? "checked" : ""}><span>${esc(s)}</span></label></li>`).join("")}</ul></details>` : "";
+    return `<article class="card ${a.done ? "done" : ""} ${a.wide && !a.done ? "wide" : ""}">
+      ${img ? `<img class="icon" src="${esc(img)}" alt="" loading="lazy">` : `<div class="icon"></div>`}
+      <div style="min-width:0">
+        <div class="head"><div class="name">${esc(a.name)}</div>${a.g ? `<span class="g">${a.g}${esc(G.pointsSuffix || "")}</span>` : ""}</div>
+        ${a.desc ? `<p class="desc">${esc(a.desc)}</p>` : ""}
+        ${a.tip.map(t => `<p class="tip">${esc(t)}</p>`).join("")}
+        <div class="tags">${flagTag}${pct}${status}</div>
+        ${steps}
+      </div></article>`;
+  }
+
+  function setSync(kind, text, title) {
+    $("#syncPill").className = "pill " + kind;
+    $("#syncPill").title = title || "";
+    $("#syncText").textContent = text;
+  }
+  const ago = t => {
+    const s = Math.round(Date.now() / 1000 - t);
+    if (s < 60) return "just now";
+    if (s < 3600) return Math.round(s / 60) + " min ago";
+    if (s < 86400) return Math.round(s / 3600) + " h ago";
+    return new Date(t * 1000).toLocaleString();
+  };
+  function describeSync(err) {
+    if (!err && steam?.error) err = steam.error;
+    if (err) {
+      setSync("err", steam && !steam.error ? "Sync failed, showing " + ago(steam.fetchedAt) : "Steam sync needs attention",
+        typeof err === "string" ? err : "");
+      if (typeof err === "string" && err !== describeSync.last) toast(err);
+      describeSync.last = err;
+      return;
+    }
+    if (!steam) return setSync("err", "No Steam data yet");
+    setSync(live ? "live" : "", (live ? "Live, synced " : "Snapshot from ") + ago(steam.fetchedAt));
+  }
+
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toast.h);
+    toast.h = setTimeout(() => t.classList.remove("show"), 6000);
+  }
+
+  async function poll(force) {
+    if (!live) return describeSync();
+    try {
+      const r = await fetch("api/steam" + (force ? "?force=1" : ""), { cache: "no-store" });
+      const data = await r.json();
+      if (!r.ok || !data.achievements) throw new Error(data.error || r.status);
+      const before = new Set((steam?.achievements || []).filter(a => a.unlocked).map(a => a.api));
+      const fresh = data.achievements.filter(a => a.unlocked && !before.has(a.api));
+      const hadData = !!steam && !steam.error;
+      steam = data;
+      render();
+      describeSync();
+      if (hadData && fresh.length) toast("Unlocked: " + fresh.map(a => a.name).join(", "));
+    } catch (e) {
+      console.warn("Steam sync failed:", e);
+      describeSync(e.message || true);
+    }
+  }
+
+  $("#q").addEventListener("input", e => { ui.q = e.target.value; render(); });
+  $("#statusSeg").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    store.status = b.dataset.v; save(); render();
+  });
+  $("#sort").addEventListener("change", e => { store.sort = e.target.value; save(); render(); });
+  $("#chips").addEventListener("click", e => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    ui.cat = b.dataset.cat; render();
+  });
+  $("#list").addEventListener("change", e => {
+    const el = e.target;
+    if (el.dataset.manual) {
+      if (el.checked) store.manual[el.dataset.manual] = true; else delete store.manual[el.dataset.manual];
+    } else if (el.dataset.step) {
+      const m = store.steps[el.dataset.api] ||= {};
+      if (el.checked) m[el.dataset.step] = true; else delete m[el.dataset.step];
+    } else return;
+    save();
+    const y = scrollY; render(); scrollTo(0, y);
+  });
+  $("#refresh").addEventListener("click", () => {
+    if (live) { setSync("", "Syncing"); poll(true); }
+    else toast("Offline mode. Run the tracker with --once, then reload this page.");
+  });
+  $("#theme").addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme
+      ? document.documentElement.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    store.theme = dark ? "light" : "dark";
+    document.documentElement.dataset.theme = store.theme; save();
+  });
+
+  // Under the hub, a game lives at /<folder>/ rather than at /.
+  if (live && location.pathname.replace(/index\.html$/, "") !== "/") $("#hubLink").hidden = false;
+
+  render();
+  describeSync();
+  if (live) { poll(); setInterval(poll, POLL_MS); }
+  setInterval(() => { if (steam) describeSync(); }, 30000);
+})();
+</script>
+</body>
+</html>

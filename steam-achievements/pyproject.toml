@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "steam-achievements"
+version = "0.1.0"
+description = "Read your own Steam achievements, including private ones, through an authenticated session."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    # ValvePython/steam stopped working after Steam's 2023 login change.
+    # This maintained fork implements the new IAuthenticationService flow.
+    "steam @ git+https://github.com/solsticegamestudios/steam",
+    "keyring>=25",
+    "requests>=2.32",
+]
+
+[project.scripts]
+steam-achievements = "steam_achievements.__main__:main"
+
+[tool.setuptools]
+packages = ["steam_achievements", "steam_achievements.tracker"]
+
+[tool.setuptools.package-data]
+"steam_achievements.tracker" = ["index.html", "hub.html"]
