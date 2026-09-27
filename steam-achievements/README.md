@@ -137,5 +137,8 @@ window.GUIDE = {
 
 ## Used by
 
+- `..\bg3-tracker` - Baldur's Gate 3 (tips from bg3.wiki and Steam community guides).
 - `..\dawnwalker-tracker` - The Blood of Dawnwalker (tips from the IGN wiki).
+- `..\dragonwilds-tracker` - RuneScape: Dragonwilds (tips from the RuneScape: Dragonwilds wiki).
 - `..\megabonk-tracker` - Megabonk (tips from Steam community guides).
+- `..\valheim-tracker` - Valheim (tips from a Steam community guide and its tracking sheet).

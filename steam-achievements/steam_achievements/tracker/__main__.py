@@ -54,8 +54,9 @@ class Tracker:
         if not m:
             raise SystemExit(f"{guide} has no appid.")
         self.appid = m.group(1)
-        t = re.search(r"""\btitle\s*:\s*["']([^"']+)""", text)
-        self.title = t.group(1) if t else self.slug
+        # Match to the closing quote of the same kind, so "Baldur's Gate 3" stays whole.
+        t = re.search(r"""\btitle\s*:\s*(["'])((?:\\.|(?!\1).)*)\1""", text)
+        self.title = re.sub(r"\\(.)", r"\1", t.group(2)) if t else self.slug
         self._lock = threading.Lock()
         self._at = 0.0
         self._data = None

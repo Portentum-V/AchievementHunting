@@ -185,8 +185,10 @@
 
   // Header from the guide.
   if (G.title) {
-    const acc = G.titleAccent && G.title.includes(G.titleAccent) ? G.titleAccent : "";
-    $("#title").innerHTML = acc ? esc(G.title).replace(esc(acc), `<span>${esc(acc)}</span>`) : esc(G.title);
+    // Split the raw title, then escape each part: an accent like "3" must not match inside "&#39;".
+    const at = G.titleAccent ? G.title.indexOf(G.titleAccent) : -1;
+    $("#title").innerHTML = at < 0 ? esc(G.title)
+      : esc(G.title.slice(0, at)) + `<span>${esc(G.titleAccent)}</span>` + esc(G.title.slice(at + G.titleAccent.length));
     document.title = G.title + " Achievements";
   }
   $("#subtitle").textContent = G.subtitle || "Achievement tracker, synced from Steam";
