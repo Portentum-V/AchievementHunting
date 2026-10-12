@@ -107,8 +107,20 @@
   details { margin-top: 6px; }
   summary { cursor: pointer; color: var(--muted); font-size: 12.5px; }
   .alt { border-top: 1px dashed var(--line); padding-top: 4px; margin-top: 4px; }
+  ol.chain { margin: 6px 0 4px; padding: 0; list-style: none; display: grid; gap: 4px; }
+  ol.chain li { border-left: 2px solid var(--accent-soft); padding-left: 8px; }
+  ol.chain li:first-child { border-left-color: var(--ok); }
+  ol.chain .recipe { margin-top: 0; }
+  ol.chain .recipe b { font-size: 12px; color: var(--muted); font-weight: 600; margin-right: 2px; }
   .empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--line); border-radius: 12px; }
   .more { justify-self: center; }
+  .cook { border: 1px solid var(--ok); background: var(--ok-soft); color: var(--ok); font-weight: 650; font-size: 12.5px;
+    padding: 2px 12px; border-radius: 6px; }
+  .cook:hover { background: var(--ok); color: var(--panel); }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(140%); background: var(--panel);
+    border: 1px solid var(--ok); color: var(--ink); padding: 8px 10px 8px 16px; border-radius: 10px; box-shadow: var(--shadow);
+    transition: transform .3s; z-index: 20; max-width: calc(100% - 32px); display: flex; gap: 12px; align-items: center; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
   .foot { color: var(--muted); font-size: 12.5px; margin-top: 28px; }
   .foot a { color: inherit; }
 </style>
@@ -146,16 +158,21 @@
       <div class="rhead">
         <div class="row">
           <div class="seg" id="tabs" role="tablist">
-            <button data-v="cook">Cook now<b id="n-cook"></b></button><button data-v="short" title="Recipes that lack exactly one ingredient">Almost<b id="n-short"></b></button><button data-v="all">All recipes<b id="n-all"></b></button>
+            <button data-v="cook">Cook now<b id="n-cook"></b></button><button data-v="next" title="Dishes you can reach by cooking an ingredient first">Cook next<b id="n-next"></b></button><button data-v="short" title="Recipes that lack exactly one ingredient">Almost<b id="n-short"></b></button><button data-v="all">All recipes<b id="n-all"></b></button>
           </div>
           <input class="search grow" id="rsearch" type="search" placeholder="Search dishes or ingredients" autocomplete="off" style="flex:1 1 200px;width:auto">
         </div>
         <div class="row">
           <div class="chips" id="kinds"></div>
           <span class="grow"></span>
+          <div class="seg" id="rank" role="group" aria-label="Rank by" hidden>
+            <button data-v="heal" title="Items made times health per item">Heal</button><button data-v="buffs" title="Number of effects the dish gives">Buffs</button><button data-v="sell" title="Items made times sell value">Sell</button>
+          </div>
           <select class="btn" id="sort" aria-label="Sort">
             <option value="name">Sort: name</option>
             <option value="yield">Sort: yield</option>
+            <option value="heal">Sort: total heal</option>
+            <option value="buffs">Sort: buffs</option>
             <option value="sell">Sort: sell value</option>
           </select>
         </div>
@@ -164,6 +181,7 @@
     </main>
   </div>
   <p class="foot" id="foot"></p>
+  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button class="btn" id="undo">Undo</button></div>
 </div>
 
 <script src="recipes-data.js"></script>
@@ -180,7 +198,7 @@
 
   // ---------- state ----------
   const LS = "sulfur-recipes-v1";
-  const st = { pantry: {}, stove: "big", tab: "cook", kind: "all", pf: "all", sort: "name" };
+  const st = { pantry: {}, stove: "big", tab: "cook", kind: "all", pf: "all", sort: "name", rank: "heal" };
   try { Object.assign(st, JSON.parse(localStorage.getItem(LS)) || {}); } catch {}
   const save = () => { try { localStorage.setItem(LS, JSON.stringify(st)); } catch {} };
   if (st.theme) document.documentElement.dataset.theme = st.theme;
@@ -276,6 +294,68 @@
   };
   const usable = r => !(r.flag === "big" && st.stove === "small");
 
+  // ---------- planner for "Cook next" ----------
+  // The fewest cooking levels that make each item from raw ingredients (raw items are 0).
+  // Biscuits And Gravy is the deepest at 4: Cactus -> Bottled Water -> Broth -> Gravy -> it.
+  const level = {};
+  outputs.forEach(o => level[o] = Infinity);
+  const lv = n => level[n] ?? 0;
+  const slotLv = i => i.n ? lv(i.n) : Math.min(...i.opts.map(lv));
+  for (let changed = true; changed;) {
+    changed = false;
+    for (const r of D.recipes) {
+      r.lv = 1 + Math.max(...r.ins.map(slotLv));
+      if (r.lv < level[r.out]) { level[r.out] = r.lv; changed = true; }
+    }
+  }
+  const MAX_LEVELS = 4, MAX_STEPS = 8, PRODUCERS = 3, BUDGET = 80;
+  const cookOn = (s, r, picks) => {
+    const t = { ...s };
+    picks.forEach(p => { t[p.n] -= p.q; if (t[p.n] <= 0) delete t[p.n]; });
+    t[r.out] = (t[r.out] || 0) + yieldOf(r);
+    return t;
+  };
+  // The steps, in cook order, that end with recipe r; null when none fits. It works
+  // backward: when a slot is short, it plans a recipe that makes the missing item,
+  // cooks that on a copy of the stock, and tries r again. `depth` caps the levels
+  // below r, `busy` blocks cycles, and `budget` caps the work per dish.
+  function plan(r, s, depth, busy, budget) {
+    const steps = [];
+    while (steps.length <= MAX_STEPS) {
+      const picks = allocate(r, s);
+      if (picks) { steps.push({ r, picks }); return { steps, s: cookOn(s, r, picks) }; }
+      if (!depth) return null;
+      const miss = shortSlots(r, s);
+      if (!miss.length) return null; // each slot fills alone, but not all together
+      const m = miss[0];
+      const want = (m.n ? [m.n] : r.ins.find(i => i.g === m.g).opts)
+        .filter(x => byOut[x] && !busy.has(x) && level[x] <= depth)
+        .sort((a, b) => level[a] - level[b]);
+      let sub = null;
+      for (const x of want) {
+        const producers = byOut[x].filter(p => usable(p) && p.lv <= depth)
+          .sort((a, b) => a.lv - b.lv || a.ins.length - b.ins.length).slice(0, PRODUCERS);
+        for (const p of producers) {
+          if (--budget.n < 0) return null;
+          sub = plan(p, s, depth - 1, new Set([...busy, x]), budget);
+          if (sub) break;
+        }
+        if (sub) break;
+      }
+      if (!sub) return null;
+      steps.push(...sub.steps);
+      s = sub.s;
+    }
+    return null;
+  }
+  const score = (out, r, by) => {
+    const it = D.items[out] || {};
+    if (by === "buffs") return (it.effects || []).length;
+    if (by === "sell") return yieldOf(r) * (it.sell || 0);
+    return yieldOf(r) * (it.heal || 0);
+  };
+  const scoreText = (n, by) => by === "buffs" ? `${n} buff${n === 1 ? "" : "s"}` : by === "sell" ? `${n} sulf` : `${n} heal`;
+
   // ---------- rendering ----------
   const ingChip = (i, opts = {}) => {
     if (i.n) return `<button class="ing${opts.miss ? " miss" : ""}" data-ing="${esc(i.n)}" title="Show recipes that use ${esc(i.n)}">${img(i.n)}${i.q > 1 ? `<span class="q">${i.q}x</span>` : ""}${esc(i.n)}</button>`;
@@ -283,6 +363,7 @@
     const tip = `${label}: ${i.opts.join(", ")}`;
     return `<span class="ing grp${opts.miss ? " miss" : ""}" title="${esc(tip)}">${img("@" + i.g)}${i.q > 1 ? `<span class="q">${i.q}x</span>` : ""}${esc(label)}</span>`;
   };
+  const cookBtn = r => `<button class="cook" data-cook="${r.id}" title="Cook one batch: take its ingredients out of the pantry and put the dish in">Cook</button>`;
   const pickChips = picks => picks.map(p => ingChip({ n: p.n, q: p.q })).join('<span class="plus">+</span>');
   const recipeLine = (r, missing) => {
     const miss = new Set((missing || []).map(m => m.n || "@" + m.g));
@@ -318,7 +399,37 @@
         .sort((a, b) => a.miss[0].need - b.miss[0].need || yieldOf(b.r) - yieldOf(a.r));
       if (near.length) short.push({ out, near });
     }
-    return { cook, short };
+    return { cook, short, next: computeNext(new Set(cook.map(c => c.out))) };
+  }
+
+  // Dishes that need one or more ingredients cooked first. Keeps each dish's best plan.
+  let nextCache = { key: "", list: [] };
+  function computeNext(cookNow) {
+    const stock = st.pantry;
+    const key = JSON.stringify([stock, st.stove, st.rank]);
+    if (nextCache.key === key) return nextCache.list;
+    const list = [];
+    if (Object.keys(stock).length) for (const out of outputs) {
+      if (cookNow.has(out)) continue;
+      let best = null;
+      for (const r of byOut[out].filter(usable)) {
+        const p = plan(r, stock, MAX_LEVELS - 1, new Set([out]), { n: BUDGET });
+        if (!p || p.steps.length < 2) continue;
+        const sc = score(out, r, st.rank);
+        if (!best || sc > best.sc || (sc === best.sc && p.steps.length < best.steps.length)) best = { out, r, sc, ...p };
+      }
+      if (best) {
+        const uses = [], left = [];
+        new Set([...Object.keys(stock), ...Object.keys(best.s)]).forEach(n => {
+          const d = (best.s[n] || 0) - (stock[n] || 0);
+          if (d < 0) uses.push({ n, q: -d });
+          else if (d > 0 && n !== out) left.push({ n, q: d });
+        });
+        list.push({ ...best, uses, left });
+      }
+    }
+    nextCache = { key, list };
+    return list;
   }
 
   const matches = (out, q) => {
@@ -330,27 +441,49 @@
   const sortFn = (a, b) => {
     if (st.sort === "sell") return ((D.items[b.out] || {}).sell || 0) - ((D.items[a.out] || {}).sell || 0) || a.out.localeCompare(b.out);
     if (st.sort === "yield") return b.y - a.y || a.out.localeCompare(b.out);
+    if (st.sort === "heal") return b.y * ((D.items[b.out] || {}).heal || 0) - a.y * ((D.items[a.out] || {}).heal || 0) || a.out.localeCompare(b.out);
+    if (st.sort === "buffs") return ((D.items[b.out] || {}).effects || []).length - ((D.items[a.out] || {}).effects || []).length || a.out.localeCompare(b.out);
     return a.out.localeCompare(b.out);
   };
 
   function render() {
     const q = $("rsearch").value.trim().toLowerCase();
-    const { cook, short } = compute();
+    const { cook, next, short } = compute();
     const kindOk = out => st.kind === "all" || kindOf(out) === st.kind;
-    $("n-cook").textContent = cook.length; $("n-short").textContent = short.length; $("n-all").textContent = outputs.length;
+    $("n-cook").textContent = cook.length; $("n-next").textContent = next.length;
+    $("n-short").textContent = short.length; $("n-all").textContent = outputs.length;
     document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.tab));
     document.querySelectorAll("#stove button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.stove));
+    document.querySelectorAll("#rank button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.rank));
+    $("rank").hidden = st.tab !== "next";
+    $("sort").hidden = st.tab === "next";
 
     let cards = [];
-    if (st.tab === "cook") {
+    if (st.tab === "next") {
+      const chip = x => `<span class="ing">${img(x.n)}${x.q > 1 ? `<span class="q">${x.q}x</span>` : ""}${esc(x.n)}</span>`;
+      cards = next.filter(c => kindOk(c.out) && matches(c.out, q))
+        .sort((a, b) => b.sc - a.sc || a.steps.length - b.steps.length || a.out.localeCompare(b.out)).map(c => {
+          const n = c.steps.length;
+          return `<div class="card">${head(c.out, ` <span class="yield">x${yieldOf(c.r)}</span> <span class="tag sec">${scoreText(c.sc, st.rank)}</span>`)}
+            <ol class="chain">${c.steps.map((s, i) => `<li><div class="recipe"><b>${i === n - 1 ? "Then" : i ? "Next" : "First"}:</b> ${pickChips(s.picks)}
+              <span class="arrow">gives</span> <span class="yield">x${yieldOf(s.r)}</span> ${esc(s.r.out)}</div>
+              ${i < n - 1 && tags(s.r) ? `<div class="row">${tags(s.r)}</div>` : ""}</li>`).join("")}</ol>
+            <div class="row"><button class="cook" data-chain="${esc(c.out)}" title="Cook every step in order and put ${esc(c.out)} in the pantry">Cook all ${n} steps</button></div>
+            <div class="eff"><b>Uses:</b></div><div class="recipe">${c.uses.map(chip).join("")}</div>
+            ${c.left.length ? `<div class="eff"><b>Leaves over:</b></div><div class="recipe">${c.left.map(chip).join("")}</div>` : ""}
+            ${tags(c.r) ? `<div class="row" style="margin-top:4px">${tags(c.r)}</div>` : ""}
+            </div></div>`;
+        });
+      if (!cards.length) cards = [`<div class="empty">${Object.keys(st.pantry).length ? "No dish needs just a few cooking steps from this pantry." : "Add ingredients to the pantry first."}</div>`];
+    } else if (st.tab === "cook") {
       cards = cook.filter(c => kindOk(c.out) && matches(c.out, q)).map(c => ({ ...c, y: yieldOf(c.can[0].r) })).sort(sortFn).map(c => {
         const best = c.can[0];
         const others = c.can.slice(1);
         return `<div class="card ok">${head(c.out, ` <span class="yield">x${yieldOf(best.r)}</span>`)}
           <div class="recipe">${pickChips(best.picks)}</div>
-          <div class="row" style="margin-top:4px"><span class="times">Enough for ${best.n} batch${best.n > 1 ? "es" : ""}</span>${tags(best.r)}</div>
+          <div class="row" style="margin-top:4px">${cookBtn(best.r)}<span class="times">Enough for ${best.n} batch${best.n > 1 ? "es" : ""}</span>${tags(best.r)}</div>
           ${others.length ? `<details><summary>${others.length} more way${others.length > 1 ? "s" : ""} you can cook it</summary>${others.map(o =>
-            `<div class="alt"><div class="recipe">${pickChips(o.picks)}<span class="arrow">gives</span> <span class="yield">x${yieldOf(o.r)}</span></div>${tags(o.r)}</div>`).join("")}</details>` : ""}
+            `<div class="alt"><div class="recipe">${pickChips(o.picks)}<span class="arrow">gives</span> <span class="yield">x${yieldOf(o.r)}</span></div><div class="row">${cookBtn(o.r)}<span class="times">Enough for ${o.n}</span>${tags(o.r)}</div></div>`).join("")}</details>` : ""}
           </div></div>`;
       });
       if (!cards.length) cards = [`<div class="empty">${Object.keys(st.pantry).length ? "Nothing in the pantry makes a recipe yet. Check \"Almost\"." : "Add what you are carrying to the pantry, and the dishes you can cook appear here."}</div>`];
@@ -395,16 +528,19 @@
     const PF = [{ k: "all", label: "All" }, { k: "have", label: `In pantry (${have.length})` },
       ...Object.keys(D.groups).map(g => ({ k: g, label: g }))];
     $("pfilter").innerHTML = PF.map(f => `<button class="chip" data-pf="${esc(f.k)}" aria-pressed="${st.pf === f.k}">${esc(f.label)}</button>`).join("");
-    let list = ingredients.filter(n => !q || n.toLowerCase().includes(q));
-    if (st.pf === "have") list = list.filter(n => st.pantry[n] > 0);
+    const hit = n => !q || n.toLowerCase().includes(q);
+    // The pantry can also hold cooked dishes that no recipe uses, such as a Jar of Love.
+    const inPantry = have.filter(hit).sort((a, b) => a.localeCompare(b));
+    let list = ingredients.filter(hit);
+    if (st.pf === "have") list = inPantry;
     else if (st.pf !== "all") list = list.filter(n => groupOf[n] === st.pf);
     const tile = n => {
       const c = st.pantry[n] || 0;
-      return `<div class="tile${c ? " has" : ""}" data-n="${esc(n)}" title="${esc(n)} - used in ${usedIn[n].size} dish${usedIn[n].size > 1 ? "es" : ""}" role="button" tabindex="0">
+      const uses = usedIn[n] ? usedIn[n].size : 0;
+      return `<div class="tile${c ? " has" : ""}" data-n="${esc(n)}" title="${esc(n)} - ${uses ? `used in ${uses} dish${uses > 1 ? "es" : ""}` : "not used in any recipe"}" role="button" tabindex="0">
         ${c ? `<span class="ct">${c}</span><button class="dec" data-dec="${esc(n)}" aria-label="Remove one ${esc(n)}">-</button>` : ""}
         ${img(n)}<span class="nm">${esc(n)}</span></div>`;
     };
-    const inPantry = list.filter(n => st.pantry[n] > 0);
     let html = "";
     if (st.pf === "all" && !q && inPantry.length) html += `<h3>In pantry</h3><div class="tgrid">${inPantry.map(tile).join("")}</div><h3>All ingredients</h3>`;
     html += list.length ? `<div class="tgrid">${list.map(tile).join("")}</div>` : `<p class="hint">No ingredient matches.</p>`;
@@ -412,6 +548,41 @@
     $("tiles").innerHTML = html;
     $("tiles").scrollTop = sc;
   }
+
+  // Cook one batch: take the same items the card shows out of the pantry.
+  let undo = null, toastTimer = 0;
+  // Cook a list of steps in order. Each step uses its planned picks when the pantry
+  // still holds them, or a fresh pick otherwise. A step that cannot run undoes the lot.
+  function cook(steps) {
+    const before = { ...st.pantry };
+    let s = { ...st.pantry };
+    for (const { r, picks } of steps) {
+      const ok = picks && picks.every(p => (s[p.n] || 0) >= p.q) ? picks : allocate(r, s);
+      if (!ok) { toast(`Could not cook ${r.out}: the pantry ran short.`, false); return; }
+      s = cookOn(s, r, ok);
+    }
+    const last = steps[steps.length - 1].r;
+    s[last.out] = Math.min(999, s[last.out]);
+    st.pantry = s; undo = before;
+    save(); renderPantry(); render();
+    const used = Object.keys(before).filter(n => (s[n] || 0) < before[n])
+      .map(n => { const q = before[n] - (s[n] || 0); return (q > 1 ? q + "x " : "") + n; });
+    const mids = {};
+    steps.slice(0, -1).forEach(x => mids[x.r.out] = (mids[x.r.out] || 0) + 1);
+    const via = steps.length > 1 ? ` in ${steps.length} steps (via ${Object.entries(mids).map(([n, k]) => (k > 1 ? k + "x " : "") + n).join(", ")})` : "";
+    toast(`Cooked ${last.out} x${yieldOf(last)}${via} into the pantry. Used ${used.join(", ")}.`, true);
+  }
+  function toast(msg, canUndo) {
+    $("toastMsg").textContent = msg;
+    $("undo").hidden = !canUndo;
+    $("toast").classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { $("toast").classList.remove("show"); undo = null; }, 6000);
+  }
+  $("undo").addEventListener("click", () => {
+    if (undo) { st.pantry = undo; undo = null; save(); renderPantry(); render(); }
+    $("toast").classList.remove("show");
+  });
 
   function bump(n, d) {
     const v = Math.max(0, Math.min(999, (st.pantry[n] || 0) + d));
@@ -440,12 +611,17 @@
   $("psearch").addEventListener("input", renderPantry);
   $("clear").addEventListener("click", () => { if (!Object.keys(st.pantry).length || confirm("Empty the pantry?")) { st.pantry = {}; save(); renderPantry(); render(); } });
   $("tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.tab = b.dataset.v; limit = 60; save(); render(); } });
+  $("rank").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.rank = b.dataset.v; save(); render(); } });
   $("stove").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.stove = b.dataset.v; save(); render(); } });
   $("kinds").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) { st.kind = b.dataset.k; limit = 60; save(); render(); } });
   $("sort").addEventListener("change", e => { st.sort = e.target.value; save(); render(); });
   $("rsearch").addEventListener("input", () => { limit = 60; render(); });
   $("cards").addEventListener("click", e => {
     if (e.target.id === "more") { limit += 120; render(); return; }
+    const c = e.target.closest("[data-cook]");
+    if (c) { cook([{ r: D.recipes[+c.dataset.cook] }]); return; }
+    const ch = e.target.closest("[data-chain]");
+    if (ch) { const p = nextCache.list.find(x => x.out === ch.dataset.chain); if (p) cook(p.steps); return; }
     const b = e.target.closest("[data-ing]");
     if (b) { $("rsearch").value = b.dataset.ing; st.tab = "all"; limit = 60; save(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
   });

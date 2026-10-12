@@ -102,6 +102,10 @@ window.SULFUR_RECIPES = {
 },
 "items": {
 "Admiral White Extra Strong": {
+"effects": [
+"Gives 400% Slow motion for 7 seconds",
+"Gives 50% Movement speed for 7 seconds"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Admiral_White_Extra_Strong.png/64px-Admiral_White_Extra_Strong.png?670694",
 "kind": "consumable",
@@ -110,15 +114,21 @@ window.SULFUR_RECIPES = {
 },
 "Americano": {
 "effects": [
-"15 health over 10 seconds"
+"Gives 15 health over 10 seconds",
+"Removes Frozen",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Americano.png/64px-Americano.png?57196e",
 "kind": "consumable",
 "sell": 18,
 "sub": "Beverage"
 },
 "Anti-Poison Gum": {
+"effects": [
+"Gives +80 Poison resistance for 120 seconds"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Anti-Poison_Gum.png/64px-Anti-Poison_Gum.png?68510b",
 "kind": "consumable",
@@ -127,9 +137,10 @@ window.SULFUR_RECIPES = {
 },
 "Aspic": {
 "effects": [
-"15 health over 0.1 seconds"
+"Gives 15 health over 0.1 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Aspic.png/64px-Aspic.png?bac645",
 "kind": "consumable",
 "sell": 45,
@@ -137,9 +148,10 @@ window.SULFUR_RECIPES = {
 },
 "Banana": {
 "effects": [
-"10 Health over 10 seconds"
+"Gives 10 Health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Banana.png/64px-Banana.png?c9ace2",
 "kind": "consumable",
 "sell": 15,
@@ -147,9 +159,10 @@ window.SULFUR_RECIPES = {
 },
 "Banana Bread": {
 "effects": [
-"30 Health over 10 seconds"
+"Gives 30 Health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Banana_Bread.png/64px-Banana_Bread.png?4bd33d",
 "kind": "consumable",
 "sell": 45,
@@ -157,9 +170,10 @@ window.SULFUR_RECIPES = {
 },
 "Banana Sulfs": {
 "effects": [
-"20 health over 1 seconds"
+"Gives 20 health over 1 seconds"
 ],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Banana_Sulfs.png/64px-Banana_Sulfs.png?88142f",
 "kind": "consumable",
 "sell": 10,
@@ -174,9 +188,10 @@ window.SULFUR_RECIPES = {
 },
 "Bark Bread": {
 "effects": [
-"10 health over 10 seconds"
+"Gives 10 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Bark_Bread.png/64px-Bark_Bread.png?6e2ec3",
 "kind": "consumable",
 "sell": 25,
@@ -184,9 +199,10 @@ window.SULFUR_RECIPES = {
 },
 "Beans": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Beans.png/64px-Beans.png?109a6e",
 "kind": "consumable",
 "sell": 60,
@@ -194,9 +210,10 @@ window.SULFUR_RECIPES = {
 },
 "Beef Jerky": {
 "effects": [
-"10 health over 10 seconds"
+"Gives 10 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Beef_Jerky.png/64px-Beef_Jerky.png?942c0f",
 "kind": "consumable",
 "sell": 30,
@@ -204,9 +221,10 @@ window.SULFUR_RECIPES = {
 },
 "Berries": {
 "effects": [
-"10 health over 10 seconds"
+"Gives 10 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Berries.png/64px-Berries.png?fbabb9",
 "kind": "consumable",
 "sell": 20,
@@ -214,9 +232,10 @@ window.SULFUR_RECIPES = {
 },
 "Berry Jam": {
 "effects": [
-"15 health over 1 seconds"
+"Gives 15 health over 1 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Berry_Jam.png/64px-Berry_Jam.png?364fa5",
 "kind": "consumable",
 "sell": 45,
@@ -224,9 +243,10 @@ window.SULFUR_RECIPES = {
 },
 "Berry Jam (Unsweetened)": {
 "effects": [
-"10 Health over 2.5 seconds"
+"Gives 10 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Berry_Jam_%28Unsweetened%29.png/64px-Berry_Jam_%28Unsweetened%29.png?37fc4e",
 "kind": "consumable",
 "sell": 35,
@@ -234,9 +254,11 @@ window.SULFUR_RECIPES = {
 },
 "Berry Milkshake": {
 "effects": [
-"35 health over 3 seconds"
+"Gives 35 health over 3 seconds",
+"Removes burning"
 ],
 "grid": "1x2",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Berry_Milkshake.png/64px-Berry_Milkshake.png?57a02b",
 "kind": "consumable",
 "sell": 30,
@@ -244,9 +266,10 @@ window.SULFUR_RECIPES = {
 },
 "Biscuits And Gravy": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Biscuits_And_Gravy.png/64px-Biscuits_And_Gravy.png?7fa79f",
 "kind": "consumable",
 "sell": 65,
@@ -254,9 +277,10 @@ window.SULFUR_RECIPES = {
 },
 "Black Pepper": {
 "effects": [
-"1 health over 10 seconds"
+"Gives 1 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 1,
 "img": "https://sulfur.wiki.gg/images/thumb/Black_Pepper.png/64px-Black_Pepper.png?5917f9",
 "kind": "consumable",
 "sell": 15,
@@ -270,6 +294,9 @@ window.SULFUR_RECIPES = {
 "sub": "Ingredient"
 },
 "Bleach": {
+"effects": [
+"Restores 350 durability"
+],
 "grid": "1x2",
 "img": "https://sulfur.wiki.gg/images/thumb/Bleach.png/64px-Bleach.png?d59601",
 "kind": "repair",
@@ -278,9 +305,10 @@ window.SULFUR_RECIPES = {
 },
 "Blood": {
 "effects": [
-"5 health over 10 seconds"
+"Gives 5 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/Blood.png?312c3d",
 "kind": "consumable",
 "sell": 30,
@@ -288,9 +316,12 @@ window.SULFUR_RECIPES = {
 },
 "Boba Tea": {
 "effects": [
-"15 health over 10 seconds"
+"Gives 15 health over 10 seconds",
+"Removes Burning",
+"Removes Poisoned"
 ],
 "grid": "1x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Boba_Tea.png/64px-Boba_Tea.png?a34233",
 "kind": "consumable",
 "sell": 30,
@@ -304,9 +335,10 @@ window.SULFUR_RECIPES = {
 },
 "Bottled Caviar": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Bottled_Caviar.png/64px-Bottled_Caviar.png?105775",
 "kind": "consumable",
 "sell": 60,
@@ -314,9 +346,12 @@ window.SULFUR_RECIPES = {
 },
 "Bottled Water": {
 "effects": [
-"5 health over 5 seconds"
+"Gives 5 health over 5 seconds",
+"Removes Burning",
+"Removes Poisoned"
 ],
 "grid": "1x2",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Bottled_Water.png/64px-Bottled_Water.png?8ffbdd",
 "kind": "consumable",
 "sell": 20,
@@ -331,9 +366,10 @@ window.SULFUR_RECIPES = {
 },
 "Bread": {
 "effects": [
-"15 health over 10 seconds"
+"Gives 15 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Bread.png/64px-Bread.png?ffd5cb",
 "kind": "consumable",
 "sell": 45,
@@ -341,9 +377,10 @@ window.SULFUR_RECIPES = {
 },
 "Bread Sandwich": {
 "effects": [
-"15 health over 5 seconds"
+"Gives 15 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Bread_Sandwich.png/64px-Bread_Sandwich.png?685623",
 "kind": "consumable",
 "sell": 40,
@@ -351,9 +388,10 @@ window.SULFUR_RECIPES = {
 },
 "Broth": {
 "effects": [
-"10 health over 10 seconds"
+"Gives 10 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Broth.png/64px-Broth.png?37f671",
 "kind": "consumable",
 "sell": 30,
@@ -361,9 +399,10 @@ window.SULFUR_RECIPES = {
 },
 "Buddy Sandwich": {
 "effects": [
-"15 health over 5 seconds"
+"Gives 15 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Buddy_Sandwich.png/64px-Buddy_Sandwich.png?188fe2",
 "kind": "consumable",
 "sell": 500,
@@ -371,9 +410,10 @@ window.SULFUR_RECIPES = {
 },
 "Butter": {
 "effects": [
-"15 health over 10 seconds"
+"Gives 15 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Butter.png/64px-Butter.png?2d78e6",
 "kind": "consumable",
 "sell": 30,
@@ -381,9 +421,10 @@ window.SULFUR_RECIPES = {
 },
 "Butter Sandwich": {
 "effects": [
-"15 health over 5 seconds"
+"Gives 15 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Butter_Sandwich.png/64px-Butter_Sandwich.png?e7e460",
 "kind": "consumable",
 "sell": 30,
@@ -391,9 +432,11 @@ window.SULFUR_RECIPES = {
 },
 "Buttermilk": {
 "effects": [
-"15 health over 10 seconds"
+"Gives +50% Accuracy when moving for 120 seconds",
+"Gives 15 health over 10 seconds"
 ],
 "grid": "1x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Buttermilk.png/64px-Buttermilk.png?85204b",
 "kind": "consumable",
 "sell": 25,
@@ -401,9 +444,10 @@ window.SULFUR_RECIPES = {
 },
 "Buttermilk Pancakes": {
 "effects": [
-"30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Buttermilk_Pancakes.png/64px-Buttermilk_Pancakes.png?4f62d2",
 "kind": "consumable",
 "sell": 110,
@@ -411,9 +455,10 @@ window.SULFUR_RECIPES = {
 },
 "Cacao": {
 "effects": [
-"5 health over 10 seconds"
+"Gives 5 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Cacao.png/64px-Cacao.png?8437ea",
 "kind": "consumable",
 "sell": 30,
@@ -421,16 +466,23 @@ window.SULFUR_RECIPES = {
 },
 "Cactus": {
 "effects": [
-"3 Health over 10 seconds"
+"Gives 3 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 3,
 "img": "https://sulfur.wiki.gg/images/thumb/Cactus.png/64px-Cactus.png?da0343",
 "kind": "consumable",
 "sell": 20,
 "sub": "Food / Ingredient"
 },
 "Cactus Softdrink": {
+"effects": [
+"Gives 15 health over 10 seconds",
+"Removes Burning",
+"Removes Poisoned"
+],
 "grid": "1x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Cactus_Softdrink.png/64px-Cactus_Softdrink.png?7edd8a",
 "kind": "consumable",
 "sell": 30,
@@ -438,7 +490,7 @@ window.SULFUR_RECIPES = {
 },
 "Candy Cane": {
 "effects": [
-"20 health over 0.1 seconds"
+"Gives 20 heath over 0.1 seconds"
 ],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Candy_Cane.png/64px-Candy_Cane.png?71f0e5",
@@ -448,9 +500,12 @@ window.SULFUR_RECIPES = {
 },
 "Cappucino": {
 "effects": [
-"+35 health over 10 seconds"
+"Gives 35 health over 10 seconds",
+"Removes Frozen",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Cappucino.png/64px-Cappucino.png?fcdf63",
 "kind": "consumable",
 "sell": 18,
@@ -458,9 +513,10 @@ window.SULFUR_RECIPES = {
 },
 "Cereal": {
 "effects": [
-"35 health over 10 seconds"
+"Gives 35 health over 10 seconds"
 ],
 "grid": "2x2",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Cereal.png/64px-Cereal.png?2b5a97",
 "kind": "consumable",
 "sell": 55,
@@ -468,9 +524,10 @@ window.SULFUR_RECIPES = {
 },
 "Cevapi": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Cevapi.png/64px-Cevapi.png?c83c9c",
 "kind": "consumable",
 "sell": 110,
@@ -478,9 +535,10 @@ window.SULFUR_RECIPES = {
 },
 "Cheese": {
 "effects": [
-"15 health over 10 seconds"
+"Gives 15 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Cheese.png/64px-Cheese.png?ff8619",
 "kind": "consumable",
 "sell": 50,
@@ -488,9 +546,10 @@ window.SULFUR_RECIPES = {
 },
 "Cheese Sandwich": {
 "effects": [
-"20 health over 5 seconds"
+"Gives 20 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Cheese_Sandwich.png/64px-Cheese_Sandwich.png?c37759",
 "kind": "consumable",
 "sell": 43,
@@ -498,9 +557,10 @@ window.SULFUR_RECIPES = {
 },
 "Cheese Tops": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Cheese_Tops.png/64px-Cheese_Tops.png?5b9db1",
 "kind": "consumable",
 "sell": 30,
@@ -508,9 +568,10 @@ window.SULFUR_RECIPES = {
 },
 "Cheeseburger": {
 "effects": [
-"+45 health over 10 seconds"
+"Gives 45 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 45,
 "img": "https://sulfur.wiki.gg/images/thumb/Cheeseburger.png/64px-Cheeseburger.png?684682",
 "kind": "consumable",
 "sell": 125,
@@ -525,9 +586,10 @@ window.SULFUR_RECIPES = {
 },
 "Chocolate Ball": {
 "effects": [
-"+20 health over 10 seconds"
+"Gives 20 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Chocolate_Ball.png/64px-Chocolate_Ball.png?8c4ac3",
 "kind": "consumable",
 "sell": 43,
@@ -535,9 +597,10 @@ window.SULFUR_RECIPES = {
 },
 "Chocolate Bar": {
 "effects": [
-"+25 Health over 1 seconds"
+"Gives 25 health over 1 seconds"
 ],
 "grid": "2x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Chocolate_Bar.png/64px-Chocolate_Bar.png?dc841f",
 "kind": "consumable",
 "sell": 90,
@@ -545,9 +608,11 @@ window.SULFUR_RECIPES = {
 },
 "Chocolate Milkshake": {
 "effects": [
-"35 health over 3 seconds"
+"Gives 35 health over 3 seconds",
+"Removes Burning"
 ],
 "grid": "1x2",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Chocolate_Milkshake.png/64px-Chocolate_Milkshake.png?463b6e",
 "kind": "consumable",
 "sell": 30,
@@ -555,9 +620,10 @@ window.SULFUR_RECIPES = {
 },
 "Chocolate Mudcake": {
 "effects": [
-"+50 Health over 3 seconds"
+"Gives 50 health over 3 seconds"
 ],
 "grid": "1x1",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Chocolate_Mudcake.png/64px-Chocolate_Mudcake.png?a29142",
 "kind": "consumable",
 "sell": 100,
@@ -565,16 +631,21 @@ window.SULFUR_RECIPES = {
 },
 "Chocolate Syrup": {
 "effects": [
-"+10 health over 1 seconds"
+"Gives 10 health over 1 seconds"
 ],
 "grid": "1x2",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Chocolate_Syrup.png/64px-Chocolate_Syrup.png?438251",
 "kind": "consumable",
 "sell": 50,
 "sub": "Sweets / Food / Ingredient"
 },
 "Christmas Spice": {
+"effects": [
+"Gives 1 health over 2 seconds"
+],
 "grid": "1x1",
+"heal": 1,
 "img": "https://sulfur.wiki.gg/images/Christmas_Spice.png?cf6a9f",
 "kind": "consumable",
 "sell": 5,
@@ -589,16 +660,26 @@ window.SULFUR_RECIPES = {
 },
 "Cocktail": {
 "effects": [
-"15 health over 10 seconds"
+"Gives 15 health over 10 seconds",
+"Gives +30 Charisma for 120 seconds",
+"Removes Poisoned",
+"Removes Burning"
 ],
 "grid": "2x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Cocktail.png/64px-Cocktail.png?5f6810",
 "kind": "consumable",
 "sell": 200,
 "sub": "Beverages / Drug & Remedy"
 },
 "Coffee": {
+"effects": [
+"Gives 20 health over 10 seconds",
+"Removes Frozen",
+"Removes Poisoned"
+],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Coffee.png/64px-Coffee.png?58e1ff",
 "kind": "consumable",
 "sell": 18,
@@ -606,9 +687,10 @@ window.SULFUR_RECIPES = {
 },
 "Cordon Bleu": {
 "effects": [
-"+25 Health over 10 seconds"
+"Gives 25 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Cordon_Bleu.png/64px-Cordon_Bleu.png?39f4b2",
 "kind": "consumable",
 "sell": 175,
@@ -616,15 +698,19 @@ window.SULFUR_RECIPES = {
 },
 "Cotton Candy": {
 "effects": [
-"+20 Health over 1 seconds"
+"Gives 20 health over 1 seconds"
 ],
 "grid": "1x2",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Cotton_Candy.png/64px-Cotton_Candy.png?b575f1",
 "kind": "consumable",
 "sell": 65,
 "sub": "Sweets / Food"
 },
 "Cotton Swabs": {
+"effects": [
+"Restores 80 durability"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Cotton_Swabs.png/64px-Cotton_Swabs.png?d36116",
 "kind": "repair",
@@ -645,7 +731,11 @@ window.SULFUR_RECIPES = {
 "sub": "Organ / Skin / Ingredient"
 },
 "Cuisses De Grenouille": {
+"effects": [
+"Gives 35 health over 10 seconds"
+],
 "grid": "2x1",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Cuisses_De_Grenouille.png/64px-Cuisses_De_Grenouille.png?e234e4",
 "kind": "consumable",
 "sell": 120,
@@ -653,9 +743,10 @@ window.SULFUR_RECIPES = {
 },
 "Currywurst": {
 "effects": [
-"45 health over 5 seconds"
+"Gives 45 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 45,
 "img": "https://sulfur.wiki.gg/images/thumb/Currywurst.png/64px-Currywurst.png?80ac77",
 "kind": "consumable",
 "sell": 113,
@@ -663,9 +754,10 @@ window.SULFUR_RECIPES = {
 },
 "Dimmie": {
 "effects": [
-"+20 health over 15 seconds"
+"Gives 20 health over 15 seconds"
 ],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Dimmie.png/64px-Dimmie.png?6c4240",
 "kind": "consumable",
 "sell": 25,
@@ -694,16 +786,21 @@ window.SULFUR_RECIPES = {
 },
 "Dopp I Grytan": {
 "effects": [
-"35 health over 10 seconds"
+"Gives 35 health over 10 seconds"
 ],
 "grid": "2x2",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Dopp_I_Grytan.png/64px-Dopp_I_Grytan.png?951131",
 "kind": "consumable",
 "sell": 65,
 "sub": "Food"
 },
 "Double Cheeseburger": {
+"effects": [
+"Gives 200 health over 10 seconds"
+],
 "grid": "1x1",
+"heal": 200,
 "img": "https://sulfur.wiki.gg/images/thumb/Double_Cheeseburger.png/64px-Double_Cheeseburger.png?adf784",
 "kind": "consumable",
 "sell": 300,
@@ -711,9 +808,10 @@ window.SULFUR_RECIPES = {
 },
 "Dumpling": {
 "effects": [
-"20 health over 15 seconds"
+"Gives 20 health over 15 seconds"
 ],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Dumpling.png/64px-Dumpling.png?1a822e",
 "kind": "consumable",
 "sell": 25,
@@ -727,9 +825,10 @@ window.SULFUR_RECIPES = {
 },
 "Egg": {
 "effects": [
-"5 health over 10 seconds"
+"Gives 5 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Egg.png/64px-Egg.png?3e325a",
 "kind": "consumable",
 "sell": 15,
@@ -737,15 +836,23 @@ window.SULFUR_RECIPES = {
 },
 "Egg Toddy": {
 "effects": [
-"10 health over 10 seconds"
+"Gives 10 health over 10 seconds",
+"Gives +30 Charisma for 240 seconds",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Egg_Toddy.png/64px-Egg_Toddy.png?5ffe88",
 "kind": "consumable",
 "sell": 90,
 "sub": "Beverage"
 },
 "Energy Gum": {
+"effects": [
+"Gives +50 Fire resistance for 90 seconds",
+"Gives +50 Frost resistance for 90 seconds",
+"Gives +50 Electric resistance for 90 seconds"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Energy_Gum.png/64px-Energy_Gum.png?59af46",
 "kind": "consumable",
@@ -754,9 +861,10 @@ window.SULFUR_RECIPES = {
 },
 "Escargot": {
 "effects": [
-"+30 health over 2.5 seconds"
+"Gives 30 health over 2.5 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Escargot.png/64px-Escargot.png?1a9efc",
 "kind": "consumable",
 "sell": 150,
@@ -776,6 +884,9 @@ window.SULFUR_RECIPES = {
 "sub": "Ingredient"
 },
 "Fatberg Chunk": {
+"effects": [
+"Gives +1 Poisoned for 5 seconds"
+],
 "grid": "2x2",
 "img": "https://sulfur.wiki.gg/images/thumb/Fatberg_Chunk.png/64px-Fatberg_Chunk.png?edb1e3",
 "kind": "consumable",
@@ -791,9 +902,10 @@ window.SULFUR_RECIPES = {
 },
 "First Aid Kit": {
 "effects": [
-"100 health over 5 seconds"
+"Gives 100 health over 5 seconds"
 ],
 "grid": "2x2",
+"heal": 100,
 "img": "https://sulfur.wiki.gg/images/thumb/First_Aid_Kit.png/64px-First_Aid_Kit.png?f797b1",
 "kind": "consumable",
 "sell": 30,
@@ -801,9 +913,10 @@ window.SULFUR_RECIPES = {
 },
 "Fish": {
 "effects": [
-"10 health over 2.5 seconds"
+"Gives 10 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Fish.png/64px-Fish.png?110d20",
 "kind": "consumable",
 "sell": 20,
@@ -811,9 +924,10 @@ window.SULFUR_RECIPES = {
 },
 "Fish And Chips": {
 "effects": [
-"50 health over 5 seconds"
+"Gives 50 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Fish_And_Chips.png/64px-Fish_And_Chips.png?fed773",
 "kind": "consumable",
 "sell": 125,
@@ -821,16 +935,21 @@ window.SULFUR_RECIPES = {
 },
 "Flat Sandfish": {
 "effects": [
-"10 health over 2.5 seconds"
+"Gives 10 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Flat_Sandfish.png/64px-Flat_Sandfish.png?4bc905",
 "kind": "consumable",
 "sell": 20,
 "sub": "Food / Ingredient"
 },
 "Flour": {
+"effects": [
+"Gives 5 health over 2.5 seconds"
+],
 "grid": "2x2",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Flour.png/64px-Flour.png?2047f8",
 "kind": "consumable",
 "sell": 30,
@@ -838,9 +957,10 @@ window.SULFUR_RECIPES = {
 },
 "Fondue": {
 "effects": [
-"+50 Health over 4 seconds"
+"Gives 50 health over 4 seconds"
 ],
 "grid": "2x1",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Fondue.png/64px-Fondue.png?87575e",
 "kind": "consumable",
 "sell": 70,
@@ -848,9 +968,10 @@ window.SULFUR_RECIPES = {
 },
 "French Hotdog": {
 "effects": [
-"30 health over 2.5 seconds"
+"Gives 30 health over 2.5 seconds"
 ],
 "grid": "1x2",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/French_Hotdog.png?84aa74",
 "kind": "consumable",
 "sell": 55,
@@ -858,9 +979,10 @@ window.SULFUR_RECIPES = {
 },
 "French Toast": {
 "effects": [
-"+15 Health over 5 seconds"
+"Gives +15 Health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/French_Toast.png/64px-French_Toast.png?324996",
 "kind": "consumable",
 "sell": 75,
@@ -868,9 +990,10 @@ window.SULFUR_RECIPES = {
 },
 "Fried Blood Pudding": {
 "effects": [
-"30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Fried_Blood_Pudding.png/64px-Fried_Blood_Pudding.png?397485",
 "kind": "consumable",
 "sell": 45,
@@ -878,9 +1001,10 @@ window.SULFUR_RECIPES = {
 },
 "Fried Mushroom": {
 "effects": [
-"+15 health over 4 seconds"
+"Gives 15 health over 4 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Fried_Mushroom.png/64px-Fried_Mushroom.png?e3246e",
 "kind": "consumable",
 "sell": 65,
@@ -888,9 +1012,10 @@ window.SULFUR_RECIPES = {
 },
 "Frog Leg": {
 "effects": [
-"3 health over 2.5 seconds"
+"Gives 3 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 3,
 "img": "https://sulfur.wiki.gg/images/thumb/Frog_Leg.png/64px-Frog_Leg.png?368ab4",
 "kind": "consumable",
 "sell": 30,
@@ -898,9 +1023,10 @@ window.SULFUR_RECIPES = {
 },
 "Full English Breakfast": {
 "effects": [
-"35 health over 10 seconds"
+"Gives 35 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Full_English_Breakfast.png/64px-Full_English_Breakfast.png?baf5f0",
 "kind": "consumable",
 "sell": 275,
@@ -921,9 +1047,13 @@ window.SULFUR_RECIPES = {
 },
 "Gonster": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds",
+"Gives +10 Charisma for 120 seconds",
+"Removes Poisoned",
+"Removes Burning"
 ],
 "grid": "1x2",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Gonster.png/64px-Gonster.png?44648e",
 "kind": "consumable",
 "sell": 20,
@@ -931,8 +1061,9 @@ window.SULFUR_RECIPES = {
 },
 "Graved Salmon": {
 "effects": [
-"20 health over 0.1 seconds"
+"Gives 20 health over 0.1 seconds"
 ],
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Graved_Salmon.png/64px-Graved_Salmon.png?6d2fc1",
 "kind": "consumable",
 "sell": 45,
@@ -940,9 +1071,10 @@ window.SULFUR_RECIPES = {
 },
 "Gravy": {
 "effects": [
-"20 health over 10 seconds"
+"Gives 20 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Gravy.png/64px-Gravy.png?56f65e",
 "kind": "consumable",
 "sell": 30,
@@ -957,9 +1089,13 @@ window.SULFUR_RECIPES = {
 },
 "Green Tea": {
 "effects": [
-"10 health over 5 seconds"
+"Gives +150% Melee damage for 60 seconds",
+"Gives 10 health over 5 seconds",
+"Removes Frozen",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Green_Tea.png/64px-Green_Tea.png?99ba15",
 "kind": "consumable",
 "sell": 40,
@@ -967,9 +1103,11 @@ window.SULFUR_RECIPES = {
 },
 "Green Tea Gum": {
 "effects": [
-"10 health over 1 seconds"
+"Gives 10 health over 1 seconds",
+"Gives +120% Melee damage for 120 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Green_Tea_Gum.png/64px-Green_Tea_Gum.png?f060a4",
 "kind": "consumable",
 "sell": 40,
@@ -984,9 +1122,10 @@ window.SULFUR_RECIPES = {
 },
 "Grilled Cactus": {
 "effects": [
-"20 health over 10 seconds"
+"Gives 20 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Grilled_Cactus.png/64px-Grilled_Cactus.png?2eea51",
 "kind": "consumable",
 "sell": 40,
@@ -994,16 +1133,21 @@ window.SULFUR_RECIPES = {
 },
 "Haggis": {
 "effects": [
-"+20 health over 10 seconds"
+"Gives +20 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Haggis.png/64px-Haggis.png?f35fe9",
 "kind": "consumable",
 "sell": 15,
 "sub": "Food"
 },
 "Hard Bread": {
+"effects": [
+"Gives 8 health over 2.5 seconds"
+],
 "grid": "1x1",
+"heal": 8,
 "img": "https://sulfur.wiki.gg/images/thumb/Hard_Bread.png/64px-Hard_Bread.png?f8eafa",
 "kind": "consumable",
 "sell": 30,
@@ -1011,9 +1155,10 @@ window.SULFUR_RECIPES = {
 },
 "Hardshell Taco": {
 "effects": [
-"25 health over 2.5 seconds"
+"Gives 25 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Hardshell_Taco.png/64px-Hardshell_Taco.png?651563",
 "kind": "consumable",
 "sell": 30,
@@ -1021,9 +1166,10 @@ window.SULFUR_RECIPES = {
 },
 "Hazelnut": {
 "effects": [
-"2 health over 2.5 seconds"
+"Gives 2 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 2,
 "img": "https://sulfur.wiki.gg/images/thumb/Hazelnut.png/64px-Hazelnut.png?5455e2",
 "kind": "consumable",
 "sell": 30,
@@ -1031,9 +1177,12 @@ window.SULFUR_RECIPES = {
 },
 "Health Potion": {
 "effects": [
-"80 health over 5 seconds"
+"Gives 80 health over 5 seconds",
+"Removes Burning",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 80,
 "img": "https://sulfur.wiki.gg/images/thumb/Health_Potion.png/64px-Health_Potion.png?2eb287",
 "kind": "consumable",
 "sell": 30,
@@ -1062,7 +1211,9 @@ window.SULFUR_RECIPES = {
 },
 "Herbal Tea": {
 "effects": [
-"10 health over 5 seconds"
+"Gives +2 Sprint bonus for 10 seconds",
+"Removes Burning",
+"Removes Poisoned"
 ],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Herbal_Tea.png/64px-Herbal_Tea.png?4775dd",
@@ -1072,15 +1223,19 @@ window.SULFUR_RECIPES = {
 },
 "Herbs": {
 "effects": [
-"3 health over 2.5 seconds"
+"Gives 3 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 3,
 "img": "https://sulfur.wiki.gg/images/thumb/Herbs.png/64px-Herbs.png?ba3ad3",
 "kind": "consumable",
 "sell": 25,
 "sub": "Ingredient"
 },
 "Holy Toast": {
+"effects": [
+"Gives +1 coyote time for 90 seconds"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Holy_Toast.png/64px-Holy_Toast.png?4c31a7",
 "kind": "consumable",
@@ -1088,6 +1243,11 @@ window.SULFUR_RECIPES = {
 "sub": "Food / Ingredient"
 },
 "Holy Water": {
+"effects": [
+"Gives +1 Coyote Time for 90 seconds",
+"Removes Burning",
+"Removes Voodoo"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Holy_Water.png/64px-Holy_Water.png?5e7fb9",
 "kind": "consumable",
@@ -1096,9 +1256,10 @@ window.SULFUR_RECIPES = {
 },
 "Hot Pot": {
 "effects": [
-"50 health over 4 seconds"
+"Gives 50 health over 4 seconds"
 ],
 "grid": "3x2",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Hot_Pot.png/64px-Hot_Pot.png?ea413d",
 "kind": "consumable",
 "sell": 150,
@@ -1106,9 +1267,11 @@ window.SULFUR_RECIPES = {
 },
 "Hot Sauce": {
 "effects": [
-"5 health over 2.5 seconds"
+"Gives 5 health over 2.5 seconds",
+"Gives +50 Frost resistance for 240 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Hot_Sauce.png/64px-Hot_Sauce.png?a776ff",
 "kind": "consumable",
 "sell": 90,
@@ -1116,9 +1279,10 @@ window.SULFUR_RECIPES = {
 },
 "Hot Snacks": {
 "effects": [
-"15 health over 2 seconds"
+"Gives 15 health over 2 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Hot_Snacks.png/64px-Hot_Snacks.png?c4cb81",
 "kind": "consumable",
 "sell": 30,
@@ -1147,9 +1311,10 @@ window.SULFUR_RECIPES = {
 },
 "Jansson's Temptation": {
 "effects": [
-"45 health over 7 seconds"
+"Gives 45 health over 7 seconds"
 ],
 "grid": "1x3",
+"heal": 45,
 "img": "https://sulfur.wiki.gg/images/thumb/Jansson%27s_Temptation.png/64px-Jansson%27s_Temptation.png?cb6ed3",
 "kind": "consumable",
 "sell": 100,
@@ -1169,9 +1334,10 @@ window.SULFUR_RECIPES = {
 },
 "Jello": {
 "effects": [
-"15 health over 0.1 seconds"
+"Gives 15 health over 0.1 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Jello.png/64px-Jello.png?596e26",
 "kind": "consumable",
 "sell": 45,
@@ -1179,16 +1345,22 @@ window.SULFUR_RECIPES = {
 },
 "Julmust": {
 "effects": [
-"18 health over 1 second"
+"Gives 18 health over 1 second",
+"Gives +100% Crit chance down sight for 15 seconds"
 ],
 "grid": "1x2",
+"heal": 18,
 "img": "https://sulfur.wiki.gg/images/thumb/Julmust.png/64px-Julmust.png?1a4ef6",
 "kind": "consumable",
 "sell": 45,
 "sub": "Beverage"
 },
 "Karl-Oskar": {
+"effects": [
+"Gives 5 health over 1.5 seconds"
+],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Karl-Oskar.png/64px-Karl-Oskar.png?e467f9",
 "kind": "consumable",
 "sell": 5,
@@ -1203,16 +1375,21 @@ window.SULFUR_RECIPES = {
 },
 "Kidney Pie": {
 "effects": [
-"35 health over 2.5 seconds"
+"Gives 35 health over 2.5 seconds"
 ],
 "grid": "2x1",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Kidney_Pie.png/64px-Kidney_Pie.png?aeff24",
 "kind": "consumable",
 "sell": 45,
 "sub": "Food"
 },
 "Kidney Stone": {
+"effects": [
+"Gives 5 health over 2.5 seconds"
+],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Kidney_Stone.png/64px-Kidney_Stone.png?361419",
 "kind": "consumable",
 "sell": 30,
@@ -1220,9 +1397,13 @@ window.SULFUR_RECIPES = {
 },
 "Kombucha": {
 "effects": [
-"+15 health over 3 seconds"
+"Gives 15 health over 3 seconds",
+"Gives +1 Coyote Time for 90 seconds",
+"Removes Burning",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Kombucha.png/64px-Kombucha.png?41f042",
 "kind": "consumable",
 "sell": 30,
@@ -1230,9 +1411,10 @@ window.SULFUR_RECIPES = {
 },
 "Lackerol Cactus": {
 "effects": [
-"+10 health over 10 seconds"
+"Gives 10 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Lackerol_Cactus.png/64px-Lackerol_Cactus.png?fd95ca",
 "kind": "consumable",
 "sell": 15,
@@ -1240,15 +1422,23 @@ window.SULFUR_RECIPES = {
 },
 "Latte": {
 "effects": [
-"+30 health over 10 seconds"
+"Gives 30 health over 10 seconds",
+"Removes Frozen",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Latte.png/64px-Latte.png?d28250",
 "kind": "consumable",
 "sell": 18,
 "sub": "Beverage"
 },
 "Lemonade": {
+"effects": [
+"Gives +1 Sprint bonus for 30 seconds",
+"Removes Burning",
+"Removes Poisoned"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Lemonade.png/64px-Lemonade.png?54cdda",
 "kind": "consumable",
@@ -1257,15 +1447,21 @@ window.SULFUR_RECIPES = {
 },
 "Leverpastej": {
 "effects": [
-"20 health over 5 seconds"
+"Gives 20 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Leverpastej.png/64px-Leverpastej.png?9bfcb9",
 "kind": "consumable",
 "sell": 30,
 "sub": "Food / Ingredient"
 },
 "Liquor": {
+"effects": [
+"Gives +15 Charisma for 120 seconds",
+"Removes Frozen",
+"Removes Poisoned"
+],
 "grid": "1x2",
 "img": "https://sulfur.wiki.gg/images/thumb/Liquor.png/64px-Liquor.png?b61dcf",
 "kind": "consumable",
@@ -1279,9 +1475,10 @@ window.SULFUR_RECIPES = {
 },
 "Liver Pâté Sandwich": {
 "effects": [
-"20 health over 5 seconds"
+"Gives 20 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Liver_P%C3%A2t%C3%A9_Sandwich.png/64px-Liver_P%C3%A2t%C3%A9_Sandwich.png?26e5dd",
 "kind": "consumable",
 "sell": 55,
@@ -1289,9 +1486,12 @@ window.SULFUR_RECIPES = {
 },
 "Low Fat Milk": {
 "effects": [
-"15 health over 6 seconds"
+"Gives +50% Accuracy when moving for 90 seconds",
+"Gives 15 health over 6 seconds",
+"Removes poisoned"
 ],
 "grid": "1x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Low_Fat_Milk.png/64px-Low_Fat_Milk.png?be88f5",
 "kind": "consumable",
 "sell": 20,
@@ -1306,9 +1506,10 @@ window.SULFUR_RECIPES = {
 },
 "Lussekatt": {
 "effects": [
-"+30 health over 2 seconds"
+"Gives 30 health over 2 seconds"
 ],
 "grid": "1x2",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Lussekatt.png/64px-Lussekatt.png?d222d9",
 "kind": "consumable",
 "sell": 80,
@@ -1316,9 +1517,10 @@ window.SULFUR_RECIPES = {
 },
 "Lutfisk": {
 "effects": [
-"25 health over 5 seconds"
+"Gives 25 health over 5 seconds"
 ],
 "grid": "1x2",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Lutfisk.png/64px-Lutfisk.png?1336f9",
 "kind": "consumable",
 "sell": 45,
@@ -1326,9 +1528,10 @@ window.SULFUR_RECIPES = {
 },
 "Mac'n'Cheese": {
 "effects": [
-"+30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Mac%27n%27Cheese.png/64px-Mac%27n%27Cheese.png?f7c37a",
 "kind": "consumable",
 "sell": 45,
@@ -1336,9 +1539,10 @@ window.SULFUR_RECIPES = {
 },
 "Maki": {
 "effects": [
-"+30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Maki.png/64px-Maki.png?2432e3",
 "kind": "consumable",
 "sell": 75,
@@ -1346,9 +1550,10 @@ window.SULFUR_RECIPES = {
 },
 "Marshmallows": {
 "effects": [
-"40 health over 2 seconds"
+"Gives 40 health over 2 seconds"
 ],
 "grid": "2x1",
+"heal": 40,
 "img": "https://sulfur.wiki.gg/images/thumb/Marshmallows.png/64px-Marshmallows.png?14bd13",
 "kind": "consumable",
 "sell": 100,
@@ -1356,9 +1561,10 @@ window.SULFUR_RECIPES = {
 },
 "Mashed Potatoes": {
 "effects": [
-"+30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Mashed_Potatoes.png/64px-Mashed_Potatoes.png?31a620",
 "kind": "consumable",
 "sell": 50,
@@ -1366,9 +1572,10 @@ window.SULFUR_RECIPES = {
 },
 "Matcha": {
 "effects": [
-"5 health over 5 seconds"
+"Gives 5 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Matcha.png/64px-Matcha.png?162549",
 "kind": "consumable",
 "sell": 20,
@@ -1376,16 +1583,21 @@ window.SULFUR_RECIPES = {
 },
 "Meat Skewer": {
 "effects": [
-"20 health over 2 seconds"
+"Gives 20 health over 2 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Meat_Skewer.png/64px-Meat_Skewer.png?c744dd",
 "kind": "consumable",
 "sell": 40,
 "sub": "Food"
 },
 "Meringue": {
+"effects": [
+"Gives 15 health over 4 seconds"
+],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Meringue.png/64px-Meringue.png?e91af0",
 "kind": "consumable",
 "sell": 20,
@@ -1399,6 +1611,12 @@ window.SULFUR_RECIPES = {
 "sub": "Ingredient"
 },
 "Mineral Water": {
+"effects": [
+"Gives +50% Accuracy when moving for 180 seconds",
+"Gives +0.5 Fire resistance for 180 seconds",
+"Removes Burning",
+"Removes Poisoned"
+],
 "grid": "1x2",
 "img": "https://sulfur.wiki.gg/images/thumb/Mineral_Water.png/64px-Mineral_Water.png?895ca9",
 "kind": "consumable",
@@ -1406,7 +1624,11 @@ window.SULFUR_RECIPES = {
 "sub": "Water / Ingredient"
 },
 "Mochi": {
+"effects": [
+"Gives 25 health over 5 seconds"
+],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Mochi.png/64px-Mochi.png?2ceb21",
 "kind": "consumable",
 "sell": 33,
@@ -1420,9 +1642,13 @@ window.SULFUR_RECIPES = {
 },
 "Mulled Wine": {
 "effects": [
-"30 health over 10 seconds"
+"Gives 30 health over 10 seconds",
+"Gives +10 Charisma for 120 seconds",
+"Removes Frozen",
+"Removes Poisoned"
 ],
 "grid": "1x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Mulled_Wine.png/64px-Mulled_Wine.png?b83330",
 "kind": "consumable",
 "sell": 75,
@@ -1430,9 +1656,10 @@ window.SULFUR_RECIPES = {
 },
 "Mushroom Omelette": {
 "effects": [
-"+20 health over 4 seconds"
+"Gives 20 health over 4 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Mushroom_Omelette.png/64px-Mushroom_Omelette.png?e7b264",
 "kind": "consumable",
 "sell": 35,
@@ -1440,9 +1667,10 @@ window.SULFUR_RECIPES = {
 },
 "Mushroom Skewer": {
 "effects": [
-"+15 health over 3 seconds"
+"Gives 15 health over 3 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Mushroom_Skewer.png/64px-Mushroom_Skewer.png?757328",
 "kind": "consumable",
 "sell": 50,
@@ -1450,9 +1678,10 @@ window.SULFUR_RECIPES = {
 },
 "Mushroom Soup": {
 "effects": [
-"20 health over 9 seconds"
+"Gives 20 health over 9 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Mushroom_Soup.png/64px-Mushroom_Soup.png?8002d5",
 "kind": "consumable",
 "sell": 25,
@@ -1460,9 +1689,10 @@ window.SULFUR_RECIPES = {
 },
 "Mycota Squamata": {
 "effects": [
-"5 health over 5 seconds"
+"Gives 5 health over 5 seconds"
 ],
 "grid": "1x2",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Mycota_Squamata.png/64px-Mycota_Squamata.png?68c989",
 "kind": "consumable",
 "sell": 60,
@@ -1470,9 +1700,10 @@ window.SULFUR_RECIPES = {
 },
 "Mystery Meat": {
 "effects": [
-"15 health over 5 seconds"
+"Gives 15 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Mystery_Meat.png/64px-Mystery_Meat.png?a14248",
 "kind": "consumable",
 "sell": 30,
@@ -1480,16 +1711,22 @@ window.SULFUR_RECIPES = {
 },
 "Nashville Hot Chicken": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds",
+"Gives +25 Frost resistance for 240 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Nashville_Hot_Chicken.png/64px-Nashville_Hot_Chicken.png?a37fde",
 "kind": "consumable",
 "sell": 110,
 "sub": "Food"
 },
 "Nigiri": {
+"effects": [
+"Gives 20 health over 5 seconds"
+],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Nigiri.png/64px-Nigiri.png?f1b194",
 "kind": "consumable",
 "sell": 105,
@@ -1497,9 +1734,10 @@ window.SULFUR_RECIPES = {
 },
 "Nuggets": {
 "effects": [
-"25 health over 10 seconds"
+"Gives 25 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Nuggets.png/64px-Nuggets.png?7d7296",
 "kind": "consumable",
 "sell": 40,
@@ -1507,9 +1745,10 @@ window.SULFUR_RECIPES = {
 },
 "Nut Mix": {
 "effects": [
-"+25 health over 5 seconds"
+"Gives 25 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Nut_Mix.png/64px-Nut_Mix.png?6f2e41",
 "kind": "consumable",
 "sell": 100,
@@ -1517,9 +1756,10 @@ window.SULFUR_RECIPES = {
 },
 "Nut Spread": {
 "effects": [
-"40 health over 5 seconds"
+"Gives 40 health over 5 seconds"
 ],
 "grid": "2x2",
+"heal": 40,
 "img": "https://sulfur.wiki.gg/images/thumb/Nut_Spread.png/64px-Nut_Spread.png?cab8ee",
 "kind": "consumable",
 "sell": 110,
@@ -1527,9 +1767,10 @@ window.SULFUR_RECIPES = {
 },
 "Oats": {
 "effects": [
-"+10 health over 3 seconds"
+"Gives 10 health over 3 seconds"
 ],
 "grid": "1x2",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Oats.png/64px-Oats.png?7b8685",
 "kind": "consumable",
 "sell": 30,
@@ -1537,9 +1778,10 @@ window.SULFUR_RECIPES = {
 },
 "Omelette": {
 "effects": [
-"+22 health over 5 seconds"
+"Gives 22 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 22,
 "img": "https://sulfur.wiki.gg/images/thumb/Omelette.png/64px-Omelette.png?f0756d",
 "kind": "consumable",
 "sell": 25,
@@ -1547,9 +1789,10 @@ window.SULFUR_RECIPES = {
 },
 "Onigiri": {
 "effects": [
-"+35 health over 3 seconds"
+"Gives 35 health over 3 seconds"
 ],
 "grid": "2x1",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Onigiri.png/64px-Onigiri.png?229481",
 "kind": "consumable",
 "sell": 105,
@@ -1570,9 +1813,10 @@ window.SULFUR_RECIPES = {
 },
 "Peanut": {
 "effects": [
-"+5 health over 5 seconds"
+"Gives 5 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Peanut.png/64px-Peanut.png?57608c",
 "kind": "consumable",
 "sell": 10,
@@ -1580,9 +1824,10 @@ window.SULFUR_RECIPES = {
 },
 "Peanut Butter": {
 "effects": [
-"40 health over 10 seconds"
+"Gives 40 health over 10 seconds"
 ],
 "grid": "2x2",
+"heal": 40,
 "img": "https://sulfur.wiki.gg/images/thumb/Peanut_Butter.png/64px-Peanut_Butter.png?7d8248",
 "kind": "consumable",
 "sell": 125,
@@ -1590,9 +1835,10 @@ window.SULFUR_RECIPES = {
 },
 "Peanutbutter Jelly Sandwich": {
 "effects": [
-"+35 health over 5 seconds"
+"Gives 35 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Peanutbutter_Jelly_Sandwich.png/64px-Peanutbutter_Jelly_Sandwich.png?5cc763",
 "kind": "consumable",
 "sell": 65,
@@ -1600,9 +1846,10 @@ window.SULFUR_RECIPES = {
 },
 "Peanutbutter Sandwich": {
 "effects": [
-"+25 health over 5 seconds"
+"Gives 25 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Peanutbutter_Sandwich.png/64px-Peanutbutter_Sandwich.png?eb78c6",
 "kind": "consumable",
 "sell": 55,
@@ -1610,9 +1857,10 @@ window.SULFUR_RECIPES = {
 },
 "Pickled Herring Platter": {
 "effects": [
-"20 health over 0.1 second"
+"Gives 20 health over 0.1 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Pickled_Herring_Platter.png/64px-Pickled_Herring_Platter.png?bdcdfe",
 "kind": "consumable",
 "sell": 45,
@@ -1620,9 +1868,12 @@ window.SULFUR_RECIPES = {
 },
 "Pilk": {
 "effects": [
-"+30 health over 10 seconds"
+"Gives 60 health over 10 seconds",
+"Gives +3 Extra Jumps for 30 seconds",
+"Removes Burning"
 ],
 "grid": "1x2",
+"heal": 60,
 "img": "https://sulfur.wiki.gg/images/thumb/Pilk.png/64px-Pilk.png?5741ec",
 "kind": "consumable",
 "sell": 200,
@@ -1630,9 +1881,10 @@ window.SULFUR_RECIPES = {
 },
 "Pine Nuts": {
 "effects": [
-"5 health over 5 seconds"
+"Gives 5 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Pine_Nuts.png/64px-Pine_Nuts.png?e2f7fd",
 "kind": "consumable",
 "sell": 10,
@@ -1646,9 +1898,12 @@ window.SULFUR_RECIPES = {
 },
 "Pizza": {
 "effects": [
-"+250 health over 10 seconds"
+"Gives 250 health over 10 seconds",
+"Gives -10% Jump power for 15 seconds",
+"Gives -10% Movement speed for 15 seconds. /"
 ],
 "grid": "2x2",
+"heal": 250,
 "img": "https://sulfur.wiki.gg/images/thumb/Pizza.png/64px-Pizza.png?173ce0",
 "kind": "consumable",
 "sell": 225,
@@ -1656,9 +1911,10 @@ window.SULFUR_RECIPES = {
 },
 "Pizza Slice": {
 "effects": [
-"+ 50 health over 5 seconds"
+"Gives 50 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Pizza_Slice.png/64px-Pizza_Slice.png?2974dc",
 "kind": "consumable",
 "sell": 50,
@@ -1673,9 +1929,10 @@ window.SULFUR_RECIPES = {
 },
 "Porridge": {
 "effects": [
-"+15 health over 4 seconds"
+"Gives 15 health over 4 seconds"
 ],
 "grid": "1x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Porridge.png/64px-Porridge.png?c67880",
 "kind": "consumable",
 "sell": 15,
@@ -1683,9 +1940,10 @@ window.SULFUR_RECIPES = {
 },
 "Potato": {
 "effects": [
-"5 health over 3 seconds"
+"Gives 5 health over 3 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Potato.png/64px-Potato.png?6222da",
 "kind": "consumable",
 "sell": 30,
@@ -1693,9 +1951,10 @@ window.SULFUR_RECIPES = {
 },
 "Potato Salad": {
 "effects": [
-"15 health over 0.1 seconds"
+"Gives 15 health over 0.1 seconds"
 ],
 "grid": "1x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Potato_Salad.png/64px-Potato_Salad.png?f78e45",
 "kind": "consumable",
 "sell": 45,
@@ -1703,9 +1962,10 @@ window.SULFUR_RECIPES = {
 },
 "Poutine": {
 "effects": [
-"+35 health over 5 seconds"
+"Gives 35 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 35,
 "img": "https://sulfur.wiki.gg/images/thumb/Poutine.png/64px-Poutine.png?7754eb",
 "kind": "consumable",
 "sell": 113,
@@ -1713,9 +1973,12 @@ window.SULFUR_RECIPES = {
 },
 "Power Bar": {
 "effects": [
-"10 health over 2 seconds"
+"Gives 10 health over 2 seconds",
+"Gives +1 Sprint bonus for 60 seconds",
+"Gives +100% Accuracy when moving for 60 seconds"
 ],
 "grid": "1x1",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Power_Bar.png/64px-Power_Bar.png?7c8d17",
 "kind": "consumable",
 "sell": 15,
@@ -1723,9 +1986,10 @@ window.SULFUR_RECIPES = {
 },
 "Puffed Rice Cakes": {
 "effects": [
-"+15 health over 2 seconds"
+"Gives 15 health over 2 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Puffed_Rice_Cakes.png/64px-Puffed_Rice_Cakes.png?94fc4a",
 "kind": "consumable",
 "sell": 10,
@@ -1733,9 +1997,10 @@ window.SULFUR_RECIPES = {
 },
 "Pyttipanna": {
 "effects": [
-"25 health over 5 seconds"
+"Gives 25 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Pyttipanna.png/64px-Pyttipanna.png?d3bef7",
 "kind": "consumable",
 "sell": 100,
@@ -1743,9 +2008,10 @@ window.SULFUR_RECIPES = {
 },
 "Pölsa": {
 "effects": [
-"20 health over 10 seconds"
+"Gives 20 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/P%C3%B6lsa.png/64px-P%C3%B6lsa.png?794b22",
 "kind": "consumable",
 "sell": 15,
@@ -1753,9 +2019,10 @@ window.SULFUR_RECIPES = {
 },
 "Pølse": {
 "effects": [
-"15 health over 3 seconds"
+"Gives 15 health over 3 seconds"
 ],
 "grid": "2x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/P%C3%B8lse.png/64px-P%C3%B8lse.png?43812f",
 "kind": "consumable",
 "sell": 25,
@@ -1763,9 +2030,10 @@ window.SULFUR_RECIPES = {
 },
 "Raclette": {
 "effects": [
-"50 health over 4 seconds"
+"Gives 50 health over 4 seconds"
 ],
 "grid": "2x1",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Raclette.png/64px-Raclette.png?8ff55a",
 "kind": "consumable",
 "sell": 150,
@@ -1773,9 +2041,11 @@ window.SULFUR_RECIPES = {
 },
 "Ramen": {
 "effects": [
-"+40 health over 4 seconds"
+"Gives 40 health over 4 seconds",
+"Gives +0.5 Frost Resistance for 60 seconds"
 ],
 "grid": "2x1",
+"heal": 40,
 "img": "https://sulfur.wiki.gg/images/thumb/Ramen.png/64px-Ramen.png?c50742",
 "kind": "consumable",
 "sell": 75,
@@ -1783,9 +2053,12 @@ window.SULFUR_RECIPES = {
 },
 "Red Wine": {
 "effects": [
-"30 health over 10 seconds"
+"Gives 30 health over 10 seconds",
+"Gives +20 Charisma for 120 seconds",
+"Removes Poisoned"
 ],
 "grid": "1x2",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Red_Wine.png/64px-Red_Wine.png?b10d97",
 "kind": "consumable",
 "sell": 100,
@@ -1793,9 +2066,10 @@ window.SULFUR_RECIPES = {
 },
 "Rhubarb": {
 "effects": [
-"6 health over 10 seconds"
+"Gives 6 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 6,
 "img": "https://sulfur.wiki.gg/images/thumb/Rhubarb.png/64px-Rhubarb.png?2dd560",
 "kind": "consumable",
 "sell": 20,
@@ -1803,9 +2077,10 @@ window.SULFUR_RECIPES = {
 },
 "Rhubarb Pie": {
 "effects": [
-"30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Rhubarb_Pie.png/64px-Rhubarb_Pie.png?6617a2",
 "kind": "consumable",
 "sell": 40,
@@ -1813,9 +2088,10 @@ window.SULFUR_RECIPES = {
 },
 "Rhubarb Porridge": {
 "effects": [
-"25 health over 4 seconds"
+"Gives 25 health over 4 seconds"
 ],
 "grid": "2x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Rhubarb_Porridge.png/64px-Rhubarb_Porridge.png?63a191",
 "kind": "consumable",
 "sell": 10,
@@ -1823,9 +2099,10 @@ window.SULFUR_RECIPES = {
 },
 "Rhubarb Sauce": {
 "effects": [
-"20 health over 10 seconds"
+"Gives 20 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Rhubarb_Sauce.png/64px-Rhubarb_Sauce.png?c73eac",
 "kind": "consumable",
 "sell": 20,
@@ -1833,9 +2110,11 @@ window.SULFUR_RECIPES = {
 },
 "Rice": {
 "effects": [
-"5 health over 5 seconds"
+"Gives 5 health over 5 seconds",
+"Gives -50% Movement speed for 5 seconds"
 ],
 "grid": "2x2",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Rice.png/64px-Rice.png?c62a6c",
 "kind": "consumable",
 "sell": 13,
@@ -1843,9 +2122,10 @@ window.SULFUR_RECIPES = {
 },
 "Rice Porridge": {
 "effects": [
-"18 health over 5 seconds"
+"Gives 18 health over 5 seconds"
 ],
 "grid": "1x2",
+"heal": 18,
 "img": "https://sulfur.wiki.gg/images/thumb/Rice_Porridge.png/64px-Rice_Porridge.png?e731c0",
 "kind": "consumable",
 "sell": 45,
@@ -1853,9 +2133,10 @@ window.SULFUR_RECIPES = {
 },
 "Risalamande": {
 "effects": [
-"25 health over 5 seconds"
+"Gives 25 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Risalamande.png/64px-Risalamande.png?203d09",
 "kind": "consumable",
 "sell": 45,
@@ -1884,15 +2165,19 @@ window.SULFUR_RECIPES = {
 },
 "Rödsopp": {
 "effects": [
-"5 health over 3 seconds"
+"Gives 5 health over 3 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/R%C3%B6dsopp.png/64px-R%C3%B6dsopp.png?2b76f4",
 "kind": "consumable",
 "sell": 8,
 "sub": "Mushroom / Food / Ingredient"
 },
 "Rödsopp Paste": {
+"effects": [
+"Gives 200% Slow motion for 4 seconds"
+],
 "grid": "2x1",
 "img": "https://sulfur.wiki.gg/images/thumb/R%C3%B6dsopp_Paste.png/64px-R%C3%B6dsopp_Paste.png?34717e",
 "kind": "consumable",
@@ -1901,9 +2186,10 @@ window.SULFUR_RECIPES = {
 },
 "Salt": {
 "effects": [
-"+1 health over 2 seconds"
+"Gives 1 health over 2 seconds"
 ],
 "grid": "1x1",
+"heal": 1,
 "img": "https://sulfur.wiki.gg/images/thumb/Salt.png/64px-Salt.png?29c966",
 "kind": "consumable",
 "sell": 5,
@@ -1911,9 +2197,10 @@ window.SULFUR_RECIPES = {
 },
 "Salted Fish": {
 "effects": [
-"20 health over 2.5 seconds"
+"Gives 20 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Salted_Fish.png/64px-Salted_Fish.png?695bc3",
 "kind": "consumable",
 "sell": 45,
@@ -1921,9 +2208,10 @@ window.SULFUR_RECIPES = {
 },
 "Salted Sandfish": {
 "effects": [
-"25 health over 4 seconds"
+"Gives 25 health over 4 seconds"
 ],
 "grid": "1x1",
+"heal": 25,
 "img": "https://sulfur.wiki.gg/images/thumb/Salted_Sandfish.png/64px-Salted_Sandfish.png?ef5b4e",
 "kind": "consumable",
 "sell": 50,
@@ -1931,9 +2219,10 @@ window.SULFUR_RECIPES = {
 },
 "Sashimi": {
 "effects": [
-"45 health over 4 seconds"
+"Gives 45 health over 4 seconds"
 ],
 "grid": "2x1",
+"heal": 45,
 "img": "https://sulfur.wiki.gg/images/thumb/Sashimi.png/64px-Sashimi.png?cb4a45",
 "kind": "consumable",
 "sell": 110,
@@ -1941,9 +2230,10 @@ window.SULFUR_RECIPES = {
 },
 "Sausage Omelette": {
 "effects": [
-"42 health over 10 seconds"
+"Gives 42 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 42,
 "img": "https://sulfur.wiki.gg/images/thumb/Sausage_Omelette.png/64px-Sausage_Omelette.png?72f7b6",
 "kind": "consumable",
 "sell": 25,
@@ -1951,9 +2241,10 @@ window.SULFUR_RECIPES = {
 },
 "Sausage On Stick": {
 "effects": [
-"40 health over 2 seconds"
+"Gives 40 health over 2 seconds"
 ],
 "grid": "2x1",
+"heal": 40,
 "img": "https://sulfur.wiki.gg/images/thumb/Sausage_On_Stick.png/64px-Sausage_On_Stick.png?74d3ea",
 "kind": "consumable",
 "sell": 100,
@@ -1961,9 +2252,11 @@ window.SULFUR_RECIPES = {
 },
 "Sausage Soup": {
 "effects": [
-"30 health over 4 seconds"
+"Gives 30 health over 4 seconds",
+"Gives +0.5 Frost resistance for 60 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Sausage_Soup.png/64px-Sausage_Soup.png?a9aa1a",
 "kind": "consumable",
 "sell": 68,
@@ -2266,9 +2559,10 @@ window.SULFUR_RECIPES = {
 },
 "Seaweed": {
 "effects": [
-"5 health over 10 seconds"
+"Gives 5 health over 10 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Seaweed.png/64px-Seaweed.png?1d0f60",
 "kind": "consumable",
 "sell": 15,
@@ -2304,9 +2598,12 @@ window.SULFUR_RECIPES = {
 },
 "Skimmed Milk": {
 "effects": [
-"10 health over 5 seconds"
+"Gives +50% Accuracy when moving for 90 seconds",
+"Gives 10 health over 5 seconds",
+"Removes Frozen"
 ],
 "grid": "1x2",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Skimmed_Milk.png/64px-Skimmed_Milk.png?ca4cfe",
 "kind": "consumable",
 "sell": 20,
@@ -2320,6 +2617,11 @@ window.SULFUR_RECIPES = {
 "sub": "Ingredient"
 },
 "Soda": {
+"effects": [
+"Gives 50% Accuracy when moving for 40 seconds",
+"Removes Burning",
+"Removes Poisoned"
+],
 "img": "https://sulfur.wiki.gg/images/thumb/Soda.png/64px-Soda.png?1008b8",
 "kind": "consumable",
 "sell": 15,
@@ -2327,16 +2629,21 @@ window.SULFUR_RECIPES = {
 },
 "Solution": {
 "effects": [
-"2.5 health over 2.5 seconds"
+"Gives 2.5 health over 2.5 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/Solution.png?b1f02a",
 "kind": "consumable",
 "sell": 20,
 "sub": "Ingredient"
 },
 "Spaghetti": {
+"effects": [
+"Gives 5 health over 5 seconds"
+],
 "grid": "1x2",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Spaghetti.png/64px-Spaghetti.png?40ec51",
 "kind": "consumable",
 "sell": 15,
@@ -2344,9 +2651,10 @@ window.SULFUR_RECIPES = {
 },
 "Spaghetti Bolognese": {
 "effects": [
-"50 health over 5 seconds"
+"Gives 50 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Spaghetti_Bolognese.png/64px-Spaghetti_Bolognese.png?34d90f",
 "kind": "consumable",
 "sell": 125,
@@ -2354,9 +2662,10 @@ window.SULFUR_RECIPES = {
 },
 "Spanish Omelette": {
 "effects": [
-"30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "1x2",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Spanish_Omelette.png/64px-Spanish_Omelette.png?168802",
 "kind": "consumable",
 "sell": 110,
@@ -2370,9 +2679,10 @@ window.SULFUR_RECIPES = {
 },
 "Spicy Sausage": {
 "effects": [
-"30 health over 5 seconds"
+"Gives 30 health over 5 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Spicy_Sausage.png/64px-Spicy_Sausage.png?9142eb",
 "kind": "consumable",
 "sell": 30,
@@ -2386,6 +2696,14 @@ window.SULFUR_RECIPES = {
 "sub": "Organ / Ingredient"
 },
 "Sports Drink": {
+"effects": [
+"Gives 70% Accuracy when moving for 180 seconds",
+"Gives 50% Movement speed for 30 seconds",
+"Gives -0.5 Weapon weight movement penalty for 180 seconds",
+"Gives -0.5 Fire resistance for 180 seconds",
+"Removes Burning",
+"Removes Poisoned"
+],
 "grid": "1x2",
 "img": "https://sulfur.wiki.gg/images/thumb/Sports_Drink.png/64px-Sports_Drink.png?77840d",
 "kind": "consumable",
@@ -2401,9 +2719,10 @@ window.SULFUR_RECIPES = {
 },
 "Stew": {
 "effects": [
-"20 health over 3 seconds"
+"Gives 20 health over 3 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Stew.png/64px-Stew.png?ea6648",
 "kind": "consumable",
 "sell": 33,
@@ -2422,9 +2741,13 @@ window.SULFUR_RECIPES = {
 },
 "Stout": {
 "effects": [
-"15 health over 10 seconds"
+"Gives 15 health over 10 seconds",
+"Gives +10 Charisma for 120 seconds",
+"Removes Poisoned",
+"Removes Burning"
 ],
 "grid": "1x2",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Stout.png/64px-Stout.png?e5dbb3",
 "kind": "consumable",
 "sell": 20,
@@ -2432,9 +2755,10 @@ window.SULFUR_RECIPES = {
 },
 "Sugar": {
 "effects": [
-"10 health over 10 seconds"
+"Gives 10 health over 10 seconds"
 ],
 "grid": "2x2",
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Sugar.png/64px-Sugar.png?24833e",
 "kind": "consumable",
 "sell": 30,
@@ -2442,9 +2766,13 @@ window.SULFUR_RECIPES = {
 },
 "Sulf Cola": {
 "effects": [
-"30 health over 4 seconds"
+"Gives 30 health over 4 seconds",
+"Gives +1 Extra Jumps for 20 seconds",
+"Removes Poisoned",
+"Removes Burning"
 ],
 "grid": "1x2",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Sulf_Cola.png/64px-Sulf_Cola.png?c6dabd",
 "kind": "consumable",
 "sell": 150,
@@ -2458,9 +2786,10 @@ window.SULFUR_RECIPES = {
 },
 "Surstromming": {
 "effects": [
-"50 health over 50 seconds"
+"Gives 50 health over 50 seconds"
 ],
 "grid": "1x1",
+"heal": 50,
 "img": "https://sulfur.wiki.gg/images/thumb/Surstromming.png/64px-Surstromming.png?748c56",
 "kind": "consumable",
 "sell": 175,
@@ -2468,9 +2797,10 @@ window.SULFUR_RECIPES = {
 },
 "Swedish Pancakes": {
 "effects": [
-"30 health over 3 seconds"
+"Gives 30 health over 3 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Swedish_Pancakes.png/64px-Swedish_Pancakes.png?a049ad",
 "kind": "consumable",
 "sell": 110,
@@ -2478,8 +2808,9 @@ window.SULFUR_RECIPES = {
 },
 "Sweet Gum": {
 "effects": [
-"10 health over 1 seconds"
+"Gives 10 health over 1 seconds"
 ],
+"heal": 10,
 "img": "https://sulfur.wiki.gg/images/thumb/Sweet_Gum.png/64px-Sweet_Gum.png?3d1c51",
 "kind": "consumable",
 "sell": 40,
@@ -2487,9 +2818,10 @@ window.SULFUR_RECIPES = {
 },
 "Swing-Ding": {
 "effects": [
-"5 health over 1 second"
+"Gives 5 health over 1 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Swing-Ding.png/64px-Swing-Ding.png?b42c43",
 "kind": "consumable",
 "sell": 5,
@@ -2510,15 +2842,19 @@ window.SULFUR_RECIPES = {
 },
 "Toast Skagen": {
 "effects": [
-"15 health over 5 seconds"
+"Gives 15 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Toast_Skagen.png/64px-Toast_Skagen.png?9f8d73",
 "kind": "consumable",
 "sell": 75,
 "sub": "Food"
 },
 "Toilet Paper": {
+"effects": [
+"Restores 375 durability"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Toilet_Paper.png/64px-Toilet_Paper.png?8de579",
 "kind": "repair",
@@ -2533,9 +2869,10 @@ window.SULFUR_RECIPES = {
 },
 "Tongue On Stick": {
 "effects": [
-"20 health over 2 seconds"
+"Gives 20 health over 2 seconds"
 ],
 "grid": "2x1",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Tongue_On_Stick.png/64px-Tongue_On_Stick.png?6acb5a",
 "kind": "consumable",
 "sell": 60,
@@ -2543,9 +2880,11 @@ window.SULFUR_RECIPES = {
 },
 "Tori Ramen": {
 "effects": [
-"40 health over 4 seconds"
+"Gives 40 health over 4 seconds",
+"Gives +0.5 Frost resistance for 60 seconds"
 ],
 "grid": "2x1",
+"heal": 40,
 "img": "https://sulfur.wiki.gg/images/thumb/Tori_Ramen.png/64px-Tori_Ramen.png?e03af8",
 "kind": "consumable",
 "sell": 75,
@@ -2553,9 +2892,10 @@ window.SULFUR_RECIPES = {
 },
 "Tube Caviar": {
 "effects": [
-"30 health over 10 seconds"
+"Gives 30 health over 10 seconds"
 ],
 "grid": "2x1",
+"heal": 30,
 "img": "https://sulfur.wiki.gg/images/thumb/Tube_Caviar.png/64px-Tube_Caviar.png?5557ee",
 "kind": "consumable",
 "sell": 120,
@@ -2563,15 +2903,20 @@ window.SULFUR_RECIPES = {
 },
 "Unagi": {
 "effects": [
-"60 health over 10 seconds"
+"Gives 60 health over 10 seconds",
+"Gives +10 Electric resistance for 60 seconds"
 ],
 "grid": "2x1",
+"heal": 60,
 "img": "https://sulfur.wiki.gg/images/thumb/Unagi.png/64px-Unagi.png?ca8a54",
 "kind": "consumable",
 "sell": 200,
 "sub": "Food"
 },
 "Used Rubber": {
+"effects": [
+"Gives +0 Poisoned for 60 seconds"
+],
 "grid": "1x1",
 "img": "https://sulfur.wiki.gg/images/thumb/Used_Rubber.png/64px-Used_Rubber.png?ae1964",
 "kind": "misc",
@@ -2580,9 +2925,10 @@ window.SULFUR_RECIPES = {
 },
 "Vacuum Cleaner": {
 "effects": [
-"15 health over 3 seconds"
+"Gives 15 health over 3 seconds"
 ],
 "grid": "1x1",
+"heal": 15,
 "img": "https://sulfur.wiki.gg/images/thumb/Vacuum_Cleaner.png/64px-Vacuum_Cleaner.png?22d405",
 "kind": "consumable",
 "sell": 20,
@@ -2590,9 +2936,10 @@ window.SULFUR_RECIPES = {
 },
 "Velvet Bell": {
 "effects": [
-"1 health over 1 seconds"
+"Gives 1 health over 1 second"
 ],
 "grid": "1x1",
+"heal": 1,
 "img": "https://sulfur.wiki.gg/images/thumb/Velvet_Bell.png/64px-Velvet_Bell.png?3617b4",
 "kind": "consumable",
 "sell": 5,
@@ -2600,9 +2947,10 @@ window.SULFUR_RECIPES = {
 },
 "Walnut": {
 "effects": [
-"5 health over 5 seconds"
+"Gives 5 health over 5 seconds"
 ],
 "grid": "1x1",
+"heal": 5,
 "img": "https://sulfur.wiki.gg/images/thumb/Walnut.png/64px-Walnut.png?483f06",
 "kind": "consumable",
 "sell": 20,
@@ -2610,9 +2958,12 @@ window.SULFUR_RECIPES = {
 },
 "Whole Milk": {
 "effects": [
-"20 health over 8 seconds"
+"Gives +50% Accuracy when moving for 90 seconds",
+"Gives 20 health over 8 seconds",
+"Removes Burning"
 ],
 "grid": "1x2",
+"heal": 20,
 "img": "https://sulfur.wiki.gg/images/thumb/Whole_Milk.png/64px-Whole_Milk.png?4df06b",
 "kind": "consumable",
 "sell": 20,

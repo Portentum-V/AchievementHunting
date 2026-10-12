@@ -39,8 +39,13 @@ this folder.
 
 `sulfur-tracker/recipes/` holds a cooking calculator. Add what you carry to
 the pantry, and it lists the dishes you can cook, the best yield, and the
-recipes one ingredient short. With the tracker running, open
+recipes one ingredient short. Press Cook on a recipe to swap its ingredients
+in the pantry for the dish; Undo reverses it. With the tracker running, open
 `/sulfur-tracker/recipes/`. Without it, open `index.html` directly.
+
+"Cook next" lists dishes that need other dishes cooked first, up to 4 levels
+deep. It ranks them by total heal, number of buffs, or sell value. Its Cook
+button runs the whole chain.
 
 The recipes come from the SULFUR wiki. After a game update, rebuild them:
 

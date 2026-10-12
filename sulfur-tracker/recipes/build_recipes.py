@@ -231,9 +231,23 @@ def item_info(text):
     sub = plain(box.get("SubType", ""))
     if sub:
         info["sub"] = sub
-    for key in ("Heal", "Effect", "Effects", "Buff", "Buffs"):
-        if box.get(key):
-            info.setdefault("effects", []).append(plain(box[key]))
+    # Effects: the bold "Gives ...", "Removes ..." lines under Description, one per
+    # effect. Bottled Water lists three: health, Removes Burning, Removes Poisoned.
+    desc = re.search(r"==\s*Description\s*==(.*?)(?=\n==[^=]|\Z)", text, re.S)
+    effects = []
+    for line in (desc.group(1) if desc else "").splitlines():
+        if "'''" not in line:
+            continue  # italic flavor text
+        line = plain(line).lstrip("*: ").strip()
+        if re.match(r"(Gives|Removes|Restores)\b", line):
+            effects.append(line.rstrip("."))
+    if not effects and box.get("Heal"):
+        effects.append("Gives " + plain(box["Heal"]))
+    if effects:
+        info["effects"] = effects
+    heal = re.search(r"(\d+)\s*(?:health|hp)\b", " ".join(effects) or plain(box.get("Heal", "")), re.I)
+    if heal:
+        info["heal"] = int(heal.group(1))
     sell = re.sub(r"[^\d]", "", box.get("SellVal", ""))
     if sell:
         info["sell"] = int(sell)
