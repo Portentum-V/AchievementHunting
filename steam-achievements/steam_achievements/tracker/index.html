@@ -99,6 +99,14 @@
   ul.steps input { margin-top: 3px; flex: none; }
   ul.steps input:checked + span { color: var(--muted); text-decoration: line-through; }
   input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; }
+  .utils { margin: 0 0 18px; }
+  .utils .k { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 6px; }
+  .utils .row { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  .util { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px;
+    box-shadow: var(--shadow); color: var(--ink); text-decoration: none; min-width: 0; }
+  .util:hover { border-color: var(--accent); }
+  .util b { color: var(--accent); font-weight: 650; }
+  .util span { display: block; color: var(--muted); font-size: 13px; }
   .empty { color: var(--muted); padding: 30px 0; text-align: center; }
   .foot { color: var(--muted); font-size: 12.5px; margin-top: 36px; border-top: 1px solid var(--line); padding-top: 12px; }
   .foot code { background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
@@ -134,6 +142,8 @@
     <div class="stat" id="stat2"></div>
     <div class="stat" id="stat3"></div>
   </div>
+
+  <nav class="utils" id="utils" aria-label="Utilities" hidden></nav>
 
   <div class="controls">
     <input class="search" id="q" type="search" placeholder="Search name, description, or tip">
@@ -193,6 +203,14 @@
   }
   $("#subtitle").textContent = G.subtitle || "Achievement tracker, synced from Steam";
   $("#credit").textContent = G.credit ? G.credit + " " : "";
+  // Utilities: links to game tools, relative to the game folder (or https).
+  const utils = (G.utilities || []).filter(u => u && u.label && /^(?![a-z][a-z0-9+.-]*:)|^https:/i.test(u.href || ""));
+  if (utils.length) {
+    $("#utils").innerHTML = `<div class="k">Utilities</div><div class="row">` + utils.map(u =>
+      `<a class="util" href="${esc(u.href)}"${/^https:/i.test(u.href) ? ' target="_blank" rel="noopener"' : ""}><b>${esc(u.label)}</b>` +
+      (u.description ? `<span>${esc(u.description)}</span>` : "") + `</a>`).join("") + `</div>`;
+    $("#utils").hidden = false;
+  }
   if (G.colors) {
     const v = c => `--accent:${c.accent};--accent-soft:${c.accent}22;--accent-2:${c.accent2};--accent-2-soft:${c.accent2}22;`;
     const st = document.createElement("style");

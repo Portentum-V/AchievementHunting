@@ -34,6 +34,14 @@ if (String(g.appid) !== String(list.appid)) errors.push(`appid ${g.appid} != ${l
 for (const f of ["title", "subtitle", "credit", "categories", "achievements"])
   if (!g[f]) errors.push(`missing field: ${f}`);
 if (g.titleAccent && !String(g.title).includes(g.titleAccent)) errors.push("titleAccent is not part of title");
+if (g.utilities !== undefined && !Array.isArray(g.utilities)) errors.push("utilities is not an array");
+for (const u of Array.isArray(g.utilities) ? g.utilities : []) {
+  if (!u || !u.label || !u.href) { errors.push("utility needs label and href"); continue; }
+  if (/^[a-z][a-z0-9+.-]*:/i.test(u.href) && !/^https:/i.test(u.href))
+    errors.push(`utility ${u.label}: href must be relative or https`);
+  else if (!/^https:/i.test(u.href) && !fs.existsSync(path.join(path.dirname(guidePath), u.href.split(/[?#]/)[0])))
+    errors.push(`utility ${u.label}: ${u.href} does not exist`);
+}
 
 const byKey = Object.fromEntries(list.achievements.map(a => [a.api.toLowerCase(), a]));
 const keys = Object.keys(g.achievements || {});

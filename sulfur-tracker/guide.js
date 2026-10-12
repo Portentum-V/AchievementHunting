@@ -52,6 +52,10 @@ window.GUIDE = {
     light: { accent: "#7d6b00", accent2: "#8e2a5c" },
     dark: { accent: "#e8d44a", accent2: "#f07ab0" },
   },
+  utilities: [
+    { label: "Recipe calculator", href: "recipes/index.html",
+      description: "What you can cook from what you carry, with yields from the SULFUR wiki." },
+  ],
   flags: {
     rare: { label: "Rare gun", tone: "accent2" },
     endgame: { label: "Needs the Witch beaten", tone: "accent" },

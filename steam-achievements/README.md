@@ -125,6 +125,8 @@ window.GUIDE = {
   colors: { light: { accent, accent2 }, dark: { accent, accent2 } },
   flags: { run: { label: "Single run", tone: "accent" } },          // tone: accent or accent2
   highlight: { flag, label, note }, // third stat card; default: rarest remaining
+  utilities: [{ label, href, description }], // optional links under the stats;
+                                    // href is relative to the game folder, or https
   pointsLabel, pointsNote, pointsSuffix, // second stat card when entries have `g`
   categories: [["hats", "Hats"], ...],
   achievements: {
