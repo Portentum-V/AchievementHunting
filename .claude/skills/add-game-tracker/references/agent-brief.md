@@ -29,7 +29,9 @@ by lower-case Steam API name.
 ## Research
 <GAME-SPECIFIC: name the remaining achievements that need real detail. Look
 for missables, single-run conditions and mutually exclusive endings. Also look
-for DLC content and for collection lists that can become `steps` checklists.>
+for DLC content and for collection lists that can become `steps` checklists.
+Do not assert the game's version. Ask the agent to find the current build
+and any announced major update.>
 
 Use the game's wiki, Steam community guides (steamcommunity.com/sharedfiles)
 and discussions, and patch notes, through WebSearch and WebFetch. When
@@ -79,6 +81,8 @@ guide until the script prints PASS. Report its output.
 - Prose: active voice, short sentences, lead with the action. ASCII only:
   straight quotes and hyphens, no em dashes or curly quotes. No filler.
   State facts plainly, and mark uncertain ones as uncertain.
+- Before you report, reread every unhedged claim. Hedge or cut any claim that
+  no source you read states.
 - Never put the user's SteamID, username or unlock data in the file.
 
 Report back with these items:

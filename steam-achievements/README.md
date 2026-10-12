@@ -142,4 +142,5 @@ window.GUIDE = {
 - `..\dragonwilds-tracker` - RuneScape: Dragonwilds (tips from the RuneScape: Dragonwilds wiki).
 - `..\megabonk-tracker` - Megabonk (tips from Steam community guides).
 - `..\ror2-tracker` - Risk of Rain 2 (tips from the Risk of Rain 2 wiki and patch notes).
+- `..\sulfur-tracker` - SULFUR (tips from the SULFUR wiki, Steam community guides and patch notes).
 - `..\valheim-tracker` - Valheim (tips from a Steam community guide and its tracking sheet).

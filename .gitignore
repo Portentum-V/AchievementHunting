@@ -6,6 +6,9 @@ steam_status.js
 *-tracker/icons/
 *-tracker/header.jpg
 
+# Playwright screenshots and snapshots of tracker pages, which show unlocks
+.playwright-mcp/
+
 # Python build output
 __pycache__/
 *.egg-info/

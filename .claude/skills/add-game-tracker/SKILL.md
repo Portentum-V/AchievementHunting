@@ -74,9 +74,12 @@ scratchpad.
      not 0. The server syncs every game in folder order, so the new game can
      take 30 seconds or more. Poll every 3 seconds for up to 2 minutes. Until
      its sync ends, `steam_status.js` returns 404; ignore that.
-   - Open `/<slug>-tracker/` with Playwright and take a screenshot. Check the
+   - Open `/<slug>-tracker/` with Playwright and take a viewport screenshot.
+     A full-page shot of a long guide shrinks too far to read. Check the
      heading, the counts against `pull_game.py`, the highlight card, and a
-     checklist. Screenshots must go under `C:\Users\portentum\tmp\.playwright-mcp\`.
+     checklist. Pass a relative filename such as
+     `.playwright-mcp\<slug>.png`. Playwright accepts only paths in the repo,
+     and `.gitignore` excludes `.playwright-mcp/`.
    - Stop the server by PID only. Find the PID with `netstat -ano` on port
      8799, confirm with `tasklist` that it is `python.exe`, then run
      `taskkill //F //PID <pid>`. Never kill processes by filter or by name.
