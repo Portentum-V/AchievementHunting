@@ -10,6 +10,9 @@ game details included.
   covers login and building a tracker for a new game.
 - `<game>-tracker/guide.js` - one guide per game: categories, tips, and
   checklists, keyed by Steam API name.
+- `.claude/skills/add-game-tracker/` - a Claude Code skill that adds a game:
+  it pulls the list, briefs a research agent, and validates the guide. To
+  use it, start Claude Code in this folder and ask it to add a game.
 
 | Folder | Game | Guide source |
 | --- | --- | --- |

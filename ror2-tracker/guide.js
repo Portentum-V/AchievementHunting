@@ -9,6 +9,9 @@
 //   TposeGaming "Risk of Rain 2 Karma: List of All Triggers" (community list, 2026-10-10).
 // Hallowed Concepts came out on 2026-10-08. Its pages are new and partly unconfirmed;
 // tips say so where the sources are unsure.
+// 2026-10-12: a blind comparison with an independent rebuild, checked against the wiki
+// (Karma, Enforcer, Hex of Loss, Halcyon Shrine, Bazaar), corrected the +PARRY timing,
+// Hex of Loss, the Karma triggers, the Operator ricochet and the Threshold-to-Meridian order.
 // Keys are lower-case Steam API names. Achievements without a tip show Steam's description.
 // Flags (one per card): "monsoon" (Monsoon difficulty), "hc" (needs Hallowed Concepts),
 // "ac" (needs Alloyed Collective), "sots" (needs Seekers of the Storm), "sotv" (needs
@@ -57,12 +60,13 @@ window.GUIDE = {
     commandoclearmeridianevent: { cat: "meridian", flag: "sots", wide: true,
       tip: ["Defeat the False Son on Prime Meridian as Commando. The wiki does not define \"the Event\"; it appears to be the False Son fight, the same one you cleared for King of the Hill.",
             "Route: complete a Halcyon Shrine on stages 1-3 and take its Green Portal. Or break 3 Aurelionite Geodes in the Bazaar when chat says \"You hear thunder rumbling.\" The Path of the Colossus runs Reformed Altar, Treeborn Colony, then Prime Meridian. Do not take those stages' Teleporters; they return you to the normal path.",
+            "Order matters when you also do Soulbound Threshold. Its Mortal Portal leads to the next stage. After stage 3, a Halcyon Shrine spawns only a Gold Portal, the Gilded Coast gives no Green Portal, and the Bazaar offers no geodes. So do the Threshold on stage 2, then take a Blue Portal to the Bazaar on stage 3 and break the geodes. A stage 3 Threshold leaves only the Bazaar after stage 5 (per the wiki; untested).",
             "After the fight, pray at the Shrine of Rebirth once only. Wait 15 seconds: with Alloyed Collective on, an Encrypted Portal to Conduit Canyon opens. That portal starts the Collective route. A second prayer offers an item and ends the run.",
             "The checklist is the per-survivor run plan. Monsoon is optional unless the survivor still needs Mastery."],
       steps: [
-        "Commando: Soulbound by stage 2-3 (Dying to Meet You), Prime Meridian, Purge, then Mithrix with Karma on (Retribution)",
-        "Huntress: Soulbound by stage 2-3 (Dying to Meet You), Prime Meridian, Purge. Tomb Raider in a short run of its own",
-        "Acrid: Soulbound by stage 2-3 (Dying to Meet You), Prime Meridian, Purge, Shrine of Order on the moon, kill Mithrix (Miracle)",
+        "Commando: Soulbound on stage 2 (Dying to Meet You), Prime Meridian, Purge, then Mithrix with Karma on (Retribution)",
+        "Huntress: Soulbound on stage 2 (Dying to Meet You), Prime Meridian, Purge. Tomb Raider in a short run of its own",
+        "Acrid: Soulbound on stage 2 (Dying to Meet You), Prime Meridian, Purge, Shrine of Order on the moon, kill Mithrix (Miracle)",
         "Bandit: Prime Meridian, then Accept. Separate Monsoon run: Mastery, B&E, Sadist, Classic Man, Memento Mori",
         "Artificer: Prime Meridian, then Accept. Separate run: Memento Mori, One Giant Leap",
         "REX: Prime Meridian, then Accept. Separate run: Memento Mori, Invasive Growth, Bushwhacked, Full of Life, Dunked",
@@ -72,10 +76,10 @@ window.GUIDE = {
         "Mercenary: Prime Meridian, Purge, win with 10 Hexes",
         "Railgunner: Prime Meridian, win with 10 Hexes",
         "Void Fiend: Monsoon, Prime Meridian, win with 10 Hexes",
-        "Engineer: Soulbound and Veil of Memory (Memento Mori), Collective Purge; carry the Fuel Array to an Equipment Drone",
+        "Engineer: Prime Meridian, Collective Purge; carry the Fuel Array to an Equipment Drone. Separate run: Memento Mori (the exit beyond the Threshold door is undocumented and may skip the Collective)",
         "False Son: win with 10 Hexes; grow Lunar Spikes on the way",
-        "CHEF: Monsoon, Soulbound by stage 2-3, sear bison, burn Mithrix",
-        "Seeker: Soulbound by stage 2-3, Scorched Earth",
+        "CHEF: Monsoon, Soulbound on stage 2, sear bison, burn Mithrix",
+        "Seeker: Soulbound on stage 2, Scorched Earth",
         "Drifter: free her first (Lost in Transit), then Monsoon: vault backpack, Mountain shrine throw, 20 temporary items",
         "Operator, Acolyte, Enforcer: one Monsoon run each with their skill challenges",
       ] },
@@ -111,7 +115,7 @@ window.GUIDE = {
       tip: ["Defeat Solus Heart as Commando, then kill it when it makes its offer. Killing it rejects (denies) the offering. The run continues through a Virtual Portal, and Solus Heart drops a red item.",
             "The route below starts from Prime Meridian. An Access Node on a stage 3 map also works: activate it, charge the Teleporter, take the Encrypted Portal to Conduit Canyon. A stage 4 Access Node goes straight to Solutional Haunt. Access Nodes stop spawning once Solus Wing is dead.",
             "Collective choice still needed: Accept for Bandit, Artificer, Captain, Loader, REX. Purge for Commando, Huntress, Acrid, Mercenary, MUL-T, Engineer.",
-            "On Eclipse the game always rejects the offer, so Accept skins are impossible there."],
+            "On Eclipse the game always rejects the offer, so Accept skins are impossible there. Purge still works on Eclipse."],
       steps: [
         "Enter Conduit Canyon: Encrypted Portal from the Prime Meridian Shrine of Rebirth, or a stage 3 Access Node",
         "Conduit Canyon: kill Collective elites for Sentry Keys. Power the 3 Sentry Terminals, then the Teleporter. Boss: Solus Control Unit, then Alloy Hunter",
@@ -160,6 +164,7 @@ window.GUIDE = {
       steps: [
         "Get a Page of the N'tormat by stage 1-2: Shrine of Compulsion (not on stage 1), The Wake's Ancient Sepulcher (15% on stage 1, 20% later), or a Ritual Gong trial",
         "Fastest Page: on stage 1 activate a Newt Altar, take the Blue Portal to the Bazaar, ring its Ritual Gong (always there) and win the trial",
+        "Other way in: cast Reincarnation inside the 15 m zone in Neural Sanctum (Collective route)",
         "Solo needs 1 Page; 2 players need 4, 3 need 9",
         "The next stage can spawn a Shrine of Descent at its start. Pray at it before you start the Teleporter",
         "Charge the Teleporter to 100%, then survive the overcharge to 667% and kill the extra Stygian boss",
@@ -202,9 +207,9 @@ window.GUIDE = {
     toolbotcleargamehexes: { cat: "hexes", flag: "hc", wide: true,
       tip: ["As MUL-T, win a run while holding 10 Hexes. The inventory appears to be checked at the end, so do not cleanse below 10 before the win. No source confirms whether copies of one Hex count separately; mix kinds to be safe.",
             "Hex sources: the Hallowed Shrine's Hand of Death drops 3 random Hexes per player. Concept Reliquaries are free and drop one Hex. The Anima Harvester's second phase gives each player 3.",
-            "Hexes left on the ground vanish when a Teleporter starts charging. Pick them up first.",
+            "Hexes left on the ground vanish when a Teleporter starts charging, and Concept Reliquaries lock. Open the reliquaries and pick up the Hexes first.",
             "Never use the Hand of Life: it drains up to 7 Hexes. Choosing either hand closes the other.",
-            "Hexes hurt (blindness, famine, acceleration, and more). Collect most of them late, after the build is strong. Hex of Loss disables Hexes; whether disabled Hexes count is not documented."] },
+            "Hexes hurt (blindness, famine, acceleration, and more). Collect most of them late, after the build is strong. Hex of Loss disables items, not Hexes."] },
     merccleargamehexes: { cat: "hexes", flag: "hc",
       tip: "As Mercenary, win a run holding 10 Hexes. Method on the MUL-T: Against All Odds card." },
     loadercleargamehexes: { cat: "hexes", flag: "hc",
@@ -220,11 +225,11 @@ window.GUIDE = {
     // Commando
     commandobeatbrothermaxkarma: { cat: "survivors", flag: "run", wide: true,
       tip: ["As Commando, land the killing blow on Mithrix's final phase at 8 Karma. Turn Karma on in the lobby (new section below the Artifacts). Karma never drops during a run.",
-            "Most triggers give +1 once per run (community list, 2026-10-10): hold 3 Lunar items, hold 50 items, pick up an Elite Aspect, pick up Beads of Fealty, enter Void Fields, complete Void Fields, open the stage 4 Legendary Chest, beat Aurelionite, kill a Teleporter boss before 10% charge (Tricorn does not count).",
-            "Repeatable +1: loop, complete Bulwark's Ambry, enter A Moment, Fractured, get kicked out of the Bazaar, kill Alloy Worship Unit, kill the elite Elder Lemurians in Abandoned Aqueduct, complete a Halcyon Shrine (SotS), complete a Shrine of Descent trial (HC).",
+            "Most triggers give +1 once per run (community list, 2026-10-10): hold 3 Lunar items, hold 50 items, hold 5 Hallowed items, pick up an Elite Aspect, pick up Beads of Fealty, start the first Void Fields cell, complete Void Fields, open the stage 4 Legendary Chest, beat Aurelionite, kill a Teleporter boss before 10% charge (Tricorn does not count).",
+            "Repeatable +1: loop, complete Bulwark's Ambry, interact with the Obelisk in A Moment, Fractured, get kicked out of the Bazaar, kill Alloy Worship Unit, kill the elite Elder Lemurians in Abandoned Aqueduct, fully charge a Halcyon Shrine (SotS), complete a Shrine of Descent trial (HC).",
             "DLC bosses: False Son +2, Solus Wing +1, Solus Heart +1, Anima Harvester +1, Echo of Providence +1.",
-            "Commando's stack run reaches 8 on its own: Shrine of Descent, Harvester, False Son, Solus Wing, Solus Heart (Purge) give 6. Add 3 Lunar items and a Halcyon Shrine.",
-            "Karma 8 Mithrix flies, gains new attacks, has a near-invulnerable armor phase, and heals from wisps in phase 4. Kill the wisps. Play this run on Drizzle or Rainstorm."] },
+            "Commando's stack run reaches 8 on its own: Shrine of Descent, Harvester, False Son, Solus Wing, Solus Heart (Purge) give 6. Add 3 Lunar items and a fully charged Halcyon Shrine.",
+            "Karma 8 Mithrix has 50% more health, a damage shell and extra attacks, and heals from wisps in phase 4. Kill the wisps. Play this run on Drizzle or Rainstorm."] },
     // Huntress
     huntresscollectartifact: { cat: "survivors", flag: "run",
       tip: ["As Huntress, pick up an Artifact in Bulwark's Ambry with the run timer at 25:00 or less. Hidden realms pause the timer.",
@@ -251,7 +256,8 @@ window.GUIDE = {
     // Engineer
     engibatterydrone: { cat: "survivors", flag: "run",
       tip: ["As Engineer, repair a broken Equipment Drone while you hold the Fuel Array; the array pays the repair. No win needed.",
-            "Take the Fuel Array from the hatch on the back of the Escape Pod on stage 1. It explodes when you fall to 50% health, so play safe, avoid Shrines of Blood, and pick up Tougher Times. Broken Equipment Drones spawn at random, so carry the array until one appears."] },
+            "Take the Fuel Array from the hatch on the back of the Escape Pod on stage 1. It explodes when you fall to 50% health, so play safe, avoid Shrines of Blood, and pick up Tougher Times. Broken Equipment Drones spawn at random, so carry the array until one appears.",
+            "Turrets copy your equipment, the Fuel Array included. Place them before you pick it up."] },
     // Artificer
     magepillarskip: { cat: "survivors", flag: "run",
       tip: ["As Artificer, reach Mithrix on Commencement without anyone activating a Pillar.",
@@ -261,7 +267,7 @@ window.GUIDE = {
       tip: "As Loader, land a Charged Gauntlet at 300 mph or more. Fully charge the punch, then fall from a height and punch downward into an enemy. Launch pads with a monster in their path work too, and so does grappling into an enemy with a charged punch." },
     loaderspeedrun: { cat: "survivors", flag: "run",
       tip: ["As Loader, enter the Celestial Portal with the run timer at 25:00 or less. The portal spawns next to the Teleporter on the first stage 3 after a loop (stage 8 at the earliest).",
-            "Play Drizzle. Loop without Mithrix: align the Sky Meadow Primordial Teleporter prongs, or take a Blue Portal there. Hidden realms pause the timer. A Sky Meadow artifact code skips that stage's Teleporter charge."] },
+            "Play Drizzle. Loop without Mithrix: align the Sky Meadow Primordial Teleporter prongs, take a Blue Portal there, or do an Artifact trial in Bulwark's Ambry, which also loops the run. Hidden realms pause the timer. A Sky Meadow artifact code skips that stage's Teleporter charge."] },
     loaderkillloaders: { cat: "survivors", flag: "run",
       tip: ["As Loader, kill 3 Loader Umbrae in Bulwark's Ambry. Enter the Vengeance code (see Trial of Vengeance): each Artifact Reliquary key spawns a Loader Umbra, except the last.",
             "Avoid offensive drones and turrets; their kills do not count. A Dio's Best Friend gives each Umbra an extra life, so up to two kills each."] },
@@ -316,7 +322,7 @@ window.GUIDE = {
     dronetechjugglelemurian: { cat: "survivors", flag: "ac",
       tip: "As Operator, keep an Elder Lemurian in the air for 10 seconds. Launch it with Ejection Core; Nano Bug adds lift to every later hit, so keep hitting it with weak shots. Breaching Fin, Plasma Shrimp, Polylute and attack speed help. Avoid damage items that kill it; an elite Elder Lemurian lasts longer." },
     dronetechtrickshot: { cat: "survivors", flag: "ac",
-      tip: "As Operator, kill 4 different monster types with one H3-11 OCR Custom shot via its ricochet. Weaken a mixed group first (Crowdfunder chips without ricochet). Artifact of Swarms halves health; Dissonance mixes monster types. Lost Seer's Lenses plus Deus Ex Machina make each ricochet a kill." },
+      tip: "As Operator, kill 4 different monster types with one H3-11 OCR Custom shot via its ricochet. Weaken a mixed group first (Crowdfunder chips without ricochet). Artifact of Swarms halves health; Dissonance mixes monster types. Lost Seer's Lenses plus Deus Ex Machina, together with a successful parry before the shot, make each ricochet a kill." },
     // Acolyte
     acolytereapermultikill: { cat: "survivors", flag: "hc",
       tip: "As Acolyte, get 15 kills while transformed into the Anima Harvester (Dark Summons). Kills from several transformations add up as long as you make no kill in normal form between them. Ally and minion kills do not count." },
@@ -328,7 +334,7 @@ window.GUIDE = {
     enforcer2repeatedlydamagemagmaworm: { cat: "survivors", flag: "hc",
       tip: "As Enforcer, hit a Magma Worm 24 times within 12 seconds with Trenchbroom in Defensive Stance (Steel or Surge Protection). The normal slug never counts. A shot counts only if its first target is the worm. Overloading Worms do not count. Attack speed helps." },
     enforcer2parryvagrant: { cat: "survivors", flag: "hc",
-      tip: "As Enforcer, parry a Wandering Vagrant's Genesis Supernova with Steel Protection. Face the Vagrant in Defensive Stance and reactivate the skill about 0.5 seconds before the blast lands." },
+      tip: "As Enforcer, parry a Wandering Vagrant's Genesis Supernova with Steel Protection. Face the Vagrant in Defensive Stance and let the blast hit your shield, then reactivate the skill within 0.5 seconds. The parry window runs from 0.5 seconds before the reactivation to 0.15 seconds after it." },
     enforcer2tanktitanlaser: { cat: "survivors", flag: "hc",
       tip: "As Enforcer, take 3 seconds of a Stone Titan's laser without blocking (24 hits in a row, each within 1 second of the last). Leave Defensive Stance and stand in the beam. Bring health or barrier; Aurelionite's laser does not count." },
     enforcer2blockxteleporter: { cat: "survivors", flag: "hc",
