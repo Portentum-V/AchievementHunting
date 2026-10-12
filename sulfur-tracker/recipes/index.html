@@ -1,0 +1,468 @@
+<!doctype html>
+<!-- SULFUR cooking calculator. Recipes come from recipes-data.js, which
+     build_recipes.py generates from sulfur.wiki.gg. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SULFUR Recipes</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M5 14h22v4a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9z' fill='%237d6b00'/%3E%3Cpath d='M11 4c-2 3 2 4 0 7M17 4c-2 3 2 4 0 7M23 4c-2 3 2 4 0 7' stroke='%238e2a5c' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f4efe9; --panel: #fffaf4; --panel-2: #efe6dc; --ink: #241a1a; --muted: #6f5f5a;
+    --line: #dccfc3; --accent: #7d6b00; --accent-soft: #7d6b0018; --accent-2: #8e2a5c; --accent-2-soft: #8e2a5c1c;
+    --ok: #2f7a4a; --ok-soft: #2f7a4a1c; --shadow: 0 1px 2px #0000000f, 0 4px 14px #0000000a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+      --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+      --ok: #5cc186; --ok-soft: #5cc18620; --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+    --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+    --ok: #5cc186; --ok-soft: #5cc18620; --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 30px; margin: 0; letter-spacing: .3px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); margin: 4px 0 0; font-size: 14px; }
+  .sub a { color: inherit; }
+  .top { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; margin-bottom: 18px; }
+  .bar-r { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button { font: inherit; cursor: pointer; }
+  .btn { border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 5px 12px; border-radius: 8px; font-size: 13px; text-decoration: none; }
+  .btn:hover { border-color: var(--accent); }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--panel); }
+  .seg button { border: 0; background: none; color: var(--muted); padding: 6px 12px; font-size: 13px; }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .seg button b { font-variant-numeric: tabular-nums; margin-left: 3px; }
+  .search { width: 100%; min-width: 0; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); font: inherit; }
+  .search:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 3px 10px; border-radius: 999px; font-size: 13px; }
+  .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 18px; align-items: start; }
+  @media (max-width: 880px) { .layout { grid-template-columns: minmax(0, 1fr); } .pantry { position: static !important; max-height: none !important; }
+    .tiles { max-height: 46vh; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 14px; min-width: 0; }
+  .pantry { position: sticky; top: 12px; max-height: calc(100vh - 24px); display: flex; flex-direction: column; gap: 10px; }
+  .pantry h2, .results h2 { font-family: Georgia, serif; font-weight: 600; font-size: 19px; margin: 0; display: flex; align-items: baseline; gap: 10px; }
+  h2 small { font-family: "Segoe UI", system-ui, sans-serif; font-size: 13px; color: var(--muted); font-weight: 500; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .row .grow { flex: 1 1 auto; }
+  .hint { color: var(--muted); font-size: 12px; margin: 0; }
+  .tiles { overflow-y: auto; min-height: 120px; padding-right: 2px; }
+  .tiles h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 10px 0 6px; font-weight: 600; }
+  .tiles h3:first-child { margin-top: 0; }
+  .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 6px; }
+  .tile { position: relative; border: 1px solid var(--line); background: var(--panel-2); border-radius: 8px; padding: 4px 2px 3px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--ink); user-select: none; min-width: 0; }
+  .tile:hover { border-color: var(--accent); }
+  .tile.has { border-color: var(--accent); background: var(--accent-soft); }
+  .tile img { width: 36px; height: 36px; object-fit: contain; }
+  .tile .nm { font-size: 10.5px; line-height: 1.15; text-align: center; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; width: 100%; }
+  .tile .ct { position: absolute; top: 2px; right: 3px; min-width: 18px; padding: 0 4px; border-radius: 99px; background: var(--accent); color: var(--panel);
+    font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: center; }
+  .tile .dec { position: absolute; top: 2px; left: 3px; width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel);
+    color: var(--muted); font-size: 13px; line-height: 15px; padding: 0; }
+  .tile .dec:hover { color: var(--accent-2); border-color: var(--accent-2); }
+
+  .results { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .rhead { display: flex; flex-direction: column; gap: 10px; position: sticky; top: 0; z-index: 3; background: var(--bg); padding: 4px 0 8px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 10px; }
+  @media (max-width: 420px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; box-shadow: var(--shadow); min-width: 0;
+    display: grid; grid-template-columns: 48px 1fr; gap: 10px; align-content: start; }
+  .card.ok { border-color: color-mix(in srgb, var(--ok) 45%, var(--line)); }
+  .card > img { width: 48px; height: 48px; border-radius: 8px; background: var(--panel-2); object-fit: contain; padding: 3px; }
+  .card h4 { margin: 0; font-size: 15.5px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .card h4 a { color: inherit; text-decoration: none; }
+  .card h4 a:hover { text-decoration: underline; }
+  .meta { color: var(--muted); font-size: 12.5px; }
+  .yield { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; }
+  .times { font-size: 12px; color: var(--ok); font-weight: 600; }
+  .recipe { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 6px; }
+  .ing { display: inline-flex; align-items: center; gap: 3px; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px 1px 2px;
+    font-size: 12.5px; background: var(--panel-2); color: var(--ink); max-width: 100%; }
+  button.ing:hover { border-color: var(--accent); }
+  .ing img { width: 20px; height: 20px; object-fit: contain; }
+  .ing.miss { border-color: var(--accent-2); background: var(--accent-2-soft); color: var(--accent-2); font-weight: 600; }
+  .ing.grp { border-style: dashed; }
+  .ing .q { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .plus { color: var(--muted); font-size: 12px; }
+  .arrow { color: var(--muted); font-size: 12px; margin-left: 2px; }
+  .tag { font-size: 11px; padding: 1px 7px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .tag.warn { border-color: var(--accent-2); color: var(--accent-2); background: var(--accent-2-soft); }
+  .tag.sec { border-color: var(--accent); color: var(--accent); }
+  .eff { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  details { margin-top: 6px; }
+  summary { cursor: pointer; color: var(--muted); font-size: 12.5px; }
+  .alt { border-top: 1px dashed var(--line); padding-top: 4px; margin-top: 4px; }
+  .empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--line); border-radius: 12px; }
+  .more { justify-self: center; }
+  .foot { color: var(--muted); font-size: 12.5px; margin-top: 28px; }
+  .foot a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>SUL<span>FUR</span> Recipes</h1>
+      <p class="sub" id="sub">Cooking calculator</p>
+    </div>
+    <div class="bar-r">
+      <span class="meta">Stove</span>
+      <div class="seg" id="stove" role="group" aria-label="Stove size">
+        <button data-v="small">Small</button><button data-v="big">4x4</button>
+      </div>
+      <a class="btn" href="../index.html">Achievements</a>
+      <button class="btn" id="theme">Theme</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="panel pantry" aria-label="Pantry">
+      <h2>Pantry <small id="pcount"></small></h2>
+      <p class="hint">Click to add one. Right-click or press the minus to remove one. Shift-click adds five.</p>
+      <div class="row">
+        <input class="search grow" id="psearch" type="search" placeholder="Find an ingredient" autocomplete="off" style="flex:1 1 160px;width:auto">
+        <button class="btn" id="clear">Clear</button>
+      </div>
+      <div class="chips" id="pfilter"></div>
+      <div class="tiles" id="tiles"></div>
+    </aside>
+
+    <main class="results">
+      <div class="rhead">
+        <div class="row">
+          <div class="seg" id="tabs" role="tablist">
+            <button data-v="cook">Cook now<b id="n-cook"></b></button><button data-v="short" title="Recipes that lack exactly one ingredient">Almost<b id="n-short"></b></button><button data-v="all">All recipes<b id="n-all"></b></button>
+          </div>
+          <input class="search grow" id="rsearch" type="search" placeholder="Search dishes or ingredients" autocomplete="off" style="flex:1 1 200px;width:auto">
+        </div>
+        <div class="row">
+          <div class="chips" id="kinds"></div>
+          <span class="grow"></span>
+          <select class="btn" id="sort" aria-label="Sort">
+            <option value="name">Sort: name</option>
+            <option value="yield">Sort: yield</option>
+            <option value="sell">Sort: sell value</option>
+          </select>
+        </div>
+      </div>
+      <div class="cards" id="cards"></div>
+    </main>
+  </div>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script src="recipes-data.js"></script>
+<script>
+(() => {
+  const D = window.SULFUR_RECIPES;
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const wiki = n => "https://sulfur.wiki.gg/wiki/" + encodeURIComponent(n.replace(/ /g, "_"));
+  const img = (n, cls = "") => {
+    const u = n.startsWith("@") ? (D.groups[n.slice(1)] || {}).img : (D.items[n] || {}).img;
+    return u ? `<img class="${cls}" src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : "";
+  };
+
+  // ---------- state ----------
+  const LS = "sulfur-recipes-v1";
+  const st = { pantry: {}, stove: "big", tab: "cook", kind: "all", pf: "all", sort: "name" };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(LS)) || {}); } catch {}
+  const save = () => { try { localStorage.setItem(LS, JSON.stringify(st)); } catch {} };
+  if (st.theme) document.documentElement.dataset.theme = st.theme;
+
+  // ---------- data prep ----------
+  const KINDS = [
+    { k: "all", label: "All" },
+    { k: "food", label: "Food & drink", test: i => i.kind === "consumable" || i.kind === "ingredient" },
+    { k: "scroll", label: "Scrolls", test: i => i.kind === "scroll" },
+    { k: "throw", label: "Throwables", test: i => i.kind === "throwable" },
+    { k: "other", label: "Other", test: i => !["consumable", "ingredient", "scroll", "throwable"].includes(i.kind) },
+  ];
+  const kindOf = name => (KINDS.find(k => k.test && k.test(D.items[name] || {})) || {}).k;
+  D.recipes.forEach((r, idx) => { r.id = idx; r.kind = kindOf(r.out); });
+  const byOut = {};
+  D.recipes.forEach(r => (byOut[r.out] = byOut[r.out] || []).push(r));
+  const outputs = Object.keys(byOut).sort((a, b) => a.localeCompare(b));
+
+  // Every item a recipe can take, named or through an "Any ..." slot.
+  const usedIn = {};
+  const addUse = (n, r) => (usedIn[n] = usedIn[n] || new Set()).add(r.out);
+  D.recipes.forEach(r => r.ins.forEach(i => i.n ? addUse(i.n, r) : i.opts.forEach(m => addUse(m, r))));
+  const ingredients = Object.keys(usedIn).sort((a, b) => a.localeCompare(b));
+  const groupOf = {};
+  Object.entries(D.groups).forEach(([g, v]) => v.members.forEach(m => groupOf[m] = g));
+
+  // ---------- solver ----------
+  // Pick concrete items for one batch of a recipe from the stock, or return null.
+  function allocate(r, stock) {
+    const avail = { ...stock };
+    const picks = [];
+    const used = new Set();
+    for (const i of r.ins) if (i.n) {
+      if ((avail[i.n] || 0) < i.q) return null;
+      avail[i.n] -= i.q; picks.push({ n: i.n, q: i.q }); used.add(i.n);
+    }
+    const groups = r.ins.filter(i => i.g);
+    const solve = (k, avail, used, picks) => {
+      if (k === groups.length) return picks;
+      const g = groups[k];
+      const opts = g.opts.filter(m => !(g.other && used.has(m)) && (avail[m] || 0) > 0)
+        .sort((a, b) => (avail[b] || 0) - (avail[a] || 0));
+      const tryPick = list => {
+        const a2 = { ...avail }, u2 = new Set(used), p2 = picks.slice();
+        for (const [m, q] of list) { if ((a2[m] || 0) < q) return null; a2[m] -= q; u2.add(m); p2.push({ n: m, q, g: g.g }); }
+        return solve(k + 1, a2, u2, p2);
+      };
+      if (g.same) {
+        for (const m of opts) { const res = tryPick([[m, g.q]]); if (res) return res; }
+        return null;
+      }
+      if (g.uniq) {
+        const combos = (arr, n, start = 0, cur = []) => n === 0 ? [cur] :
+          arr.slice(start).flatMap((m, j) => combos(arr, n - 1, start + j + 1, [...cur, m]));
+        for (const c of combos(opts, g.q)) { const res = tryPick(c.map(m => [m, 1])); if (res) return res; }
+        return null;
+      }
+      let need = g.q; const list = [];
+      for (const m of opts) { if (!need) break; const t = Math.min(need, avail[m]); list.push([m, t]); need -= t; }
+      return need ? null : tryPick(list);
+    };
+    return solve(0, avail, used, picks);
+  }
+  // How many batches the stock covers, with the picks of the first batch.
+  function batches(r, stock) {
+    let s = { ...stock }, n = 0, first = null;
+    while (n < 99) {
+      const p = allocate(r, s);
+      if (!p) break;
+      first = first || p; n++;
+      p.forEach(x => s[x.n] -= x.q);
+    }
+    return { n, picks: first };
+  }
+  // The slots the stock cannot fill on their own, for "one short".
+  function shortSlots(r, stock) {
+    const out = [];
+    const named = {};
+    r.ins.forEach(i => { if (i.n) named[i.n] = (named[i.n] || 0) + i.q; });
+    Object.entries(named).forEach(([n, q]) => { const have = stock[n] || 0; if (have < q) out.push({ n, need: q - have }); });
+    r.ins.filter(i => i.g).forEach(i => {
+      const tot = i.opts.reduce((s, m) => s + (stock[m] || 0), 0);
+      const okSame = i.opts.some(m => (stock[m] || 0) >= i.q);
+      const okUniq = i.opts.filter(m => (stock[m] || 0) > 0).length >= i.q;
+      const fine = i.same ? okSame : i.uniq ? okUniq : tot >= i.q;
+      if (!fine) out.push({ g: i.g, label: i.label, need: i.same ? i.q - Math.max(0, ...i.opts.map(m => stock[m] || 0)) : i.uniq ? i.q - i.opts.filter(m => (stock[m] || 0) > 0).length : i.q - tot });
+    });
+    return out;
+  }
+  const yieldOf = r => {
+    if (r.flag === "cap3" && st.stove === "small") return Math.min(3, r.qty);
+    return r.qty;
+  };
+  const usable = r => !(r.flag === "big" && st.stove === "small");
+
+  // ---------- rendering ----------
+  const ingChip = (i, opts = {}) => {
+    if (i.n) return `<button class="ing${opts.miss ? " miss" : ""}" data-ing="${esc(i.n)}" title="Show recipes that use ${esc(i.n)}">${img(i.n)}${i.q > 1 ? `<span class="q">${i.q}x</span>` : ""}${esc(i.n)}</button>`;
+    const label = i.label || "Any " + i.g;
+    const tip = `${label}: ${i.opts.join(", ")}`;
+    return `<span class="ing grp${opts.miss ? " miss" : ""}" title="${esc(tip)}">${img("@" + i.g)}${i.q > 1 ? `<span class="q">${i.q}x</span>` : ""}${esc(label)}</span>`;
+  };
+  const pickChips = picks => picks.map(p => ingChip({ n: p.n, q: p.q })).join('<span class="plus">+</span>');
+  const recipeLine = (r, missing) => {
+    const miss = new Set((missing || []).map(m => m.n || "@" + m.g));
+    return r.ins.map(i => ingChip(i, { miss: miss.has(i.n || "@" + i.g) })).join('<span class="plus">+</span>');
+  };
+  const tags = r => {
+    const t = [];
+    if (r.section) t.push(`<span class="tag sec">${esc(r.section)}</span>`);
+    if (r.flag === "cap3") t.push(`<span class="tag${st.stove === "small" ? " warn" : ""}" title="${esc(r.note)}">4x4 stove for x${r.qty}</span>`);
+    if (r.flag === "big") t.push(`<span class="tag warn" title="${esc(r.note)}">Needs 4x4 stove</span>`);
+    if (r.flag === "quickcook") t.push(`<span class="tag warn" title="${esc(r.note)}">Quick-cook only</span>`);
+    return t.join(" ");
+  };
+  const head = (out, extra = "") => {
+    const it = D.items[out] || {};
+    const meta = [it.sub, it.grid && it.grid + " grid", it.sell && it.sell + " sulf"].filter(Boolean).map(esc).join(" &middot; ");
+    return `${img(out)}<div style="min-width:0"><h4><a href="${wiki(out)}" target="_blank" rel="noopener">${esc(out)}</a>${extra}</h4>
+      <div class="meta">${meta}</div>${(it.effects || []).map(e => `<div class="eff">${esc(e)}</div>`).join("")}`;
+  };
+
+  let limit = 60;
+  function compute() {
+    const stock = st.pantry;
+    const cook = [], short = [];
+    for (const out of outputs) {
+      const rs = byOut[out].filter(usable);
+      const can = rs.map(r => ({ r, ...batches(r, stock) })).filter(x => x.n > 0)
+        .sort((a, b) => yieldOf(b.r) - yieldOf(a.r) || b.n - a.n);
+      if (can.length) { cook.push({ out, can }); continue; }
+      if (!Object.keys(stock).length) continue;
+      const near = rs.map(r => ({ r, miss: shortSlots(r, stock) }))
+        .filter(x => x.miss.length === 1 && x.r.ins.length > 1)
+        .sort((a, b) => a.miss[0].need - b.miss[0].need || yieldOf(b.r) - yieldOf(a.r));
+      if (near.length) short.push({ out, near });
+    }
+    return { cook, short };
+  }
+
+  const matches = (out, q) => {
+    if (!q) return true;
+    if (out.toLowerCase().includes(q)) return true;
+    return byOut[out].some(r => r.ins.some(i => (i.n || i.label || i.g).toLowerCase().includes(q)
+      || (i.opts || []).some(m => m.toLowerCase().includes(q))));
+  };
+  const sortFn = (a, b) => {
+    if (st.sort === "sell") return ((D.items[b.out] || {}).sell || 0) - ((D.items[a.out] || {}).sell || 0) || a.out.localeCompare(b.out);
+    if (st.sort === "yield") return b.y - a.y || a.out.localeCompare(b.out);
+    return a.out.localeCompare(b.out);
+  };
+
+  function render() {
+    const q = $("rsearch").value.trim().toLowerCase();
+    const { cook, short } = compute();
+    const kindOk = out => st.kind === "all" || kindOf(out) === st.kind;
+    $("n-cook").textContent = cook.length; $("n-short").textContent = short.length; $("n-all").textContent = outputs.length;
+    document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.tab));
+    document.querySelectorAll("#stove button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.stove));
+
+    let cards = [];
+    if (st.tab === "cook") {
+      cards = cook.filter(c => kindOk(c.out) && matches(c.out, q)).map(c => ({ ...c, y: yieldOf(c.can[0].r) })).sort(sortFn).map(c => {
+        const best = c.can[0];
+        const others = c.can.slice(1);
+        return `<div class="card ok">${head(c.out, ` <span class="yield">x${yieldOf(best.r)}</span>`)}
+          <div class="recipe">${pickChips(best.picks)}</div>
+          <div class="row" style="margin-top:4px"><span class="times">Enough for ${best.n} batch${best.n > 1 ? "es" : ""}</span>${tags(best.r)}</div>
+          ${others.length ? `<details><summary>${others.length} more way${others.length > 1 ? "s" : ""} you can cook it</summary>${others.map(o =>
+            `<div class="alt"><div class="recipe">${pickChips(o.picks)}<span class="arrow">gives</span> <span class="yield">x${yieldOf(o.r)}</span></div>${tags(o.r)}</div>`).join("")}</details>` : ""}
+          </div></div>`;
+      });
+      if (!cards.length) cards = [`<div class="empty">${Object.keys(st.pantry).length ? "Nothing in the pantry makes a recipe yet. Check \"Almost\"." : "Add what you are carrying to the pantry, and the dishes you can cook appear here."}</div>`];
+    } else if (st.tab === "short") {
+      cards = short.filter(c => kindOk(c.out) && matches(c.out, q)).map(c => ({ ...c, y: yieldOf(c.near[0].r) })).sort(sortFn).map(c => {
+        const best = c.near[0], m = best.miss[0];
+        const what = m.n ? `${m.need} more ${m.n}` : `${m.need} more of: ${m.label || "Any " + m.g}`;
+        return `<div class="card">${head(c.out, ` <span class="yield">x${yieldOf(best.r)}</span>`)}
+          <div class="recipe">${recipeLine(best.r, best.miss)}</div>
+          <div class="row" style="margin-top:4px"><span class="tag warn">Need ${esc(what)}</span>${tags(best.r)}</div>
+          ${c.near.length > 1 ? `<details><summary>${c.near.length - 1} other near miss${c.near.length > 2 ? "es" : ""}</summary>${c.near.slice(1).map(o =>
+            `<div class="alt"><div class="recipe">${recipeLine(o.r, o.miss)}<span class="arrow">gives</span> <span class="yield">x${yieldOf(o.r)}</span></div>${tags(o.r)}</div>`).join("")}</details>` : ""}
+          </div></div>`;
+      });
+      if (!cards.length) cards = [`<div class="empty">${Object.keys(st.pantry).length ? "No recipe is exactly one ingredient away." : "Add ingredients to the pantry first."}</div>`];
+    } else {
+      cards = outputs.filter(o => kindOk(o) && matches(o, q)).map(o => ({ out: o, y: Math.max(...byOut[o].map(yieldOf)) })).sort(sortFn).map(c => {
+        const rs = byOut[c.out];
+        const first = rs.slice(0, 3), rest = rs.slice(3);
+        const line = r => `<div class="alt"><div class="recipe">${recipeLine(r)}<span class="arrow">gives</span> <span class="yield">x${yieldOf(r)}</span></div>${tags(r)}</div>`;
+        return `<div class="card">${head(c.out, ` <span class="meta">${rs.length} recipe${rs.length > 1 ? "s" : ""}</span>`)}
+          ${first.map(line).join("")}
+          ${rest.length ? `<details><summary>${rest.length} more</summary>${rest.map(line).join("")}</details>` : ""}
+          </div></div>`;
+      });
+      if (!cards.length) cards = [`<div class="empty">No recipe matches.</div>`];
+    }
+    const shown = cards.slice(0, limit);
+    $("cards").innerHTML = shown.join("") + (cards.length > limit ? `<button class="btn more" id="more">Show ${cards.length - limit} more</button>` : "");
+    renderKinds();
+  }
+
+  function renderKinds() {
+    $("kinds").innerHTML = KINDS.map(k => `<button class="chip" data-k="${k.k}" aria-pressed="${st.kind === k.k}">${k.label}</button>`).join("");
+  }
+
+  function renderPantry() {
+    const q = $("psearch").value.trim().toLowerCase();
+    const have = Object.keys(st.pantry).filter(n => st.pantry[n] > 0);
+    const total = have.reduce((s, n) => s + st.pantry[n], 0);
+    $("pcount").textContent = total ? `${total} item${total > 1 ? "s" : ""}, ${have.length} kind${have.length > 1 ? "s" : ""}` : "";
+    const PF = [{ k: "all", label: "All" }, { k: "have", label: `In pantry (${have.length})` },
+      ...Object.keys(D.groups).map(g => ({ k: g, label: g }))];
+    $("pfilter").innerHTML = PF.map(f => `<button class="chip" data-pf="${esc(f.k)}" aria-pressed="${st.pf === f.k}">${esc(f.label)}</button>`).join("");
+    let list = ingredients.filter(n => !q || n.toLowerCase().includes(q));
+    if (st.pf === "have") list = list.filter(n => st.pantry[n] > 0);
+    else if (st.pf !== "all") list = list.filter(n => groupOf[n] === st.pf);
+    const tile = n => {
+      const c = st.pantry[n] || 0;
+      return `<div class="tile${c ? " has" : ""}" data-n="${esc(n)}" title="${esc(n)} - used in ${usedIn[n].size} dish${usedIn[n].size > 1 ? "es" : ""}" role="button" tabindex="0">
+        ${c ? `<span class="ct">${c}</span><button class="dec" data-dec="${esc(n)}" aria-label="Remove one ${esc(n)}">-</button>` : ""}
+        ${img(n)}<span class="nm">${esc(n)}</span></div>`;
+    };
+    const inPantry = list.filter(n => st.pantry[n] > 0);
+    let html = "";
+    if (st.pf === "all" && !q && inPantry.length) html += `<h3>In pantry</h3><div class="tgrid">${inPantry.map(tile).join("")}</div><h3>All ingredients</h3>`;
+    html += list.length ? `<div class="tgrid">${list.map(tile).join("")}</div>` : `<p class="hint">No ingredient matches.</p>`;
+    const sc = $("tiles").scrollTop;
+    $("tiles").innerHTML = html;
+    $("tiles").scrollTop = sc;
+  }
+
+  function bump(n, d) {
+    const v = Math.max(0, Math.min(999, (st.pantry[n] || 0) + d));
+    if (v) st.pantry[n] = v; else delete st.pantry[n];
+    save(); renderPantry(); render();
+  }
+
+  // ---------- events ----------
+  $("tiles").addEventListener("click", e => {
+    const dec = e.target.closest("[data-dec]");
+    if (dec) { bump(dec.dataset.dec, -1); return; }
+    const t = e.target.closest(".tile");
+    if (t) bump(t.dataset.n, e.shiftKey ? 5 : 1);
+  });
+  $("tiles").addEventListener("contextmenu", e => {
+    const t = e.target.closest(".tile");
+    if (t) { e.preventDefault(); bump(t.dataset.n, -1); }
+  });
+  $("tiles").addEventListener("keydown", e => {
+    const t = e.target.closest(".tile");
+    if (!t) return;
+    if (e.key === "Enter" || e.key === " " || e.key === "+") { e.preventDefault(); bump(t.dataset.n, 1); }
+    if (e.key === "-" || e.key === "Backspace" || e.key === "Delete") { e.preventDefault(); bump(t.dataset.n, -1); }
+  });
+  $("pfilter").addEventListener("click", e => { const b = e.target.closest("[data-pf]"); if (b) { st.pf = b.dataset.pf; save(); renderPantry(); } });
+  $("psearch").addEventListener("input", renderPantry);
+  $("clear").addEventListener("click", () => { if (!Object.keys(st.pantry).length || confirm("Empty the pantry?")) { st.pantry = {}; save(); renderPantry(); render(); } });
+  $("tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.tab = b.dataset.v; limit = 60; save(); render(); } });
+  $("stove").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.stove = b.dataset.v; save(); render(); } });
+  $("kinds").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) { st.kind = b.dataset.k; limit = 60; save(); render(); } });
+  $("sort").addEventListener("change", e => { st.sort = e.target.value; save(); render(); });
+  $("rsearch").addEventListener("input", () => { limit = 60; render(); });
+  $("cards").addEventListener("click", e => {
+    if (e.target.id === "more") { limit += 120; render(); return; }
+    const b = e.target.closest("[data-ing]");
+    if (b) { $("rsearch").value = b.dataset.ing; st.tab = "all"; limit = 60; save(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  });
+  $("theme").addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme
+      ? document.documentElement.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    st.theme = dark ? "light" : "dark";
+    document.documentElement.dataset.theme = st.theme; save();
+  });
+
+  $("sort").value = st.sort;
+  $("sub").innerHTML = `Cooking calculator &middot; ${D.recipes.length} recipes for ${outputs.length} dishes and items, from the <a href="${esc(D.source)}" target="_blank" rel="noopener">SULFUR wiki</a> (built ${esc(D.built)})`;
+  $("foot").innerHTML = `Recipe data and icons: <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">sulfur.wiki.gg</a>, CC BY-SA. "Any ..." slots follow the wiki's labels; hover one to see the items it accepts. Rebuild after a game update with <code>py -I build_recipes.py</code>.`;
+  renderPantry();
+  render();
+})();
+</script>
+</body>
+</html>

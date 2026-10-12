@@ -35,6 +35,19 @@ py -m steam_achievements.tracker
 The last command opens a hub page that lists every game here. Run it from
 this folder.
 
+## SULFUR recipe calculator
+
+`sulfur-tracker/recipes/` holds a cooking calculator. Add what you carry to
+the pantry, and it lists the dishes you can cook, the best yield, and the
+recipes one ingredient short. With the tracker running, open
+`/sulfur-tracker/recipes/`. Without it, open `index.html` directly.
+
+The recipes come from the SULFUR wiki. After a game update, rebuild them:
+
+```
+py -I sulfur-tracker/recipes/build_recipes.py
+```
+
 ## Not in the repo
 
 The tracker writes each game's Steam snapshot (`steam_status.js`), icons,
