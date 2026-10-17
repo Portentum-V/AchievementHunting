@@ -49,9 +49,9 @@
   .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .meta { color: var(--muted); font-size: 13px; }
 
-  .tablebox { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: auto; max-height: calc(100vh - 40px); }
+  .tablebox { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: clip; }
   table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
-  th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
   th { position: sticky; top: 0; z-index: 1; background: var(--panel-2); font-weight: 600; font-size: 12.5px; color: var(--muted);
     cursor: pointer; user-select: none; }
   th:hover { color: var(--ink); }
@@ -60,18 +60,19 @@
   th[aria-sort="ascending"]::after { content: " \25B4"; }
   th.l, td.l { text-align: left; }
   tbody tr:hover { background: var(--accent-soft); }
-  td.name { min-width: 230px; padding-top: 3px; padding-bottom: 3px; }
+  td.name { padding-top: 3px; padding-bottom: 3px; }
   td.name div { display: flex; align-items: center; gap: 8px; }
-  td.name img { width: 56px; height: 28px; object-fit: contain; flex: none; }
+  td.name img { width: 48px; height: 26px; object-fit: contain; flex: none; }
   td.name a { color: var(--ink); text-decoration: none; font-weight: 600; }
   td.name a:hover { color: var(--accent); text-decoration: underline; }
   td.name .star { width: 14px; flex: none; text-align: center; color: var(--accent); font-size: 14px; }
   .type { display: inline-block; padding: 0 8px; border-radius: 999px; font-size: 12px; border: 1px solid var(--line); color: var(--muted); }
-  td.sell { font-weight: 600; position: relative; min-width: 90px; }
+  td.sell { font-weight: 600; position: relative; min-width: 70px; }
   td.sell .bar { position: absolute; left: 6px; bottom: 4px; height: 3px; border-radius: 2px; background: var(--accent); opacity: .55; }
   .best { color: var(--accent-2); font-weight: 700; }
   .dim { color: var(--muted); }
-  td.notes { text-align: left; white-space: normal; min-width: 180px; color: var(--muted); font-size: 12.5px; }
+  @media (max-width: 640px) { th, td { padding: 5px 5px; } td.name img { display: none; } td.name a { white-space: normal; } }
+  td.fire { text-align: left; color: var(--accent); font-weight: 700; letter-spacing: 1px; }
   .foot { margin-top: 14px; color: var(--muted); font-size: 12.5px; }
   .empty { padding: 28px; text-align: center; color: var(--muted); }
 </style>
@@ -91,7 +92,7 @@
   </div>
 
   <div class="controls">
-    <input class="search" id="q" type="search" placeholder="Search weapons, ammo, sellers" aria-label="Search weapons">
+    <input class="search" id="q" type="search" placeholder="Search weapons or ammo" aria-label="Search weapons">
     <select id="ammo" aria-label="Ammo"></select>
     <select id="pity" aria-label="Pity achievement">
       <option value="">Any pity status</option>
@@ -146,10 +147,13 @@
   });
   const hasPity = W.some(w => w.pity);
 
+  // Fire mode as + (one shot per pull), ++ (burst), +++ (automatic).
+  const fire = m => !m ? "" : /auto|full/i.test(m) && !/semi/i.test(m) ? "+++" : /burst/i.test(m) ? "++" : "+";
+
   // Column: key, label, value for sorting, cell HTML, tooltip.
   const COLS = [
     { k: "name", label: "Weapon", l: true, v: w => w.name.toLowerCase(),
-      cell: w => `<td class="l name"><div>${hasPity ? `<span class="star"${w.pity?.unlocked ? ` title="${esc(w.pity.name)}: unlocked" aria-label="Pity achievement unlocked">&#9733;` : w.pity ? ` title="${esc(w.pity.name)}: still needed">` : ` title="No Pity achievement">`}</span>` : ""}${w.img ? `<img src="${esc(w.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : ""}<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.name)}</a></div></td>` },
+      cell: w => `<td class="l name"><div>${hasPity ? `<span class="star"${w.pity?.unlocked ? ` title="${esc(w.pity.name)}: unlocked" aria-label="Pity achievement unlocked">&#9733;` : w.pity ? ` title="${esc(w.pity.name)}: still needed">` : ` title="No Pity achievement">`}</span>` : ""}${w.img ? `<img src="${esc(w.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : ""}<a href="${esc(w.url)}" target="_blank" rel="noopener"${w.notes ? ` title="${esc(w.notes.join("; "))}"` : ""}>${esc(w.name)}</a></div></td>` },
     { k: "type", label: "Type", l: true, v: w => D.types.indexOf(w.type), cell: w => `<td class="l"><span class="type">${esc(w.type)}</span></td>` },
     { k: "ammo", label: "Ammo", l: true, v: w => w.ammo, cell: w => `<td class="l">${esc(w.ammo || "")}</td>` },
     { k: "sell", label: "Sell", v: w => w.sell, tip: "Sell value from the wiki infobox. The bar compares it with the most valuable weapon shown.",
@@ -167,10 +171,11 @@
     { k: "recoil", label: "Recoil", v: w => w.recoil },
     { k: "dur", label: "Durability", v: w => w.dur },
     { k: "weight", label: "Weight", v: w => w.weight },
-    { k: "mode", label: "Fire mode", l: true, v: w => w.mode, cell: w => `<td class="l">${esc(w.mode || "")}</td>` },
-    { k: "notes", label: "Notes / sold by", l: true, v: w => (w.notes || []).join(" ") || null,
-      cell: w => `<td class="notes">${esc([...(w.notes || []), ...(w.soldBy ? ["Sold by " + w.soldBy.join(", ")] : [])].join("; "))}</td>` },
+    { k: "mode", label: "Fire", l: true, v: w => fire(w.mode).length || null, tip: "+ single shot (semi, bolt, pump, break, charge), ++ burst, +++ automatic. Hover a cell for the exact mode.",
+      cell: w => `<td class="l fire" title="${esc(w.mode || "")}">${fire(w.mode)}</td>` },
   ];
+  // Columns to hide below a window width, least useful first.
+  const HIDE = { 1280: ["spread", "recoil", "weight"], 1080: ["dur", "slots", "reload"], 880: ["ammo", "rpm", "mag", "grid"], 640: ["type", "perCell", "dmgN"] };
   const col = k => COLS.find(c => c.k === k) || COLS[3];
 
   // Type chips: none selected means all types.
@@ -214,7 +219,7 @@
       (!st.types.length || st.types.includes(w.type)) &&
       (!st.ammo || w.ammo === st.ammo) &&
       (!st.pity || (st.pity === "done" ? w.pity?.unlocked : w.pity && !w.pity.unlocked)) &&
-      (!q || [w.name, w.type, w.ammo, w.mode, ...(w.soldBy || []), ...(w.notes || [])].join(" ").toLowerCase().includes(q)));
+      (!q || [w.name, w.type, w.ammo, w.mode, ...(w.notes || [])].join(" ").toLowerCase().includes(q)));
     const c = col(st.sort);
     // Missing values sort last in either direction.
     list.sort((a, b) => {
@@ -257,7 +262,10 @@
   const pityDone = W.filter(w => w.pity?.unlocked).length, pityAll = W.filter(w => w.pity).length;
   $("foot").innerHTML = (hasPity
     ? `A star marks a gun whose "Pity for ..." achievement you have (${pityDone} of ${pityAll}); it reads the tracker's last Steam sync. `
-    : `Run the tracker once to star the guns whose "Pity for ..." achievement you have. `) + `Click a column to sort; click again to reverse. Click a type to show only that type; Ctrl+click adds more types. Pink sell values are the highest of their type among the rows shown. Stats and icons: <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">sulfur.wiki.gg</a>, CC BY-SA. Reload and slots: <a href="${esc(D.extraSource)}" target="_blank" rel="noopener">sulfurbuild.com</a>. Rebuild after a game update with <code>py -I build_weapons.py</code>.`;
+    : `Run the tracker once to star the guns whose "Pity for ..." achievement you have. `) + `Click a column to sort; click again to reverse. Click a type to show only that type; Ctrl+click adds more types. Pink sell values are the highest of their type among the rows shown. Fire: + single shot, ++ burst, +++ automatic. Narrow windows hide the minor columns. Stats and icons: <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">sulfur.wiki.gg</a>, CC BY-SA. Reload and slots: <a href="${esc(D.extraSource)}" target="_blank" rel="noopener">sulfurbuild.com</a>. Rebuild after a game update with <code>py -I build_weapons.py</code>.`;
+  const css = document.createElement("style");
+  css.textContent = Object.entries(HIDE).map(([px, keys]) => `@media (max-width: ${px}px) { ${keys.map(k => `#head > :nth-child(${COLS.findIndex(c => c.k === k) + 1}), #rows td:nth-child(${COLS.findIndex(c => c.k === k) + 1}):not(.empty)`).join(", ")} { display: none; } }`).join(" ");
+  document.head.appendChild(css);
   renderChips(); renderHead(); render();
 })();
 </script>
