@@ -1,0 +1,265 @@
+<!doctype html>
+<!-- SULFUR weapon table. Weapons come from weapons-data.js, which
+     build_weapons.py generates from sulfur.wiki.gg and sulfurbuild.com. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SULFUR Weapons</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 12h20l2-3h4v6h-9l-3 3h-3l-2 7H7l2-7H3z' fill='%237d6b00'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f4efe9; --panel: #fffaf4; --panel-2: #efe6dc; --ink: #241a1a; --muted: #6f5f5a;
+    --line: #dccfc3; --accent: #7d6b00; --accent-soft: #7d6b0018; --accent-2: #8e2a5c; --accent-2-soft: #8e2a5c1c;
+    --shadow: 0 1px 2px #0000000f, 0 4px 14px #0000000a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+      --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+      --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+    --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+    --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 1400px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 30px; margin: 0; letter-spacing: .3px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); margin: 4px 0 0; font-size: 14px; }
+  .sub a, .foot a { color: inherit; }
+  .top { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; margin-bottom: 18px; }
+  .bar-r { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button { font: inherit; cursor: pointer; }
+  .btn { border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 5px 12px; border-radius: 8px; font-size: 13px; text-decoration: none; }
+  .btn:hover { border-color: var(--accent); }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .search { flex: 1 1 220px; max-width: 320px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); font: inherit; }
+  .search:focus, select:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  select { padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 3px 10px; border-radius: 999px; font-size: 13px; }
+  .chip b { font-weight: 600; font-variant-numeric: tabular-nums; margin-left: 3px; }
+  .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .meta { color: var(--muted); font-size: 13px; }
+
+  .tablebox { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: auto; max-height: calc(100vh - 40px); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th { position: sticky; top: 0; z-index: 1; background: var(--panel-2); font-weight: 600; font-size: 12.5px; color: var(--muted);
+    cursor: pointer; user-select: none; }
+  th:hover { color: var(--ink); }
+  th[aria-sort] { color: var(--accent); }
+  th[aria-sort="descending"]::after { content: " \25BE"; }
+  th[aria-sort="ascending"]::after { content: " \25B4"; }
+  th.l, td.l { text-align: left; }
+  tbody tr:hover { background: var(--accent-soft); }
+  td.name { min-width: 230px; padding-top: 3px; padding-bottom: 3px; }
+  td.name div { display: flex; align-items: center; gap: 8px; }
+  td.name img { width: 56px; height: 28px; object-fit: contain; flex: none; }
+  td.name a { color: var(--ink); text-decoration: none; font-weight: 600; }
+  td.name a:hover { color: var(--accent); text-decoration: underline; }
+  td.name .star { width: 14px; flex: none; text-align: center; color: var(--accent); font-size: 14px; }
+  .type { display: inline-block; padding: 0 8px; border-radius: 999px; font-size: 12px; border: 1px solid var(--line); color: var(--muted); }
+  td.sell { font-weight: 600; position: relative; min-width: 90px; }
+  td.sell .bar { position: absolute; left: 6px; bottom: 4px; height: 3px; border-radius: 2px; background: var(--accent); opacity: .55; }
+  .best { color: var(--accent-2); font-weight: 700; }
+  .dim { color: var(--muted); }
+  td.notes { text-align: left; white-space: normal; min-width: 180px; color: var(--muted); font-size: 12.5px; }
+  .foot { margin-top: 14px; color: var(--muted); font-size: 12.5px; }
+  .empty { padding: 28px; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>SUL<span>FUR</span> Weapons</h1>
+      <p class="sub" id="sub">Every weapon in one table</p>
+    </div>
+    <div class="bar-r">
+      <a class="btn" href="../recipes/index.html">Recipes</a>
+      <a class="btn" href="../index.html">Achievements</a>
+      <button class="btn" id="theme">Theme</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="Search weapons, ammo, sellers" aria-label="Search weapons">
+    <select id="ammo" aria-label="Ammo"></select>
+    <select id="pity" aria-label="Pity achievement">
+      <option value="">Any pity status</option>
+      <option value="todo">Pity still needed</option>
+      <option value="done">Pity done (starred)</option>
+    </select>
+    <span class="meta" id="count"></span>
+  </div>
+  <div class="controls"><div class="chips" id="types" role="group" aria-label="Weapon type"></div></div>
+
+  <div class="tablebox"><table>
+    <thead><tr id="head"></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script src="weapons-data.js"></script>
+<!-- The tracker writes this Steam snapshot; without it the page shows no stars. -->
+<script src="../steam_status.js" onerror="window.STEAM = null"></script>
+<script>
+(() => {
+  const D = window.SULFUR_WEAPONS;
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmt = n => n == null ? "" : Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 });
+
+  const LS = "sulfur-weapons-v1";
+  const st = { types: [], ammo: "", pity: "", sort: "sell", dir: -1 };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(LS)) || {}); } catch {}
+  const save = () => { try { localStorage.setItem(LS, JSON.stringify(st)); } catch {} };
+  if (st.theme) document.documentElement.dataset.theme = st.theme;
+
+  // Derived values: sell per inventory cell, and base DPS for guns.
+  const W = D.weapons.map(w => ({
+    ...w,
+    perCell: w.sell != null && w.cells ? Math.round(w.sell / w.cells) : null,
+    dps: w.dmgN != null && w.rpm ? Math.round(w.dmgN * w.rpm / 60) : null,
+    pity: null,  // null: no Pity achievement for this weapon; else { name, unlocked }
+  }));
+
+  // "Pity for the <weapon>" achievements (sacrifice the gun at rank 5 to Telia).
+  // Steam shortens some names ("Terrier URB", "Flock"), so match on a prefix of
+  // the letters and digits, and prefer an exact match.
+  const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const steamAch = (window.STEAM && window.STEAM.achievements) || [];
+  steamAch.filter(a => /^pity for /i.test(a.name)).forEach(a => {
+    const target = norm(a.name.replace(/^pity for (the )?/i, ""));
+    const hits = W.filter(w => norm(w.name).startsWith(target));
+    const w = hits.find(x => norm(x.name) === target) || (hits.length === 1 ? hits[0] : null);
+    if (w) w.pity = { name: a.name, unlocked: !!a.unlocked };
+  });
+  const hasPity = W.some(w => w.pity);
+
+  // Column: key, label, value for sorting, cell HTML, tooltip.
+  const COLS = [
+    { k: "name", label: "Weapon", l: true, v: w => w.name.toLowerCase(),
+      cell: w => `<td class="l name"><div>${hasPity ? `<span class="star"${w.pity?.unlocked ? ` title="${esc(w.pity.name)}: unlocked" aria-label="Pity achievement unlocked">&#9733;` : w.pity ? ` title="${esc(w.pity.name)}: still needed">` : ` title="No Pity achievement">`}</span>` : ""}${w.img ? `<img src="${esc(w.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : ""}<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.name)}</a></div></td>` },
+    { k: "type", label: "Type", l: true, v: w => D.types.indexOf(w.type), cell: w => `<td class="l"><span class="type">${esc(w.type)}</span></td>` },
+    { k: "ammo", label: "Ammo", l: true, v: w => w.ammo, cell: w => `<td class="l">${esc(w.ammo || "")}</td>` },
+    { k: "sell", label: "Sell", v: w => w.sell, tip: "Sell value from the wiki infobox. The bar compares it with the most valuable weapon shown.",
+      cell: (w, max) => `<td class="sell">${w.sell == null ? '<span class="dim">?</span>' : fmt(w.sell)}${w.sell ? `<span class="bar" style="width:calc((100% - 12px) * ${(w.sell / max).toFixed(3)})"></span>` : ""}</td>` },
+    { k: "perCell", label: "Sell/cell", v: w => w.perCell, tip: "Sell value divided by inventory cells (grid width x height)." },
+    { k: "grid", label: "Grid", v: w => w.cells, cell: w => `<td>${esc(w.grid || "")}</td>` },
+    { k: "dmgN", label: "Damage", v: w => w.dmgN, tip: "Base damage per shot. Shotguns show pellet damage x pellets; sorting uses the product.",
+      cell: w => `<td title="${w.dmgN != null && w.dmg !== String(w.dmgN) ? "Total " + fmt(w.dmgN) : ""}">${esc(w.dmg || "")}</td>` },
+    { k: "rpm", label: "RPM", v: w => w.rpm },
+    { k: "dps", label: "DPS", v: w => w.dps, tip: "Base damage x RPM / 60, before reloads, attachments, and enchantments." },
+    { k: "mag", label: "Mag", v: w => w.mag },
+    { k: "reload", label: "Reload", v: w => w.reload, tip: "Reload time in seconds, from sulfurbuild.com.", cell: w => `<td>${w.reload == null ? "" : fmt(w.reload) + "s"}</td>` },
+    { k: "slots", label: "Slots", v: w => w.slots, tip: "Attachment slots, from sulfurbuild.com." },
+    { k: "spread", label: "Spread", v: w => w.spread },
+    { k: "recoil", label: "Recoil", v: w => w.recoil },
+    { k: "dur", label: "Durability", v: w => w.dur },
+    { k: "weight", label: "Weight", v: w => w.weight },
+    { k: "mode", label: "Fire mode", l: true, v: w => w.mode, cell: w => `<td class="l">${esc(w.mode || "")}</td>` },
+    { k: "notes", label: "Notes / sold by", l: true, v: w => (w.notes || []).join(" ") || null,
+      cell: w => `<td class="notes">${esc([...(w.notes || []), ...(w.soldBy ? ["Sold by " + w.soldBy.join(", ")] : [])].join("; "))}</td>` },
+  ];
+  const col = k => COLS.find(c => c.k === k) || COLS[3];
+
+  // Type chips: none selected means all types.
+  const counts = {};
+  W.forEach(w => counts[w.type] = (counts[w.type] || 0) + 1);
+  const renderChips = () => {
+    $("types").innerHTML = `<button class="chip" data-t="" aria-pressed="${!st.types.length}">All<b>${W.length}</b></button>` +
+      D.types.filter(t => counts[t]).map(t => `<button class="chip" data-t="${esc(t)}" aria-pressed="${st.types.includes(t)}">${esc(t)}<b>${counts[t]}</b></button>`).join("");
+  };
+  $("types").addEventListener("click", e => {
+    const b = e.target.closest("[data-t]");
+    if (!b) return;
+    const t = b.dataset.t;
+    if (!t) st.types = [];
+    else if (e.ctrlKey || e.metaKey || e.shiftKey) st.types = st.types.includes(t) ? st.types.filter(x => x !== t) : [...st.types, t];
+    else st.types = st.types.length === 1 && st.types[0] === t ? [] : [t];
+    save(); renderChips(); render();
+  });
+
+  const ammos = [...new Set(W.map(w => w.ammo).filter(Boolean))].sort((a, b) => a.localeCompare(b, "en", { numeric: true }));
+  $("ammo").innerHTML = `<option value="">All ammo</option>` + ammos.map(a => `<option>${esc(a)}</option>`).join("");
+  $("ammo").value = ammos.includes(st.ammo) ? st.ammo : "";
+  $("ammo").addEventListener("change", () => { st.ammo = $("ammo").value; save(); render(); });
+  $("q").addEventListener("input", render);
+
+  const renderHead = () => {
+    $("head").innerHTML = COLS.map(c => `<th class="${c.l ? "l" : ""}" data-k="${c.k}"${c.tip ? ` title="${esc(c.tip)}"` : ""}${st.sort === c.k ? ` aria-sort="${st.dir < 0 ? "descending" : "ascending"}"` : ""}>${esc(c.label)}</th>`).join("");
+  };
+  $("head").addEventListener("click", e => {
+    const th = e.target.closest("th");
+    if (!th) return;
+    const c = col(th.dataset.k);
+    if (st.sort === c.k) st.dir = -st.dir;
+    else { st.sort = c.k; st.dir = c.l ? 1 : -1; }
+    save(); renderHead(); render();
+  });
+
+  function render() {
+    const q = $("q").value.trim().toLowerCase();
+    const list = W.filter(w =>
+      (!st.types.length || st.types.includes(w.type)) &&
+      (!st.ammo || w.ammo === st.ammo) &&
+      (!st.pity || (st.pity === "done" ? w.pity?.unlocked : w.pity && !w.pity.unlocked)) &&
+      (!q || [w.name, w.type, w.ammo, w.mode, ...(w.soldBy || []), ...(w.notes || [])].join(" ").toLowerCase().includes(q)));
+    const c = col(st.sort);
+    // Missing values sort last in either direction.
+    list.sort((a, b) => {
+      const x = c.v(a), y = c.v(b);
+      if (x == null || x === "") return y == null || y === "" ? a.name.localeCompare(b.name) : 1;
+      if (y == null || y === "") return -1;
+      const d = typeof x === "string" ? x.localeCompare(y, "en", { numeric: true }) : x - y;
+      return d * st.dir || a.name.localeCompare(b.name);
+    });
+    const max = Math.max(1, ...list.map(w => w.sell || 0));
+    // Mark the highest sell value within each type among the rows shown.
+    const top = {};
+    list.forEach(w => { if (w.sell != null && (top[w.type] == null || w.sell > top[w.type])) top[w.type] = w.sell; });
+    $("rows").innerHTML = list.length ? list.map(w => "<tr>" + COLS.map(cc => {
+      if (cc.cell) {
+        const html = cc.cell(w, max);
+        return cc.k === "sell" && w.sell != null && w.sell === top[w.type] && counts[w.type] > 1
+          ? html.replace('<td class="sell">', `<td class="sell best" title="Highest sell value among the ${esc(w.type)} rows shown">`) : html;
+      }
+      const v = cc.v(w);
+      return `<td>${v == null ? "" : esc(fmt(v))}</td>`;
+    }).join("") + "</tr>").join("")
+      : `<tr><td class="empty" colspan="${COLS.length}">No weapons match.</td></tr>`;
+    $("count").textContent = `${list.length} of ${W.length} weapons`;
+  }
+
+  $("theme").addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme
+      ? document.documentElement.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    st.theme = dark ? "light" : "dark";
+    document.documentElement.dataset.theme = st.theme; save();
+  });
+
+  $("sub").innerHTML = `Every weapon in one table &middot; ${W.length} weapons from the <a href="${esc(D.source)}" target="_blank" rel="noopener">SULFUR wiki</a> (built ${esc(D.built)})`;
+  if (hasPity) {
+    $("pity").value = ["todo", "done"].includes(st.pity) ? st.pity : "";
+    $("pity").addEventListener("change", () => { st.pity = $("pity").value; save(); render(); });
+  } else { $("pity").hidden = true; st.pity = ""; }
+  const pityDone = W.filter(w => w.pity?.unlocked).length, pityAll = W.filter(w => w.pity).length;
+  $("foot").innerHTML = (hasPity
+    ? `A star marks a gun whose "Pity for ..." achievement you have (${pityDone} of ${pityAll}); it reads the tracker's last Steam sync. `
+    : `Run the tracker once to star the guns whose "Pity for ..." achievement you have. `) + `Click a column to sort; click again to reverse. Click a type to show only that type; Ctrl+click adds more types. Pink sell values are the highest of their type among the rows shown. Stats and icons: <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">sulfur.wiki.gg</a>, CC BY-SA. Reload and slots: <a href="${esc(D.extraSource)}" target="_blank" rel="noopener">sulfurbuild.com</a>. Rebuild after a game update with <code>py -I build_weapons.py</code>.`;
+  renderChips(); renderHead(); render();
+})();
+</script>
+</body>
+</html>

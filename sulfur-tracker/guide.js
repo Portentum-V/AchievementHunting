@@ -55,6 +55,8 @@ window.GUIDE = {
   utilities: [
     { label: "Recipe calculator", href: "recipes/index.html",
       description: "What you can cook from what you carry, with yields from the SULFUR wiki." },
+    { label: "Weapon table", href: "weapons/index.html",
+      description: "Every weapon in one sortable table: sell value, damage, DPS, and grid size." },
   ],
   flags: {
     rare: { label: "Rare gun", tone: "accent2" },
