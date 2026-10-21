@@ -43,6 +43,7 @@ window.GUIDE = {
     run: { label: "Single-run condition", tone: "accent2" },
   },
   highlight: { flag: "hc", label: "Hallowed Concepts left", note: "Enable the newest DLC in the lobby" },
+  missables: "Nothing is missable. Every challenge resets with a new run, and unlocks stay.",
   categories: [
     ["meridian", "Prime Meridian"],
     ["collective", "The Collective & Solus vault"],
@@ -259,7 +260,7 @@ window.GUIDE = {
             "Take the Fuel Array from the hatch on the back of the Escape Pod on stage 1. It explodes when you fall to 50% health, so play safe, avoid Shrines of Blood, and pick up Tougher Times. Broken Equipment Drones spawn at random, so carry the array until one appears.",
             "Turrets copy your equipment, the Fuel Array included. Place them before you pick it up."] },
     // Artificer
-    magepillarskip: { cat: "survivors", flag: "run",
+    magepillarskip: { cat: "survivors", flag: "run", missable: false,
       tip: ["As Artificer, reach Mithrix on Commencement without anyone activating a Pillar.",
             "Use Ion Surge and hover to keep gaining height, then fly to the arena. An Eccentric Vase quantum tunnel also works. In co-op, a Pillar activated earlier in the session may keep blocking a client until the game restarts."] },
     // Loader
@@ -295,7 +296,7 @@ window.GUIDE = {
     // CHEF
     barbecuequantitybisoninrun: { cat: "survivors", flag: "sots",
       tip: "As CHEF, Glaze a Bighorn Bison, then Sear it; repeat 10 times. Progress carries across runs despite the name. Bison spawn on Rallypoint Delta, Shattered Abodes and Pretender's Precipice." },
-    rolypolyhitfiveairenemies: { cat: "survivors", flag: "sots",
+    rolypolyhitfiveairenemies: { cat: "survivors", flag: "sots", missable: false,
       tip: "As CHEF, hit 5 airborne enemies with one Roll. Enable Artifacts of Kin and Swarms and restart until the only monster is a flyer. Jump during Roll for extra height, or carry Hopoo Feathers. A Primordial Cube pulls flyers in." },
     burnmithrix: { cat: "survivors", flag: "sots",
       tip: "As CHEF, have 20 Burn stacks on Mithrix at once. Cast Sear, use Yes, CHEF! mid-animation, then cast the boosted Sear at once. Backup Magazines, attack speed, and Sear on Glaze or Oil Spill pools add stacks." },

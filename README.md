@@ -16,6 +16,7 @@ game details included.
 
 | Folder | Game | Guide source |
 | --- | --- | --- |
+| `avatar-tracker` | Avatar: Frontiers of Pandora | PowerPyx, Steam community guides, Avatar Wiki |
 | `bg3-tracker` | Baldur's Gate 3 | bg3.wiki, Steam community guides |
 | `dawnwalker-tracker` | The Blood of Dawnwalker | IGN wiki |
 | `dragonwilds-tracker` | RuneScape: Dragonwilds | RuneScape: Dragonwilds wiki |

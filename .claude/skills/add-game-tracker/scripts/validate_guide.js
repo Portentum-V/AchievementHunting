@@ -61,8 +61,20 @@ for (const [k, a] of Object.entries(g.achievements || {})) {
   if (a.steps && !Array.isArray(a.steps)) errors.push(`${k}: steps is not an array`);
   if (a.tip && !(typeof a.tip === "string" || Array.isArray(a.tip))) errors.push(`${k}: tip must be a string or an array`);
   if (!a.tip && byKey[k] && !byKey[k].unlocked) noTipRemaining.push(k);
+  // missable: a string naming the deadline, or false for "checked, not missable".
+  if (a.missable !== undefined && a.missable !== false && !(typeof a.missable === "string" && a.missable.trim()))
+    errors.push(`${k}: missable must be a non-empty string naming the deadline, or false`);
+  // A tip that warns of a lockout but has no `missable` field is probably a missed mark.
+  const tipText = [].concat(a.tip || []).join(" ");
+  const risky = /point of no return|\bmissable\b|for good|permanent|locks? (you )?out|cannot (go|come) back|new (game|save)|reload|restart/i;
+  const cleared = /(not|never|none (are|is)|nothing[^.]*) missable/i;
+  if (a.missable === undefined && risky.test(tipText) && !cleared.test(tipText))
+    warn.push(`${k}: tip mentions a lockout but has no missable field; set a deadline, or missable: false`);
 }
 if (noTipRemaining.length) errors.push(`remaining achievements without a tip: ${noTipRemaining.join(", ")}`);
+// The missables audit is mandatory: the summary shows on the page and proves every entry was checked.
+if (!(typeof g.missables === "string" && g.missables.trim()))
+  errors.push("missing missables: a one-line summary of what is missable, or that nothing is");
 for (const c of cats) if (!perCat[c]) warn.push(`empty category: ${c}`);
 for (const [, f] of Object.entries(g.flags || {}))
   if (!["accent", "accent2"].includes(f.tone)) errors.push(`flag tone must be accent or accent2: ${f.label}`);
@@ -77,6 +89,8 @@ const checklists = Object.values(g.achievements || {}).filter(a => a.steps).leng
 console.log(`${g.title}: ${keys.length}/${list.achievements.length} keys, ${remaining} remaining, ${checklists} checklists`);
 console.log("categories:", (g.categories || []).map(c => `${c[1]} (${perCat[c[0]] || 0})`).join(", "));
 console.log("flags:", [...flags].join(", ") || "none", "| highlight:", g.highlight?.flag || "default (rarest remaining)");
+const missKeys = Object.entries(g.achievements || {}).filter(([, a]) => a.missable).map(([k]) => k);
+console.log(`missables (${missKeys.length}):`, missKeys.join(", ") || "none");
 warn.forEach(w => console.log("WARN", w));
 errors.forEach(e => console.log("ERROR", e));
 console.log(errors.length ? "FAIL" : "PASS");

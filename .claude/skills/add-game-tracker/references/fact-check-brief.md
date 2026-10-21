@@ -41,6 +41,14 @@ to defend them.
    Examples: a portal that leads elsewhere, a choice that ends the run
    early, a step that locks a later one. In an earlier test, a plan failed this way, and
    the sample of single tips missed it.
+5. Audit the missables, in addition to the 10. Each entry's `missable` field
+   names a deadline, and the top-level `missables` line sums them up.
+   - Search for the game's missables list, such as a trophy guide's roadmap.
+   - For each missable on that list without a `missable` field, report it
+     as **missing**.
+   - For each `missable` field, check the deadline against a source. When
+     a source shows the achievement stays available later, report it as
+     **not missable**.
 
 ## Rules
 - Do not edit any file. Report only.
@@ -51,4 +59,5 @@ Report back with these items:
 - one line per sampled achievement: key, verdict, source URL, and the
   correction for each wrong tip;
 - one verdict per plan, with the failing step and a fix;
+- the missables audit: each missing or wrong mark, with its source;
 - the counts per verdict.

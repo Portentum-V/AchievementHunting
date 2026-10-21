@@ -19,6 +19,7 @@ window.GUIDE = {
     run: { label: "Whole-run condition", tone: "accent2" },
   },
   highlight: { flag: "ending", label: "Remaining endings", note: "Keep a save before the finale" },
+  missables: "All 46 are unlocked. For a replay: each ending needs its own playthrough, so keep a save before the finale.",
   categories: [
     ["story", "Story"],
     ["endings", "Endings"],

@@ -25,13 +25,21 @@ by lower-case Steam API name.
   is cp1252 and crashes on non-ASCII names.
 - Completed achievements need only `cat`, plus a flag where one applies. Spend
   the effort on the <REMAINING> remaining ones.
+- <FOR AN UNSTARTED GAME, replace the line above. Write: "Every one of the
+  <N> needs a tip. On the main-story card, add a whole-game plan as a
+  checklist. Say what to do when, and what to finish before the final
+  mission.">
 
 ## Research
-<GAME-SPECIFIC: name the remaining achievements that need real detail. Look
-for missables, single-run conditions and mutually exclusive endings. Also look
-for DLC content and for collection lists that can become `steps` checklists.
-Do not assert the game's version. Ask the agent to find the current build
-and any announced major update.>
+<GAME-SPECIFIC: name the remaining achievements that need real detail.
+- Missables: name any you suspect, and ask for single-run conditions and
+  mutually exclusive endings. Ask about any offer to skip the story, such as
+  a jump to DLC. A skip can delete content from the save.
+- DLC and collections: ask for collection lists that can become `steps`
+  checklists. Do not guess which achievement belongs to which DLC. Ask the
+  agent to map them. Exophase groups each Steam list by DLC.
+- Version: do not assert it. Ask the agent to find the current build and any
+  announced major update.>
 
 Use the game's wiki, Steam community guides (steamcommunity.com/sharedfiles)
 and discussions, and patch notes, through WebSearch and WebFetch. When
@@ -62,9 +70,22 @@ Create `<REPO>\<slug>-tracker\guide.js`:
   differ from the existing guides. Grep `#[0-9a-f]{6}` across
   `*-tracker/guide.js` to see the colors already in use.
 - `categories` grouped by how you unlock them. `flags` mark planning concerns
-  such as single-run conditions, missables, endings, difficulty, DLC or co-op.
+  such as single-run conditions, endings, difficulty, DLC or co-op.
   A card holds one flag. When one flag makes the most useful third stat card,
   add a `highlight` for it.
+- Audit every achievement for missability. An achievement is missable when
+  the wrong order, choice or skipped prerequisite loses it on that save.
+  Getting it back then takes a reload, a replay or a new game. Free roam,
+  chapter select or a later chance means it is not missable.
+  - On each missable, set `missable` to its deadline: what to do, before which
+    point. Example: "Recruit Scratch before you leave Act 1." The page shows it
+    as a red callout.
+  - When a tip mentions a lockout that does not cost this achievement, set
+    `missable: false`.
+  - Set a top-level `missables` string: one line naming every missable risk,
+    or saying that nothing is missable. The page shows it in a banner.
+  - Search for the game's missables list ("<GAME> missable achievements") and
+    check each entry against it.
 - Every Steam API name appears exactly once as a lower-cased key, with no
   extra keys. Use `steps` for "do all of X" achievements and for routes.
   Mark entries with long checklists `wide: true`.
@@ -73,11 +94,13 @@ Create `<REPO>\<slug>-tracker\guide.js`:
 
 ## Validate
 Run `node <SKILL>\scripts\validate_guide.js <guide.js> <LIST.json>`. Fix the
-guide until the script prints PASS. Report its output.
+guide until the script prints PASS. Resolve every missable warning. Report
+its output.
 
 ## Rules
 - Create only that one file in the repo. Scratch files go in the scratchpad.
-  Do not run git. Do not start the tracker server.
+  Do not run git. Do not start the tracker server. Do not use Playwright,
+  because it writes logs into the repo.
 - Prose: active voice, short sentences, lead with the action. ASCII only:
   straight quotes and hyphens, no em dashes or curly quotes. No filler.
   State facts plainly, and mark uncertain ones as uncertain.
@@ -87,6 +110,7 @@ guide until the script prints PASS. Report its output.
 
 Report back with these items:
 - the file path, the categories with counts, and the flags;
+- every missable with its deadline, and the source that calls it missable;
 - any playthrough or stacking plan, in brief;
 - the sources (URLs) and the validation output;
 - the achievements without reliable information.

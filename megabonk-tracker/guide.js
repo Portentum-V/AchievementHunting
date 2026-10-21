@@ -20,6 +20,7 @@ window.GUIDE = {
     grind: { label: "Cumulative across runs", tone: "accent2" },
     run: { label: "Single run", tone: "accent" },
   },
+  missables: "Nothing is missable. Any failed goal comes back on the next run.",
   categories: [
     ["hats", "Hats"],
     ["progress", "Progression"],

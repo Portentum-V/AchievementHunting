@@ -31,6 +31,7 @@ window.GUIDE = {
     grind: { label: "Level 99 grind", tone: "accent2" },
   },
   highlight: { flag: "grind", label: "Level 99s left", note: "Each 99 needs 1,000,000 XP" },
+  missables: "Nothing is missable. Quests, skills and courses stay open, and you can re-fight bosses such as Velgar and the Black Knight Titan.",
   categories: [
     ["story", "Story bosses"],
     ["quests", "Regional quests"],
@@ -272,7 +273,7 @@ window.GUIDE = {
               "Umbral Sands: run the dragonwolf hide loop for XP and chits",
               "Late game: craft the highest-XP bows and staffs",
               "Keep a wild pie (+10% XP) active"] },
-    constructionmastery: { cat: "mastery", flag: "grind", wide: true,
+    constructionmastery: { cat: "mastery", flag: "grind", wide: true, missable: false,
       tip: ["The wiki has no Construction training guide. Dragonwilds Codex (0.12.1 data) lists XP per build: lodestone about 80, oak or iron chest about 62, rugs and agility flags about 60, most furniture about 40.",
             "Community guides describe building furniture, then dismantling it to recover the materials and building again. Some also describe reloading the world to reset a Construction cooldown. The wiki confirms neither; test it before you commit materials."],
       steps: ["Build a sawmill and stockpile planks",

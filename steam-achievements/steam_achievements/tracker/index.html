@@ -12,18 +12,21 @@
     --bg: #f4efe9; --panel: #fffaf4; --panel-2: #efe6dc; --ink: #241a1a; --muted: #6f5f5a;
     --line: #dccfc3; --accent: #9b1c24; --accent-soft: #9b1c2418; --accent-2: #b86b12; --accent-2-soft: #b86b1220;
     --ok: #2f7a4a; --ok-soft: #2f7a4a1c; --shadow: 0 1px 2px #0000000f, 0 4px 14px #0000000a;
+    --warn: #b42318; --warn-soft: #b423181a;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
       --line: #3a2c2d; --accent: #e0404b; --accent-soft: #e0404b22; --accent-2: #f0a64a; --accent-2-soft: #f0a64a22;
       --ok: #5cc186; --ok-soft: #5cc18620; --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+      --warn: #ff7b72; --warn-soft: #ff7b7222;
     }
   }
   :root[data-theme="dark"] {
     --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
     --line: #3a2c2d; --accent: #e0404b; --accent-soft: #e0404b22; --accent-2: #f0a64a; --accent-2-soft: #f0a64a22;
     --ok: #5cc186; --ok-soft: #5cc18620; --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+    --warn: #ff7b72; --warn-soft: #ff7b7222;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
@@ -67,6 +70,17 @@
   .chip { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 4px 11px; border-radius: 999px; font-size: 13px; }
   .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .chip b { font-weight: 600; font-variant-numeric: tabular-nums; margin-left: 4px; }
+  .chip.warn { color: var(--warn); }
+  .chip.warn[aria-pressed="true"] { border-color: var(--warn); background: var(--warn-soft); }
+  /* Missables: achievements lost to a wrong order, choice or skipped step on a save. */
+  .missbar { margin: 0 0 18px; padding: 10px 14px; border-radius: 12px; font-size: 13.5px;
+    border: 1px solid color-mix(in srgb, var(--warn) 40%, var(--line)); background: var(--warn-soft); }
+  .missbar b { color: var(--warn); }
+  .card.miss:not(.done) { border-color: color-mix(in srgb, var(--warn) 55%, var(--line)); }
+  .card.miss:not(.done)::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; border-radius: 12px 0 0 12px; background: var(--warn); }
+  .missnote { font-size: 13.5px; margin: 0 0 8px; padding: 6px 10px; border-left: 3px solid var(--warn);
+    background: var(--warn-soft); border-radius: 0 6px 6px 0; }
+  .missnote b { color: var(--warn); }
 
   section h2 { font-family: Georgia, serif; font-weight: 600; font-size: 19px; margin: 26px 0 10px; display: flex; align-items: baseline; gap: 10px; }
   section h2 small { font-family: "Segoe UI", system-ui, sans-serif; font-size: 13px; color: var(--muted); font-weight: 500; }
@@ -89,6 +103,7 @@
   .tag.t1 { background: var(--accent-soft); color: var(--accent); }
   .tag.t2 { background: var(--accent-2-soft); color: var(--accent-2); }
   .tag.ok { background: var(--ok-soft); color: var(--ok); font-weight: 600; }
+  .tag.warn { background: var(--warn-soft); color: var(--warn); font-weight: 600; }
   .manual { margin-left: auto; font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; user-select: none; }
   details { margin-top: 8px; border-top: 1px dashed var(--line); padding-top: 6px; }
   summary { font-size: 13px; color: var(--muted); cursor: pointer; }
@@ -144,6 +159,7 @@
   </div>
 
   <nav class="utils" id="utils" aria-label="Utilities" hidden></nav>
+  <div class="missbar" id="missbar" hidden></div>
 
   <div class="controls">
     <input class="search" id="q" type="search" placeholder="Search name, description, or tip">
@@ -232,7 +248,7 @@
       const tip = Array.isArray(g.tip) ? g.tip : g.tip ? [g.tip] : [];
       return {
         api, order, cat: cats.some(c => c[0] === g.cat) ? g.cat : "other",
-        g: g.g, tip, flag: g.flag, steps, stepState, wide: !!g.wide,
+        g: g.g, tip, flag: g.flag, missable: g.missable || "", steps, stepState, wide: !!g.wide,
         name: s.name || g.name || api, desc: s.desc || "",
         icon: s.icon || "", iconLocked: s.iconLocked || s.icon || "",
         pct: typeof s.pct === "number" ? s.pct : null, hidden: !!s.hidden,
@@ -290,16 +306,26 @@
     $("#sort").value = store.sort;
 
     const shownCats = cats.concat(all.some(a => a.cat === "other") ? [["other", "Other"]] : []);
-    $("#chips").innerHTML = [["all", "All"]].concat(shownCats).map(([id, label]) => {
-      const inCat = all.filter(a => id === "all" || a.cat === id);
-      return `<button class="chip" data-cat="${id}" aria-pressed="${ui.cat === id}">${esc(label)}<b>${inCat.filter(a => a.done).length}/${inCat.length}</b></button>`;
+    const miss = all.filter(a => a.missable);
+    const missLeft = miss.filter(a => !a.done).length;
+    // "~missable" is a cross-category filter; the tilde keeps it apart from category ids.
+    const inChip = (a, id) => id === "all" || (id === "~missable" ? !!a.missable : a.cat === id);
+    $("#chips").innerHTML = [["all", "All"]].concat(shownCats, miss.length ? [["~missable", "Missable"]] : []).map(([id, label]) => {
+      const inCat = all.filter(a => inChip(a, id));
+      return `<button class="chip ${id === "~missable" ? "warn" : ""}" data-cat="${esc(id)}" aria-pressed="${ui.cat === id}">${esc(label)}<b>${inCat.filter(a => a.done).length}/${inCat.length}</b></button>`;
     }).join("");
+
+    // The summary banner: the guide's missables note, plus how many are still open.
+    if (G.missables || miss.length) {
+      $("#missbar").innerHTML = `<b>Missables: ${missLeft} of ${miss.length} still open.</b> ${esc(G.missables || "")}`;
+      $("#missbar").hidden = false;
+    }
 
     const q = ui.q.trim().toLowerCase();
     const shown = sorted(all.filter(a =>
-      (ui.cat === "all" || a.cat === ui.cat) &&
+      inChip(a, ui.cat) &&
       (store.status === "all" || (store.status === "done") === a.done) &&
-      (!q || [a.name, a.desc, ...a.tip, ...a.steps].join(" ").toLowerCase().includes(q))));
+      (!q || [a.name, a.desc, a.missable, ...a.tip, ...a.steps].join(" ").toLowerCase().includes(q))));
 
     const html = shownCats.map(([id, label]) => {
       const items = shown.filter(a => a.cat === id);
@@ -321,13 +347,15 @@
       : `<label class="manual" title="Mark done by hand. Steam unlocks override this."><input type="checkbox" data-manual="${esc(a.api)}" ${a.manualDone ? "checked" : ""}>Mark done</label>`;
     const steps = a.steps.length ? `<details ${a.done ? "" : "open"}><summary>Checklist <b>${a.stepsDone}/${a.steps.length}</b></summary>
       <ul class="steps ${a.steps.length > 6 && a.steps.every(s => s.length <= 22) ? "cols" : ""}">${a.steps.map(s => `<li><label><input type="checkbox" data-api="${esc(a.api)}" data-step="${esc(s)}" ${a.stepState[s] ? "checked" : ""}><span>${esc(s)}</span></label></li>`).join("")}</ul></details>` : "";
-    return `<article class="card ${a.done ? "done" : ""} ${a.wide && !a.done ? "wide" : ""}">
+    const open = a.missable && !a.done;
+    return `<article class="card ${a.done ? "done" : ""} ${a.wide && !a.done ? "wide" : ""} ${a.missable ? "miss" : ""}">
       ${img ? `<img class="icon" src="${esc(img)}" alt="" loading="lazy">` : `<div class="icon"></div>`}
       <div style="min-width:0">
         <div class="head"><div class="name">${esc(a.name)}</div>${a.g ? `<span class="g">${a.g}${esc(G.pointsSuffix || "")}</span>` : ""}</div>
         ${a.desc ? `<p class="desc">${esc(a.desc)}</p>` : ""}
+        ${open ? `<p class="missnote"><b>Missable:</b> ${esc(a.missable)}</p>` : ""}
         ${a.tip.map(t => `<p class="tip">${esc(t)}</p>`).join("")}
-        <div class="tags">${flagTag}${pct}${status}</div>
+        <div class="tags">${open ? `<span class="tag warn">Missable</span>` : ""}${flagTag}${pct}${status}</div>
         ${steps}
       </div></article>`;
   }

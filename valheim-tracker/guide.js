@@ -40,6 +40,7 @@ window.GUIDE = {
     coop: { label: "Needs a second player", tone: "accent2" },
   },
   highlight: { flag: "hard", label: "Hard difficulty left", note: "Set the Combat modifier to Hard" },
+  missables: "Nothing is missable. Bosses resummon, world modifiers switch any time, and seasonal pieces return each year.",
   categories: [
     ["hard", "Hard difficulty"],
     ["bosses", "Bosses"],

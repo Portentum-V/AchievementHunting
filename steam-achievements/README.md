@@ -125,12 +125,14 @@ window.GUIDE = {
   colors: { light: { accent, accent2 }, dark: { accent, accent2 } },
   flags: { run: { label: "Single run", tone: "accent" } },          // tone: accent or accent2
   highlight: { flag, label, note }, // third stat card; default: rarest remaining
+  missables: "...",                 // one-line summary, shown in a banner above the list
   utilities: [{ label, href, description }], // optional links under the stats;
                                     // href is relative to the game folder, or https
   pointsLabel, pointsNote, pointsSuffix, // second stat card when entries have `g`
   categories: [["hats", "Hats"], ...],
   achievements: {
     a_hatcrown: { cat: "hats", flag: "run", wide: true,
+      missable: "Before you leave Act 1", // the deadline; false means checked, not missable
       tip: "text, or an array of paragraphs",
       steps: ["checklist item", ...], g: 10 },
   },
@@ -139,6 +141,7 @@ window.GUIDE = {
 
 ## Used by
 
+- `..\avatar-tracker` - Avatar: Frontiers of Pandora (tips from PowerPyx, Steam community guides and the Avatar Wiki).
 - `..\bg3-tracker` - Baldur's Gate 3 (tips from bg3.wiki and Steam community guides).
 - `..\dawnwalker-tracker` - The Blood of Dawnwalker (tips from the IGN wiki).
 - `..\dragonwilds-tracker` - RuneScape: Dragonwilds (tips from the RuneScape: Dragonwilds wiki).

@@ -31,7 +31,8 @@ scratchpad.
    every remaining achievement.
    - When the user has 0 unlocks, check the playtime before you suspect the
      sync. Valheim read 0 because the user last played it before the game
-     added achievements.
+     added achievements. When the summary says "last played never", use
+     the unstarted-game line in the brief.
 
 4. **Brief one sub-agent per game.** Fill in
    `SKILL\references\agent-brief.md`. Launch it as a `general-purpose` agent
@@ -50,6 +51,10 @@ scratchpad.
      not appear.
    - Spot-check a few tips: an ending, a missable, a single-run condition.
      Flag anything that contradicts what you know.
+   - Check the missables. The validator requires the top-level `missables`
+     line and lists every `missable` entry. Resolve each missable warning:
+     set a deadline, or set `missable: false`. Read the list against what
+     you know of the game. A missable with no mark is the costliest gap.
    - When the agent says it corrected a fact in your brief, confirm the guide
      uses the corrected fact.
 
@@ -73,7 +78,8 @@ scratchpad.
    - Poll `http://127.0.0.1:8799/api/games` until the new game's `total` is
      not 0. The server syncs every game in folder order, so the new game can
      take 30 seconds or more. Poll every 3 seconds for up to 2 minutes. Until
-     its sync ends, `steam_status.js` returns 404; ignore that.
+     its sync ends, `steam_status.js` returns 404; ignore that. The endpoint
+     returns a JSON list with one object per game, keyed by `appid`.
    - Open `/<slug>-tracker/` with Playwright and take a viewport screenshot.
      A full-page shot of a long guide shrinks too far to read. Check the
      heading, the counts against `pull_game.py`, the highlight card, and a
@@ -83,6 +89,7 @@ scratchpad.
    - Stop the server by PID only. Find the PID with `netstat -ano` on port
      8799, confirm with `tasklist` that it is `python.exe`, then run
      `taskkill //F //PID <pid>`. Never kill processes by filter or by name.
+     The background task then reports exit code 1; ignore it.
 
 8. **Update the docs.** Add the game to the table in the top-level `README.md`
    and to "Used by" in `steam-achievements/README.md`. Keep both lists sorted

@@ -67,6 +67,7 @@ window.GUIDE = {
     grind: { label: "Long grind", tone: "accent" },
   },
   highlight: { flag: "endgame", label: "Post-game left", note: "Beat the Witch to open Endless" },
+  missables: "Nothing is missable. The church shortcut reopens the Witch fight and the drive, and every gun can be found again.",
   categories: [
     ["story", "Story & bosses"],
     ["difficulty", "Difficulty completions"],
@@ -109,7 +110,7 @@ window.GUIDE = {
             "After you finish the Desert, the church has a shortcut to Beyond the Veil, so you can repeat the fight."] },
 
     // ---------- Difficulty completions ----------
-    complete_game_hard: { cat: "difficulty", wide: true,
+    complete_game_hard: { cat: "difficulty", missable: false, wide: true,
       tip: ["Beat the game on a Hard save. Hard is the default difficulty for new saves.",
             "Difficulty is set per save slot when you create it. It changes only the death penalty: Very Easy loses nothing, Easy loses carried money, Medium loses all but equipped gear, Hard loses everything carried, Hardcore deletes the save. Sources mention no other difference.",
             "Unconfirmed: a win may also award every easier tier. Steam's rates fall from Very Easy (5.3%) through Easy and Medium to Hard (4.8%) even though Hard is the default, which fits a cascade. No source confirms it. If a tier does not pop, open the save selection screen; the game grants difficulty wins from there.",
@@ -122,21 +123,21 @@ window.GUIDE = {
         "Save slots do not share a stash, so the Hardcore save starts from nothing. Learn every boss on the main save first.",
         "Hardcore last: new save, keep the amulet charged, leave every fight early. Back up the save slot files between sessions.",
       ] },
-    complete_game_very_easy: { cat: "difficulty",
+    complete_game_very_easy: { cat: "difficulty", missable: false,
       tip: ["Beat the game on a Very Easy save. On Very Easy you lose nothing on death, but enemies hit as hard as on Hard.",
             "It may unlock from a Hard or Hardcore win (unconfirmed, see Legit). Check after your first win before you start a new save."] },
     complete_game_easy: { cat: "difficulty",
       tip: "Beat the game on an Easy save (death costs only carried money). It may unlock from a Hard or Hardcore win (unconfirmed, see Legit)." },
     complete_game_medium: { cat: "difficulty",
       tip: "Beat the game on a Medium save (death keeps only equipped gear). It may unlock from a Hard or Hardcore win (unconfirmed, see Legit)." },
-    complete_game_hardcore: { cat: "difficulty", flag: "hardcore",
+    complete_game_hardcore: { cat: "difficulty", flag: "hardcore", missable: false,
       tip: ["Beat the game on a Hardcore save. On Hardcore, death is permanent and deletes the save.",
             "Since 0.17.0, alt+F4 on the death screen no longer saves you. The developers say alt+F4 still works before health reaches zero, so quit the moment a fight goes wrong.",
             "You can save and quit between floors. Players copy the save files in %USERPROFILE%\\AppData\\LocalLow\\Perfect Random\\Sulfur (Sulfur_SaveSlot_N.sss) as a backup; that is a community method, not a game feature.",
             "Keep the amulet charged (1,000 SULF from the Gravedigger) and teleport out of bad rooms. Watch for mines in the Town: listen for their sound."] },
 
     // ---------- Telia sacrifices ----------
-    sacrifice_dirk: { cat: "telia", wide: true,
+    sacrifice_dirk: { cat: "telia", missable: false, wide: true,
       tip: ["How sacrificing works: Telia stands at the back left of the church hub, in the blast crater at the broken corner. She takes any gun at rank 5 (1,954 weapon XP). Sacrificing is free, but the gun is gone for good, with its oils and scroll. Afterwards her Weapon Replicator prints fresh rank-0 copies for 2x the base price, +20% per print.",
             "Catches: strip attachments at Ralphie's workbench first, because they are lost too. Insurance does not return a sacrificed gun. Melee weapons do not count. Bring the gun home with a charged amulet; a death on Hard loses it. Achievements are per Steam account; the printer unlocks are per save (assumed, not confirmed).",
             "Leveling: XP goes to the guns that damaged the enemy (since 0.19.8; melee kills credit the guns used in that kill). Shoot every enemy at least once with the target gun. Library Cards give +30% XP each; players stack several and report 20-40 minutes per gun in the Caves. Lock of the Magus gives 100x XP on the next kill: equip it just before Cousin dies and his 30 XP becomes 3,000, an instant rank 5. Hit Cousin only with the target gun, since XP splits among the guns that damaged him.",
@@ -312,7 +313,7 @@ window.GUIDE = {
     sacrifice_kleinbauer: { cat: "telia", flag: "rare",
       tip: ["Until 0.18.3 it was missing from some loot and vendor tables, so older reports of it never dropping are outdated.",
             "Players found it in a Sewers chest, a Caves metal chest and an Endless card. The fastest reported route: reset Qiosk's secret shop with the Delivery Demon for a few minutes."] },
-    sacrifice_deathstoll: { cat: "telia", flag: "rare",
+    sacrifice_deathstoll: { cat: "telia", flag: "rare", missable: false,
       tip: ["No vendor on the wiki, and no source names a drop location. One player found three while hunting for the Klein Bauer, so it does drop from normal loot.",
             "Run gun chests with a Loaded Die, and check Qiosk and Stiffleg after each run. Four-shot revolver; a melee during reload used to break it (fixed in 0.18.5)."] },
     sacrifice_mowlock: { cat: "telia", flag: "rare",
@@ -333,7 +334,7 @@ window.GUIDE = {
       tip: "Clear 5 stages. Since 0.17.0 you can save and quit between Endless stages, so split long runs over several sessions." },
     enlightenment: { cat: "endless", flag: "endgame",
       tip: "Clear 10 stages. Level-ups slow down after stage 12-15, so stock your own food and repair kits before that." },
-    cultleader: { cat: "endless", flag: "run", wide: true,
+    cultleader: { cat: "endless", flag: "run", missable: false, wide: true,
       tip: ["Clear 20 stages in one Endless run. Players report 5 to 7 hours. Save and quit between stages to split it up.",
             "After stage 20 the waves restart with bigger, tougher enemies, and enemy damage doubles every 20 stages. Save rerolls so you can find an Escape card right after stage 20, or you may die and lose the gear.",
             "Ranged enemies lead their shots since 0.19.0; one player who managed stage 20 earlier stalled at 14 after the change. Desert snipers on towers stall waves; any damage makes them climb down.",
@@ -354,7 +355,7 @@ window.GUIDE = {
             "On each level-up, pick Banish on an option you do not want; it stops appearing for that run. Since 0.19.0 a banished item leaves all cards. Arthur sells extra banishes for stamps. Banish every level-up during the stage-20 run and you get there on the way."] },
 
     // ---------- Crypts ----------
-    crypts_1: { cat: "crypts",
+    crypts_1: { cat: "crypts", missable: false,
       tip: ["Crypts (Trial of the Spirit) are optional sub-levels in the Desert. One spawns on Desert levels II to IV (the wiki marks this as unsure); the level I entrance is collapsed and level V is the boss. Each needs a Crypt Key.",
             "Keys: Bill, the Desert vendor, has the best odds; Qiosk's secret shop and Jaques also sell them, and the Desert drops them.",
             "Ask the statue inside which trial you got before you start. Clearing the trial opens a treasure room with a passive item. Failing kills you or traps you in endless waves.",
