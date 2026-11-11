@@ -6,6 +6,15 @@ steam_status.js
 *-tracker/icons/
 *-tracker/header.jpg
 
+# Read from the installed SULFUR game by the builders: game text, stats, and
+# icons belong to the game's makers, so they stay local.
+sulfur-tracker/weapons/icons/
+sulfur-tracker/recipes/icons/
+sulfur-tracker/scrolls/icons/
+sulfur-tracker/weapons/weapons-data.js
+sulfur-tracker/recipes/recipes-data.js
+sulfur-tracker/scrolls/scrolls-data.js
+
 # Playwright screenshots and snapshots of tracker pages, which show unlocks
 .playwright-mcp/
 

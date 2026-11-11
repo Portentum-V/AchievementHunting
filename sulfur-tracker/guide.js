@@ -54,9 +54,11 @@ window.GUIDE = {
   },
   utilities: [
     { label: "Recipe calculator", href: "recipes/index.html",
-      description: "What you can cook from what you carry, with yields from the SULFUR wiki." },
+      description: "What you can cook from what you carry, with yields from the game files." },
     { label: "Weapon table", href: "weapons/index.html",
-      description: "Every weapon in one sortable table: sell value, damage, DPS, and grid size." },
+      description: "Every weapon in one sortable table: sell value, quality, damage, DPS, and grid size." },
+    { label: "Scrolls", href: "scrolls/index.html",
+      description: "Every scroll with its description and effects, and a chart of what two scrolls combine into." },
   ],
   flags: {
     rare: { label: "Rare gun", tone: "accent2" },

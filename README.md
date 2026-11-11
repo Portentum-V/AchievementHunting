@@ -48,10 +48,28 @@ in the pantry for the dish; Undo reverses it. With the tracker running, open
 deep. It ranks them by total heal, number of buffs, or sell value. Its Cook
 button runs the whole chain.
 
-The recipes come from the SULFUR wiki. After a game update, rebuild them:
+The recipes come from your installed copy of SULFUR. The game lists one
+recipe per ingredient combination. The calculator folds recipes that differ
+in one ingredient into a slot that takes any of its items, and keeps every
+combination exact. Once you know a recipe, you can quick-cook it from your
+backpack at any stove. "Learn on a 4x4 stove" marks recipes whose
+ingredients fit only the Wood Stove, and "Quick-cook only" marks recipes
+whose ingredients fit no stove. After a game update, rebuild the recipes:
 
 ```
 py -I sulfur-tracker/recipes/build_recipes.py
+```
+
+## SULFUR scrolls
+
+`sulfur-tracker/scrolls/` lists every scroll with its description and the
+weapon effects it adds, as the game's tooltip shows them. A chart shows
+what the Scholar makes from each pair of scrolls, and each card shows what
+makes the scroll and what it combines into. Weapon oils are enchantments
+too, but the page leaves them out. After a game update, rebuild it:
+
+```
+py -I sulfur-tracker/scrolls/build_scrolls.py
 ```
 
 ## SULFUR weapon table
@@ -68,13 +86,31 @@ so the page shows none until the tracker has run once.
 With the tracker running, open `/sulfur-tracker/weapons/`. Without it, open
 `index.html` directly.
 
-Stats and sell values come from the SULFUR wiki. Reload time and attachment
-slots come from sulfurbuild.com, because the wiki leaves them out. Neither
-source lists weapon quality. After a game update, rebuild the table:
+The builder reads the stats, quality, sell values, and icons from your
+installed copy of SULFUR, so the table matches your game version. Sell is
+half the base price: what a trader pays for a bare gun before durability
+changes it. Reload times come from the length of the reload animations, so
+treat them as approximate. The game flags automatic weapons but not burst
+fire. After a game update, rebuild the table:
 
 ```
 py -I sulfur-tracker/weapons/build_weapons.py
 ```
+
+### Building the SULFUR pages
+
+All three builders read the game through `sulfur-tracker/game_files.py`.
+They find SULFUR through Steam; pass the install folder if that fails.
+Install their two packages once:
+
+```
+py -m pip install UnityPy dnfile
+```
+
+Each builder writes its data file and an `icons/` folder beside its page.
+The game's text, stats, and art belong to its makers, so git ignores both,
+and they stay on your machine. Run a page's builder once before you open
+it; until then the page says which command to run.
 
 ## Not in the repo
 

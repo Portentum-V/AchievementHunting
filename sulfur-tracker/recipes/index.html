@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- SULFUR cooking calculator. Recipes come from recipes-data.js, which
-     build_recipes.py generates from sulfur.wiki.gg. -->
+     build_recipes.py generates from the installed game's files. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -133,10 +133,8 @@
       <p class="sub" id="sub">Cooking calculator</p>
     </div>
     <div class="bar-r">
-      <span class="meta">Stove</span>
-      <div class="seg" id="stove" role="group" aria-label="Stove size">
-        <button data-v="small">Small</button><button data-v="big">4x4</button>
-      </div>
+      <a class="btn" href="../weapons/index.html">Weapons</a>
+      <a class="btn" href="../scrolls/index.html">Scrolls</a>
       <a class="btn" href="../index.html">Achievements</a>
       <button class="btn" id="theme">Theme</button>
     </div>
@@ -188,9 +186,14 @@
 <script>
 (() => {
   const D = window.SULFUR_RECIPES;
+  // The data file is built locally from the game and kept out of git.
+  if (!D) {
+    document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="empty">No recipe data yet. It is read from your SULFUR install: run <code>py -I sulfur-tracker/recipes/build_recipes.py</code>, then reload.</p>`);
+    return;
+  }
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const wiki = n => "https://sulfur.wiki.gg/wiki/" + encodeURIComponent(n.replace(/ /g, "_"));
+  const wiki = n => "https://sulfur.wiki.gg/index.php?search=" + encodeURIComponent(n);
   const img = (n, cls = "") => {
     const u = n.startsWith("@") ? (D.groups[n.slice(1)] || {}).img : (D.items[n] || {}).img;
     return u ? `<img class="${cls}" src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : "";
@@ -198,7 +201,7 @@
 
   // ---------- state ----------
   const LS = "sulfur-recipes-v1";
-  const st = { pantry: {}, stove: "big", tab: "cook", kind: "all", pf: "all", sort: "name", rank: "heal" };
+  const st = { pantry: {}, tab: "cook", kind: "all", pf: "all", sort: "name", rank: "heal" };
   try { Object.assign(st, JSON.parse(localStorage.getItem(LS)) || {}); } catch {}
   const save = () => { try { localStorage.setItem(LS, JSON.stringify(st)); } catch {} };
   if (st.theme) document.documentElement.dataset.theme = st.theme;
@@ -206,10 +209,9 @@
   // ---------- data prep ----------
   const KINDS = [
     { k: "all", label: "All" },
-    { k: "food", label: "Food & drink", test: i => i.kind === "consumable" || i.kind === "ingredient" },
-    { k: "scroll", label: "Scrolls", test: i => i.kind === "scroll" },
+    { k: "food", label: "Food & drink", test: i => i.kind === "consumable" },
     { k: "throw", label: "Throwables", test: i => i.kind === "throwable" },
-    { k: "other", label: "Other", test: i => !["consumable", "ingredient", "scroll", "throwable"].includes(i.kind) },
+    { k: "other", label: "Other", test: i => !["consumable", "throwable"].includes(i.kind) },
   ];
   const kindOf = name => (KINDS.find(k => k.test && k.test(D.items[name] || {})) || {}).k;
   D.recipes.forEach((r, idx) => { r.id = idx; r.kind = kindOf(r.out); });
@@ -222,8 +224,6 @@
   const addUse = (n, r) => (usedIn[n] = usedIn[n] || new Set()).add(r.out);
   D.recipes.forEach(r => r.ins.forEach(i => i.n ? addUse(i.n, r) : i.opts.forEach(m => addUse(m, r))));
   const ingredients = Object.keys(usedIn).sort((a, b) => a.localeCompare(b));
-  const groupOf = {};
-  Object.entries(D.groups).forEach(([g, v]) => v.members.forEach(m => groupOf[m] = g));
 
   // ---------- solver ----------
   // Pick concrete items for one batch of a recipe from the stock, or return null.
@@ -288,11 +288,9 @@
     });
     return out;
   }
-  const yieldOf = r => {
-    if (r.flag === "cap3" && st.stove === "small") return Math.min(3, r.qty);
-    return r.qty;
-  };
-  const usable = r => !(r.flag === "big" && st.stove === "small");
+  // A learned recipe quick-cooks from the backpack at any stove, so every recipe is usable.
+  const yieldOf = r => r.qty;
+  const usable = () => true;
 
   // ---------- planner for "Cook next" ----------
   // The fewest cooking levels that make each item from raw ingredients (raw items are 0).
@@ -372,14 +370,13 @@
   const tags = r => {
     const t = [];
     if (r.section) t.push(`<span class="tag sec">${esc(r.section)}</span>`);
-    if (r.flag === "cap3") t.push(`<span class="tag${st.stove === "small" ? " warn" : ""}" title="${esc(r.note)}">4x4 stove for x${r.qty}</span>`);
-    if (r.flag === "big") t.push(`<span class="tag warn" title="${esc(r.note)}">Needs 4x4 stove</span>`);
+    if (r.flag === "big") t.push(`<span class="tag" title="${esc(r.note)}">Learn on a 4x4 stove</span>`);
     if (r.flag === "quickcook") t.push(`<span class="tag warn" title="${esc(r.note)}">Quick-cook only</span>`);
     return t.join(" ");
   };
   const head = (out, extra = "") => {
     const it = D.items[out] || {};
-    const meta = [it.sub, it.grid && it.grid + " grid", it.sell && it.sell + " sulf"].filter(Boolean).map(esc).join(" &middot; ");
+    const meta = [it.grid && it.grid + " grid", it.sell && it.sell + " sulf"].filter(Boolean).map(esc).join(" &middot; ");
     return `${img(out)}<div style="min-width:0"><h4><a href="${wiki(out)}" target="_blank" rel="noopener">${esc(out)}</a>${extra}</h4>
       <div class="meta">${meta}</div>${(it.effects || []).map(e => `<div class="eff">${esc(e)}</div>`).join("")}`;
   };
@@ -406,7 +403,7 @@
   let nextCache = { key: "", list: [] };
   function computeNext(cookNow) {
     const stock = st.pantry;
-    const key = JSON.stringify([stock, st.stove, st.rank]);
+    const key = JSON.stringify([stock, st.rank]);
     if (nextCache.key === key) return nextCache.list;
     const list = [];
     if (Object.keys(stock).length) for (const out of outputs) {
@@ -453,7 +450,6 @@
     $("n-cook").textContent = cook.length; $("n-next").textContent = next.length;
     $("n-short").textContent = short.length; $("n-all").textContent = outputs.length;
     document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.tab));
-    document.querySelectorAll("#stove button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.stove));
     document.querySelectorAll("#rank button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.rank));
     $("rank").hidden = st.tab !== "next";
     $("sort").hidden = st.tab === "next";
@@ -526,14 +522,16 @@
     const total = have.reduce((s, n) => s + st.pantry[n], 0);
     $("pcount").textContent = total ? `${total} item${total > 1 ? "s" : ""}, ${have.length} kind${have.length > 1 ? "s" : ""}` : "";
     const PF = [{ k: "all", label: "All" }, { k: "have", label: `In pantry (${have.length})` },
-      ...Object.keys(D.groups).map(g => ({ k: g, label: g }))];
+      { k: "raw", label: "Raw" }, { k: "cooked", label: "Cooked" }];
+    if (!PF.some(f => f.k === st.pf)) st.pf = "all";
     $("pfilter").innerHTML = PF.map(f => `<button class="chip" data-pf="${esc(f.k)}" aria-pressed="${st.pf === f.k}">${esc(f.label)}</button>`).join("");
     const hit = n => !q || n.toLowerCase().includes(q);
     // The pantry can also hold cooked dishes that no recipe uses, such as a Jar of Love.
     const inPantry = have.filter(hit).sort((a, b) => a.localeCompare(b));
     let list = ingredients.filter(hit);
     if (st.pf === "have") list = inPantry;
-    else if (st.pf !== "all") list = list.filter(n => groupOf[n] === st.pf);
+    else if (st.pf === "raw") list = list.filter(n => !byOut[n]);
+    else if (st.pf === "cooked") list = list.filter(n => byOut[n]);
     const tile = n => {
       const c = st.pantry[n] || 0;
       const uses = usedIn[n] ? usedIn[n].size : 0;
@@ -612,7 +610,6 @@
   $("clear").addEventListener("click", () => { if (!Object.keys(st.pantry).length || confirm("Empty the pantry?")) { st.pantry = {}; save(); renderPantry(); render(); } });
   $("tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.tab = b.dataset.v; limit = 60; save(); render(); } });
   $("rank").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.rank = b.dataset.v; save(); render(); } });
-  $("stove").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { st.stove = b.dataset.v; save(); render(); } });
   $("kinds").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) { st.kind = b.dataset.k; limit = 60; save(); render(); } });
   $("sort").addEventListener("change", e => { st.sort = e.target.value; save(); render(); });
   $("rsearch").addEventListener("input", () => { limit = 60; render(); });
@@ -634,8 +631,8 @@
   });
 
   $("sort").value = st.sort;
-  $("sub").innerHTML = `Cooking calculator &middot; ${D.recipes.length} recipes for ${outputs.length} dishes and items, from the <a href="${esc(D.source)}" target="_blank" rel="noopener">SULFUR wiki</a> (built ${esc(D.built)})`;
-  $("foot").innerHTML = `Recipe data and icons: <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">sulfur.wiki.gg</a>, CC BY-SA. "Any ..." slots follow the wiki's labels; hover one to see the items it accepts. Rebuild after a game update with <code>py -I build_recipes.py</code>.`;
+  $("sub").innerHTML = `Cooking calculator &middot; ${D.recipes.length} recipes for ${outputs.length} dishes and items, read from the game files (built ${esc(D.built)})`;
+  $("foot").innerHTML = `Recipes, effects, and icons come from the installed game. The game lists one recipe per ingredient combination; a dashed slot stands for recipes that differ only in that ingredient, so fill it with any one of the items it names (hover it for the list). "Learn on a 4x4 stove": the ingredients do not fit a 3x3 stove, but once you know the recipe you can quick-cook it at any stove. "Quick-cook only": the ingredients fit no stove, so learn it from a recipe manual. Dish names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. Rebuild after a game update with <code>py -I build_recipes.py</code>.`;
   renderPantry();
   render();
 })();

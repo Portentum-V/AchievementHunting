@@ -1,216 +1,180 @@
-"""Build weapons-data.js for the SULFUR weapon table from sulfur.wiki.gg.
+"""Build weapons-data.js for the SULFUR weapon table from the installed game.
 
-Each weapon page on the wiki opens with an Item Infobox that holds its stats
-and sell value. This script reads every page in the weapon categories through
-the MediaWiki API, adds icon URLs, and fills attachment slots and reload
-time from sulfurbuild.com where the wiki leaves them out. The wiki wins
-wherever both list a value. Neither source gives weapon quality: the wiki
-lists no quality per weapon, and sulfurbuild marks every weapon "rare". It writes
+The game keeps one WeaponSO asset per weapon in its startup Addressables
+bundle. This script reads those assets through game_files.py, takes English
+names and melee descriptions from the game's localization table, and
+exports each weapon's inventory icon to icons/. It writes
 window.SULFUR_WEAPONS for index.html. Rerun it after a game update.
 
-    py -I build_weapons.py
+    py -m pip install UnityPy dnfile
+    py -I build_weapons.py [path to the SULFUR install folder]
+
+Without a path, it finds SULFUR through Steam's library folders.
 """
-import html
 import json
 import re
 import sys
-import time
-import urllib.parse
-import urllib.request
 from datetime import date
 from pathlib import Path
 
-API = "https://sulfur.wiki.gg/api.php"
-WIKI = "https://sulfur.wiki.gg/wiki/"
-BUILD = "https://www.sulfurbuild.com"
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0 Safari/537.36"
-OUT = Path(__file__).with_name("weapons-data.js")
+HERE = Path(__file__).parent
+sys.path.insert(0, str(HERE.parent))  # -I leaves the script folder off the path
+from game_files import WIKI_SEARCH, Game, game_dir  # noqa: E402
 
-# Category on the wiki -> type label in the table, in display order.
-TYPES = [
-    ("Pistols", "Pistol"), ("Revolvers", "Revolver"), ("Submachine Guns", "SMG"),
-    ("Assault Rifles", "Assault rifle"), ("Light Machine Guns", "LMG"),
-    ("Shotguns", "Shotgun"), ("Rifles", "Rifle"), ("Sniper Rifles", "Sniper rifle"),
-    ("Melee Weapons", "Melee"),
-]
+OUT = HERE / "weapons-data.js"
+ICONS = HERE / "icons"
+
+# WeaponTypes enum name -> type label in the table, in display order.
+TYPES = {
+    "Pistol": "Pistol", "Revolver": "Revolver", "SMG": "SMG", "AssaultRifle": "Assault rifle",
+    "LMG": "LMG", "Shotgun": "Shotgun", "Rifle": "Rifle", "Sniper": "Sniper rifle",
+    "Bow": "Bow", "Melee": "Melee",
+}
 # Throwables (grenades, jars, knives) are left out on purpose.
-# The wiki writes the same fire mode several ways.
-MODES = {"Auto": "Automatic", "Full": "Automatic", "Semi": "Semi-Automatic", "Semi-automatic": "Semi-Automatic"}
+
+# Hardcoded in the game's C#, not stored in any asset:
+# WeaponTypeDataExt.GetDamageMultiplier scales caliber damage by weapon type.
+TYPE_DAMAGE = {"AssaultRifle": 1.2, "Revolver": 1.6, "Rifle": 2.0, "Sniper": 2.0}
+# ItemStats.SetProjectileAmountFromDefault fires 3 projectiles for the Augusta.
+PELLETS = {"Weapon_Augusta": 3}
+# Holdable.cs: move speed multiplier for each HoldableWeightClass.
+WEIGHT_SPEED = {"Knife": 1.0, "Pistol": 0.95, "SMG": 0.88, "Rifle": 0.8, "Sniper": 0.75, "Bigga": 0.65}
 
 
-def fetch(url):
-    for attempt in range(4):
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA})
-            return urllib.request.urlopen(req, timeout=60).read().decode("utf-8")
-        except Exception:
-            if attempt == 3:
-                raise
-            time.sleep(2 * (attempt + 1))
+def clip_length(clip):
+    m = clip.read_typetree()["m_MuscleClip"]
+    return m["m_StopTime"] - m["m_StartTime"]
 
 
-def api(params):
-    params = {**params, "format": "json", "formatversion": "2"}
-    return json.loads(fetch(API + "?" + urllib.parse.urlencode(params)))
+def reload_time(bundle, animator, mag, per_round):
+    """Approximate reload seconds, from the clips the weapon's Animator plays.
 
-
-def chunks(seq, n=50):
-    for i in range(0, len(seq), n):
-        yield seq[i:i + n]
-
-
-def page_texts(titles):
-    texts = {}
-    for batch in chunks(sorted(titles)):
-        r = api({"action": "query", "prop": "revisions", "rvprop": "content",
-                 "rvslots": "main", "titles": "|".join(batch), "redirects": "1"})
-        for p in r["query"].get("pages", []):
-            if "revisions" in p:
-                texts[p["title"]] = p["revisions"][0]["slots"]["main"]["content"]
-    return texts
-
-
-def icons(names):
-    urls = {}
-    for batch in chunks(sorted(names)):
-        r = api({"action": "query", "prop": "imageinfo", "iiprop": "url", "iiurlwidth": "96",
-                 "titles": "|".join("File:" + n + ".png" for n in batch)})
-        norm = {n["to"]: n["from"] for n in r["query"].get("normalized", [])}
-        for p in r["query"].get("pages", []):
-            ii = p.get("imageinfo")
-            if ii:
-                title = norm.get(p["title"], p["title"])
-                urls[title.split(":", 1)[1][:-4]] = ii[0].get("thumburl") or ii[0]["url"]
-    return urls
-
-
-def plain(v):
-    """Wikitext value -> plain text: links to labels, entities decoded, tags dropped."""
-    v = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]*)\]\]", r"\1", v)
-    v = re.sub(r"<sup>.*?</sup>", "", v)
-    v = re.sub(r"<br\s*/?>", "\n", v)
-    v = re.sub(r"<[^>]+>", "", v)
-    return html.unescape(v).replace("×", "x").strip()
-
-
-def infobox(text):
-    m = re.search(r"\{\{\s*Item[ _]Infobox(.*?)\n\}\}", text, re.S | re.I)
-    if not m:
+    The game ends a reload on animation events, so clip length is the best
+    figure the files give. One reload cycle is start + reload + stop clip,
+    from a partly full magazine. A gun that loads one round at a time with a
+    short round clip (pump shotguns, some revolvers) repeats it per round.
+    Returns None when no clip name says reload.
+    """
+    ctl = bundle.get(animator, animator.read_typetree()["m_Controller"])
+    if ctl is None:
         return None
-    box = {}
-    for line in m.group(1).split("\n"):
-        kv = re.match(r"\s*\|\s*(\w+)\s*=\s*(.*)", line)
-        if kv and kv.group(2).strip():
-            box[kv.group(1)] = kv.group(2).strip()
-    return box
-
-
-def num(v):
-    try:
-        f = float(plain(v).replace(",", ""))
-        return int(f) if f.is_integer() else f
-    except (ValueError, AttributeError):
+    t = ctl.read_typetree()
+    ptrs = t.get("m_AnimationClips") or [c["m_OverrideClip"] for c in t.get("m_Clips", [])]
+    clips, empty = {}, {}
+    for p in ptrs:
+        c = bundle.get(ctl, p)
+        name = c and c.read_typetree()["m_Name"].split(".")[-1].split("_", 1)[-1]
+        if not name or "reload" not in name.lower() or "cancel" in name.lower():
+            continue
+        pool = empty if "empty" in name.lower() else clips
+        pool[name] = max(pool.get(name, 0), clip_length(c))
+    clips = clips or empty  # some guns only have a from-empty clip
+    if not clips:
         return None
-
-
-def damage_total(text):
-    """'40x8' -> 320, '40x8(x1-8)' -> 320, '>=600' -> 600, '???' -> None."""
-    nums = re.findall(r"\d+(?:\.\d+)?", text.split("(")[0])
-    if not nums:
-        return None
-    total = 1.0
-    for n in nums:
-        total *= float(n)
-    return int(total) if total.is_integer() else round(total, 1)
-
-
-def sulfurbuild():
-    """Name -> {slots, reload, href} from sulfurbuild.com item pages."""
-    listing = fetch(BUILD + "/weapons")
-    links = {}
-    for href, name in re.findall(r'<a class="flex items-start gap-3" href="(/items/[^"]+)">.*?<h3[^>]*>(.*?)</h3>',
-                                 listing, re.S):
-        links[html.unescape(name)] = href
-    extra = {}
-    for name, href in sorted(links.items()):
-        page = fetch(BUILD + href)
-        stats = dict((html.unescape(a), html.unescape(b)) for a, b in
-                     re.findall(r"<dt[^>]*>(.*?)</dt><dd[^>]*>(.*?)</dd>", page))
-        extra[name] = {
-            "slots": num(stats.get("Slots", "")),
-            "reload": num(stats.get("Reload", "").rstrip("s")),
-            "href": BUILD + href,
-        }
-        time.sleep(0.3)
-    return extra
+    pick = lambda pat: max([v for k, v in clips.items() if re.match(pat, k, re.I)] or [0])
+    start, stop = pick("startreload"), pick("stopreload")
+    main = max([v for k, v in clips.items() if not re.match("(start|stop)reload", k, re.I)] or [0])
+    if per_round and start and main <= 1 and not any("clip" in k.lower() for k in clips):
+        return round(start + main * mag + stop, 2)
+    return round(start + main + stop, 2)
 
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    cls = {}
-    for cat, label in TYPES:
-        r = api({"action": "query", "list": "categorymembers", "cmtitle": "Category:" + cat,
-                 "cmlimit": "500", "cmnamespace": "0"})
-        for m in r["query"]["categorymembers"]:
-            cls.setdefault(m["title"], label)
-    texts = page_texts(cls)
-    imgs = icons(cls)
-    extra = sulfurbuild()
+    game = bundle = Game(game_dir())
+    E, lang = game.enums, game.lang
+    calibers = {t["id"]: t for t in (o.read_typetree() for o in game.scripts("CaliberType"))}
 
-    weapons, missing = [], []
-    for name in sorted(cls, key=str.lower):
-        box = infobox(texts.get(name, ""))
-        if box is None:
-            missing.append(name)
+    ICONS.mkdir(exist_ok=True)
+    weapons, skipped = [], []
+    for o in bundle.scripts("WeaponSO"):
+        t = o.read_typetree()
+        wtype = E["WeaponTypes"].get(t["weaponType"], "None")
+        key = t["m_Name"]
+        if wtype not in TYPES or t["deprecated"] or t["excludeFromDatabase"] or key.endswith("NotUse"):
+            if wtype != "Throwable":
+                skipped.append(key)
             continue
-        dmg = plain(box.get("Damage") or box.get("MainDmg") or "")
-        grid = re.findall(r"\d+", box.get("GridSize", ""))
+        name = game.name(t)
+        attrs = {E["ItemAttributes"].get(a["attribute"], a["attribute"]): a["value"] for a in t["baseAttributes"]}
+        cal = calibers.get(t["caliber"])
+
+        # ItemStats.SetDamageAmountFromDefault and ItemDescription's damage line.
+        if t["overrideDamage"] or not cal:
+            per = t["overrideDamage"]
+        else:
+            per = cal["baseDamage"] * TYPE_DAMAGE.get(wtype, 1.0) * t["damageMultiplier"]
+        pellets = PELLETS.get(key, cal["numberOfProjectiles"] if cal else 1)
+        per = int(round(per, 3))  # the game truncates a float32 product
+        dmg = str(per)
+        if pellets > 1:
+            dmg += f"x{pellets}"
+        if t["iMaxAmmoPerShot"] > 1:
+            dmg += f"x{t['iMaxAmmoPerShot']}"
+
+        melee = wtype == "Melee"
+        # The prefab carries the Weapon component (round-by-round loading), one
+        # WeaponAttachmentVisual per attachment it can show, and the Animator
+        # whose clips time the reload.
+        # Weapon.UpdateKickStrength: kick = KickMultiplier (1 at base) x the
+        # weapon's kick power for its own caliber.
+        recoil = next((k["KickPower"] for k in t["kickPower"] if k["Caliber"] == t["caliber"]), None)
+        reload = None
+        per_round = False
+        slots, animators = set(), []
+        prefab = bundle.get(o, t["prefab"])
+        for c in bundle.components(prefab) if prefab else []:
+            if c.type.name == "Animator":
+                animators.append(c)
+            elif c.type.name == "MonoBehaviour":
+                ct = c.read_typetree()
+                if bundle.cls(c) == "WeaponAttachmentVisual" and ct.get("attachmentDefinition", {}).get("m_PathID"):
+                    slots.add(ct.get("attachmentSlot"))
+                elif "bulletsPerReload" in ct:
+                    # Weapon.cs: rounds added per reload cycle; 0 means a full magazine.
+                    per_round = ct["bulletsPerReload"] == 1 < t["iAmmoMax"]
+        for a in [] if melee else animators:
+            reload = reload_time(bundle, a, t["iAmmoMax"], per_round)
+            if reload:
+                break
+
+        icon = game.save_icon(t["id"]["value"], ICONS)
+        img = icon and f"icons/{icon}"
+
+        size = t["inventorySize"]
         w = {
-            "name": name, "type": cls[name], "url": WIKI + name.replace(" ", "_"),
-            "img": imgs.get(name), "kind": box.get("kind", ""),
-            "ammo": plain(box.get("Ammo", "")) or None,
-            "mode": MODES.get(plain(box.get("Mode", "")), plain(box.get("Mode", ""))) or None,
-            "dmg": dmg or None, "dmgN": damage_total(dmg) if dmg else None,
-            "rpm": num(box.get("RPM", "")), "mag": num(box.get("Mag", "")),
-            "spread": num(box.get("Spread", "")), "recoil": num(box.get("Recoil", "")),
-            "dur": num(box.get("Durability", "")), "weight": num(box.get("Weight", "")),
-            "sell": num(box.get("SellVal", "")),
-            "grid": "x".join(grid) if len(grid) == 2 else None,
-            "cells": int(grid[0]) * int(grid[1]) if len(grid) == 2 else None,
-            "soldBy": [s for s in plain(box.get("SoldBy", "")).split("\n") if s] or None,
+            "name": name, "type": TYPES[wtype], "url": WIKI_SEARCH + name.replace(" ", "+"), "img": img,
+            "quality": game.quality(t),
+            "ammo": None if melee or not cal else cal["label"],
+            "mode": None if melee else ("Automatic" if attrs.get("FullAuto", 0) > 0 else "Semi-Automatic"),
+            "dmg": dmg, "dmgN": per * pellets * max(1, t["iMaxAmmoPerShot"]),
+            "rpm": None if melee else t["rpm"],
+            "mag": None if melee else t["iAmmoMax"],
+            "spread": None if melee else attrs.get("Spread"),
+            "recoil": None if melee or recoil is None else round(recoil, 2),
+            "dur": int(t["maxDurability"]),
+            "weight": round((1 - WEIGHT_SPEED[E["HoldableWeightClass"][t["weightClass"]]]) * 100),
+            "sell": game.sell(t),
+            "grid": f"{size['x']}x{size['y']}", "cells": size["x"] * size["y"],
+            "slots": (len(slots) + 1) if slots else None,  # + the Insurance slot every gun has
+            "reload": reload,
+            "notes": [lang[f"Items/{key}_description"].strip()] if melee and lang.get(f"Items/{key}_description") else None,
         }
-        notes = []
-        if "SecondaryDmg" in box:
-            notes.append("Secondary " + plain(box["SecondaryDmg"]))
-        for stance, word in (("M", "Main"), ("S", "Secondary")):
-            if stance + "Parries" in box:
-                count = box.get(stance + "ParryCount")
-                notes.append(f"{word} parries {count + ' ' if count else ''}"
-                             f"{plain(box[stance + 'Parries']).lower()}")
-            if stance + "Stun" in box:
-                notes.append(word + " stuns")
-            if stance + "Bleed" in box:
-                notes.append(word + " bleeds")
-        w["notes"] = notes or None
-        x = extra.get(name, {})
-        w["slots"] = x.get("slots")
-        w["reload"] = num(box.get("RldSpeed", "").rstrip("s")) or x.get("reload")
-        if w["sell"] is None and name in extra:
-            missing.append(name + " (no sell value)")
         weapons.append(w)
 
-    data = {"source": WIKI + "Weapons", "extraSource": BUILD + "/weapons",
-            "built": date.today().isoformat(), "types": [t for _, t in TYPES], "weapons": weapons}
+    order = list(TYPES.values())
+    weapons.sort(key=lambda w: w["name"].lower())
+    data = {"source": "SULFUR game files", "built": date.today().isoformat(),
+            "types": [x for x in order if any(w["type"] == x for w in weapons)], "weapons": weapons}
     OUT.write_text(
-        "// Generated by build_weapons.py from sulfur.wiki.gg (CC BY-SA) and sulfurbuild.com."
-        " Do not edit by hand.\n"
+        "// Generated by build_weapons.py from the installed SULFUR game files. Do not edit by hand.\n"
         "window.SULFUR_WEAPONS = " + json.dumps(data, ensure_ascii=False, indent=0) + ";\n",
         encoding="utf-8")
-    noextra = sorted(w["name"] for w in weapons if w["name"] not in extra)
-    print(f"{len(weapons)} weapons -> {OUT.name}")
-    print("no infobox or sell value:", ", ".join(missing) or "none")
-    print("not on sulfurbuild:", ", ".join(noextra) or "none")
-    print("no icon:", ", ".join(sorted(w["name"] for w in weapons if not w["img"])) or "none")
+    print(f"{len(weapons)} weapons -> {OUT.name}, icons -> {ICONS.name}/")
+    print("skipped (deprecated or unused):", ", ".join(sorted(skipped)) or "none")
+    for field in ("reload", "recoil", "slots", "img"):
+        miss = [w["name"] for w in weapons if w[field] is None and w["type"] != "Melee"]
+        print(f"no {field}:", ", ".join(miss) or "none")
 
 
 if __name__ == "__main__":

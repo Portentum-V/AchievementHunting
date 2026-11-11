@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- SULFUR weapon table. Weapons come from weapons-data.js, which
-     build_weapons.py generates from sulfur.wiki.gg and sulfurbuild.com. -->
+     build_weapons.py generates from the installed game's files. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -66,6 +66,9 @@
   td.name a { color: var(--ink); text-decoration: none; font-weight: 600; }
   td.name a:hover { color: var(--accent); text-decoration: underline; }
   td.name .star { width: 14px; flex: none; text-align: center; color: var(--accent); font-size: 14px; }
+  .q { font-size: 12.5px; font-weight: 600; }
+  .q-Common { color: var(--muted); } .q-Uncommon { color: #3f9a4a; } .q-Rare { color: #3a7fd0; }
+  .q-Epic { color: #9a55dd; } .q-Legendary { color: #d9822b; }
   .type { display: inline-block; padding: 0 8px; border-radius: 999px; font-size: 12px; border: 1px solid var(--line); color: var(--muted); }
   td.sell { font-weight: 600; position: relative; min-width: 70px; }
   td.sell .bar { position: absolute; left: 6px; bottom: 4px; height: 3px; border-radius: 2px; background: var(--accent); opacity: .55; }
@@ -116,6 +119,11 @@
 <script>
 (() => {
   const D = window.SULFUR_WEAPONS;
+  // The data file is built locally from the game and kept out of git.
+  if (!D) {
+    document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="empty">No weapon data yet. It is read from your SULFUR install: run <code>py -I sulfur-tracker/weapons/build_weapons.py</code>, then reload.</p>`);
+    return;
+  }
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const fmt = n => n == null ? "" : Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 });
@@ -150,28 +158,32 @@
   // Fire mode as + (one shot per pull), ++ (burst), +++ (automatic).
   const fire = m => !m ? "" : /auto|full/i.test(m) && !/semi/i.test(m) ? "+++" : /burst/i.test(m) ? "++" : "+";
 
+  const QUALITY = ["Common", "Uncommon", "Rare", "Epic", "Legendary"];
+
   // Column: key, label, value for sorting, cell HTML, tooltip.
   const COLS = [
     { k: "name", label: "Weapon", l: true, v: w => w.name.toLowerCase(),
       cell: w => `<td class="l name"><div>${hasPity ? `<span class="star"${w.pity?.unlocked ? ` title="${esc(w.pity.name)}: unlocked" aria-label="Pity achievement unlocked">&#9733;` : w.pity ? ` title="${esc(w.pity.name)}: still needed">` : ` title="No Pity achievement">`}</span>` : ""}${w.img ? `<img src="${esc(w.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : ""}<a href="${esc(w.url)}" target="_blank" rel="noopener"${w.notes ? ` title="${esc(w.notes.join("; "))}"` : ""}>${esc(w.name)}</a></div></td>` },
     { k: "type", label: "Type", l: true, v: w => D.types.indexOf(w.type), cell: w => `<td class="l"><span class="type">${esc(w.type)}</span></td>` },
+    { k: "quality", label: "Quality", l: true, v: w => QUALITY.indexOf(w.quality), tip: "Item quality from the game files, Common to Legendary.",
+      cell: w => `<td class="l"><span class="q q-${esc(w.quality)}">${esc(w.quality || "")}</span></td>` },
     { k: "ammo", label: "Ammo", l: true, v: w => w.ammo, cell: w => `<td class="l">${esc(w.ammo || "")}</td>` },
-    { k: "sell", label: "Sell", v: w => w.sell, tip: "Sell value from the wiki infobox. The bar compares it with the most valuable weapon shown.",
+    { k: "sell", label: "Sell", v: w => w.sell, tip: "Trader sell value: half the base price. Full durability adds 25%, wear takes some off, and attachments add to it. The bar compares it with the most valuable weapon shown.",
       cell: (w, max) => `<td class="sell">${w.sell == null ? '<span class="dim">?</span>' : fmt(w.sell)}${w.sell ? `<span class="bar" style="width:calc((100% - 12px) * ${(w.sell / max).toFixed(3)})"></span>` : ""}</td>` },
     { k: "perCell", label: "Sell/cell", v: w => w.perCell, tip: "Sell value divided by inventory cells (grid width x height)." },
     { k: "grid", label: "Grid", v: w => w.cells, cell: w => `<td>${esc(w.grid || "")}</td>` },
-    { k: "dmgN", label: "Damage", v: w => w.dmgN, tip: "Base damage per shot. Shotguns show pellet damage x pellets; sorting uses the product.",
+    { k: "dmgN", label: "Damage", v: w => w.dmgN, tip: "Damage per shot, as the in-game tooltip shows it: caliber damage x weapon type bonus x the weapon's multiplier. Shotguns show pellet damage x pellets; sorting uses the product.",
       cell: w => `<td title="${w.dmgN != null && w.dmg !== String(w.dmgN) ? "Total " + fmt(w.dmgN) : ""}">${esc(w.dmg || "")}</td>` },
     { k: "rpm", label: "RPM", v: w => w.rpm },
     { k: "dps", label: "DPS", v: w => w.dps, tip: "Base damage x RPM / 60, before reloads, attachments, and enchantments." },
     { k: "mag", label: "Mag", v: w => w.mag },
-    { k: "reload", label: "Reload", v: w => w.reload, tip: "Reload time in seconds, from sulfurbuild.com.", cell: w => `<td>${w.reload == null ? "" : fmt(w.reload) + "s"}</td>` },
-    { k: "slots", label: "Slots", v: w => w.slots, tip: "Attachment slots, from sulfurbuild.com." },
+    { k: "reload", label: "Reload", v: w => w.reload, tip: "Approximate reload seconds, from the length of the reload animation, with a partly full magazine. Guns that load a round at a time show a full reload from empty.", cell: w => `<td>${w.reload == null ? "" : fmt(w.reload) + "s"}</td>` },
+    { k: "slots", label: "Slots", v: w => w.slots, tip: "Attachment slots the weapon model has, plus the insurance slot." },
     { k: "spread", label: "Spread", v: w => w.spread },
-    { k: "recoil", label: "Recoil", v: w => w.recoil },
+    { k: "recoil", label: "Recoil", v: w => w.recoil, tip: "Camera kick per shot for the weapon's own caliber." },
     { k: "dur", label: "Durability", v: w => w.dur },
-    { k: "weight", label: "Weight", v: w => w.weight },
-    { k: "mode", label: "Fire", l: true, v: w => fire(w.mode).length || null, tip: "+ single shot (semi, bolt, pump, break, charge), ++ burst, +++ automatic. Hover a cell for the exact mode.",
+    { k: "weight", label: "Weight", v: w => w.weight, tip: "Move speed lost while you hold the weapon, in percent." },
+    { k: "mode", label: "Fire", l: true, v: w => fire(w.mode).length || null, tip: "+ one shot per trigger pull, +++ automatic.",
       cell: w => `<td class="l fire" title="${esc(w.mode || "")}">${fire(w.mode)}</td>` },
   ];
   // Columns to hide below a window width, least useful first.
@@ -219,7 +231,7 @@
       (!st.types.length || st.types.includes(w.type)) &&
       (!st.ammo || w.ammo === st.ammo) &&
       (!st.pity || (st.pity === "done" ? w.pity?.unlocked : w.pity && !w.pity.unlocked)) &&
-      (!q || [w.name, w.type, w.ammo, w.mode, ...(w.notes || [])].join(" ").toLowerCase().includes(q)));
+      (!q || [w.name, w.type, w.quality, w.ammo, w.mode, ...(w.notes || [])].join(" ").toLowerCase().includes(q)));
     const c = col(st.sort);
     // Missing values sort last in either direction.
     list.sort((a, b) => {
@@ -254,7 +266,7 @@
     document.documentElement.dataset.theme = st.theme; save();
   });
 
-  $("sub").innerHTML = `Every weapon in one table &middot; ${W.length} weapons from the <a href="${esc(D.source)}" target="_blank" rel="noopener">SULFUR wiki</a> (built ${esc(D.built)})`;
+  $("sub").innerHTML = `Every weapon in one table &middot; ${W.length} weapons read from the game files (built ${esc(D.built)})`;
   if (hasPity) {
     $("pity").value = ["todo", "done"].includes(st.pity) ? st.pity : "";
     $("pity").addEventListener("change", () => { st.pity = $("pity").value; save(); render(); });
@@ -262,7 +274,7 @@
   const pityDone = W.filter(w => w.pity?.unlocked).length, pityAll = W.filter(w => w.pity).length;
   $("foot").innerHTML = (hasPity
     ? `A star marks a gun whose "Pity for ..." achievement you have (${pityDone} of ${pityAll}); it reads the tracker's last Steam sync. `
-    : `Run the tracker once to star the guns whose "Pity for ..." achievement you have. `) + `Click a column to sort; click again to reverse. Click a type to show only that type; Ctrl+click adds more types. Pink sell values are the highest of their type among the rows shown. Fire: + single shot, ++ burst, +++ automatic. Narrow windows hide the minor columns. Stats and icons: <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">sulfur.wiki.gg</a>, CC BY-SA. Reload and slots: <a href="${esc(D.extraSource)}" target="_blank" rel="noopener">sulfurbuild.com</a>. Rebuild after a game update with <code>py -I build_weapons.py</code>.`;
+    : `Run the tracker once to star the guns whose "Pity for ..." achievement you have. `) + `Click a column to sort; click again to reverse. Click a type to show only that type; Ctrl+click adds more types. Pink sell values are the highest of their type among the rows shown. Fire: + one shot per pull, +++ automatic. Narrow windows hide the minor columns. Weapon names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. Rebuild after a game update with <code>py -I build_weapons.py</code>.`;
   const css = document.createElement("style");
   css.textContent = Object.entries(HIDE).map(([px, keys]) => `@media (max-width: ${px}px) { ${keys.map(k => `#head > :nth-child(${COLS.findIndex(c => c.k === k) + 1}), #rows td:nth-child(${COLS.findIndex(c => c.k === k) + 1}):not(.empty)`).join(", ")} { display: none; } }`).join(" ");
   document.head.appendChild(css);

@@ -1,0 +1,209 @@
+<!doctype html>
+<!-- SULFUR scrolls. Scrolls come from scrolls-data.js, which
+     build_scrolls.py generates from the installed game's files. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SULFUR Scrolls</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='8' y='4' width='16' height='24' rx='3' fill='%237d6b00'/%3E%3Cpath d='M12 11h8M12 16h8M12 21h5' stroke='%23fffaf4' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f4efe9; --panel: #fffaf4; --panel-2: #efe6dc; --ink: #241a1a; --muted: #6f5f5a;
+    --line: #dccfc3; --accent: #7d6b00; --accent-soft: #7d6b0018; --accent-2: #8e2a5c; --accent-2-soft: #8e2a5c1c;
+    --shadow: 0 1px 2px #0000000f, 0 4px 14px #0000000a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+      --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+      --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+    --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+    --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 30px; margin: 0; letter-spacing: .3px; }
+  h1 span { color: var(--accent); }
+  h2 { font-family: Georgia, serif; font-weight: 600; font-size: 19px; margin: 22px 0 8px; }
+  .sub { color: var(--muted); margin: 4px 0 0; font-size: 14px; }
+  .top { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; margin-bottom: 14px; }
+  .bar-r { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button { font: inherit; cursor: pointer; }
+  .btn { border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 5px 12px; border-radius: 8px; font-size: 13px; text-decoration: none; }
+  .btn:hover { border-color: var(--accent); }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 6px 0 12px; }
+  .search { flex: 1 1 220px; max-width: 340px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; }
+  .search:focus, select:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  select { padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 3px 10px; border-radius: 999px; font-size: 13px; }
+  .chip b { font-weight: 600; margin-left: 3px; }
+  .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .meta { color: var(--muted); font-size: 13px; }
+
+  .chartbox { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow-x: auto; }
+  table.chart { border-collapse: collapse; font-size: 12px; min-width: 100%; }
+  .chart th, .chart td { border: 1px solid var(--line); padding: 4px; text-align: center; vertical-align: middle; }
+  .chart th { background: var(--panel-2); color: var(--muted); font-weight: 600; }
+  .chart th img, .chart td img { width: 26px; height: 26px; object-fit: contain; display: block; margin: 0 auto 2px; }
+  .chart td button { border: 0; background: none; color: var(--ink); padding: 2px; border-radius: 6px; width: 100%; font-size: 11.5px; line-height: 1.2; }
+  .chart td button:hover { background: var(--accent-soft); color: var(--accent); }
+  .chart td.same { background: var(--accent-soft); }
+  .chart td.none { color: var(--muted); }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 10px; }
+  @media (max-width: 420px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 48px 1fr; gap: 10px; align-content: start; min-width: 0; }
+  .card.hit { border-color: var(--accent); }
+  .card > img { width: 48px; height: 48px; border-radius: 8px; background: var(--panel-2); object-fit: contain; padding: 3px; }
+  .card h3 { margin: 0; font-size: 15.5px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .card h3 a { color: inherit; text-decoration: none; }
+  .card h3 a:hover { text-decoration: underline; }
+  .desc { margin: 4px 0 0; font-size: 13.5px; }
+  ul.eff { margin: 4px 0 0; padding-left: 18px; font-size: 12.5px; color: var(--muted); }
+  .row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 6px; font-size: 12.5px; }
+  .row > b { color: var(--muted); font-weight: 600; margin-right: 2px; }
+  .ing { display: inline-flex; align-items: center; gap: 3px; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px 1px 2px;
+    font-size: 12.5px; background: var(--panel-2); color: var(--ink); }
+  button.ing:hover { border-color: var(--accent); }
+  .ing img { width: 20px; height: 20px; object-fit: contain; }
+  .plus { color: var(--muted); }
+  .q { font-size: 12.5px; font-weight: 600; }
+  .q-Common { color: var(--muted); } .q-Uncommon { color: #3f9a4a; } .q-Rare { color: #3a7fd0; }
+  .q-Epic { color: #9a55dd; } .q-Legendary { color: #d9822b; }
+  .tag { font-size: 11px; padding: 1px 7px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--line); border-radius: 12px; }
+  .foot { color: var(--muted); font-size: 12.5px; margin-top: 24px; }
+  .foot a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>SUL<span>FUR</span> Scrolls</h1>
+      <p class="sub" id="sub">Every scroll and how to combine it</p>
+    </div>
+    <div class="bar-r">
+      <a class="btn" href="../recipes/index.html">Recipes</a>
+      <a class="btn" href="../weapons/index.html">Weapons</a>
+      <a class="btn" href="../index.html">Achievements</a>
+      <button class="btn" id="theme">Theme</button>
+    </div>
+  </div>
+
+  <h2>Combination chart</h2>
+  <p class="meta" id="chartnote"></p>
+  <div class="chartbox"><table class="chart" id="chart"></table></div>
+
+  <h2>All scrolls</h2>
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="Search scrolls or effects" aria-label="Search scrolls">
+    <div class="chips" id="tiers" role="group" aria-label="Tier"></div>
+    <select id="sort" aria-label="Sort">
+      <option value="name">Sort: name</option>
+      <option value="sell">Sort: sell value</option>
+      <option value="quality">Sort: quality</option>
+    </select>
+    <span class="meta" id="count"></span>
+  </div>
+  <div class="cards" id="cards"></div>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script src="scrolls-data.js"></script>
+<script>
+(() => {
+  const D = window.SULFUR_SCROLLS;
+  // The data file is built locally from the game and kept out of git.
+  if (!D) {
+    document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="empty">No scroll data yet. It is read from your SULFUR install: run <code>py -I sulfur-tracker/scrolls/build_scrolls.py</code>, then reload.</p>`);
+    return;
+  }
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const QUALITY = ["Common", "Uncommon", "Rare", "Epic", "Legendary"];
+  const by = Object.fromEntries(D.scrolls.map(s => [s.name, s]));
+  const short = n => n.replace(/^Scroll of /, "");
+  const icon = n => by[n]?.img ? `<img src="${esc(by[n].img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">` : "";
+
+  const LS = "sulfur-scrolls-v1";
+  const st = { tier: "", sort: "name" };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(LS)) || {}); } catch {}
+  const save = () => { try { localStorage.setItem(LS, JSON.stringify(st)); } catch {} };
+  if (st.theme) document.documentElement.dataset.theme = st.theme;
+
+  // The chart: every scroll that goes into a recipe, against every other one.
+  const pair = {};
+  D.scrolls.forEach(s => s.from.forEach(f => {
+    const ns = f.flatMap(i => Array(i.q).fill(i.n));
+    if (ns.length === 2) pair[[...ns].sort().join("|")] = s.name;
+  }));
+  const axis = D.scrolls.filter(s => s.into.length).map(s => s.name);
+  $("chart").innerHTML = `<thead><tr><th></th>${axis.map(n => `<th title="${esc(n)}">${icon(n)}${esc(short(n))}</th>`).join("")}</tr></thead><tbody>` +
+    axis.map(a => `<tr><th title="${esc(a)}">${icon(a)}${esc(short(a))}</th>${axis.map(b => {
+      const out = pair[[a, b].sort().join("|")];
+      return out ? `<td class="${a === b ? "same" : ""}"><button data-go="${esc(out)}" title="${esc(a)} + ${esc(b)} = ${esc(out)}">${icon(out)}${esc(short(out))}</button></td>`
+        : `<td class="none">-</td>`;
+    }).join("")}</tr>`).join("") + "</tbody>";
+  $("chartnote").textContent = `Give the Scholar two scrolls to combine them. Find a row and a column; the cell is the scroll you get. ` +
+    `The shaded diagonal is two of the same scroll.`;
+
+  const tiers = [["", "All"], ["Base", "Base"], ["Combined", "Combined"]];
+  const counts = { "": D.scrolls.length };
+  D.scrolls.forEach(s => counts[s.tier] = (counts[s.tier] || 0) + 1);
+  const renderTiers = () => {
+    $("tiers").innerHTML = tiers.map(([k, l]) => `<button class="chip" data-t="${k}" aria-pressed="${st.tier === k}">${l}<b>${counts[k] || 0}</b></button>`).join("");
+  };
+  const chip = n => `<button class="ing" data-go="${esc(n)}" title="Show ${esc(n)}">${icon(n)}${esc(n)}</button>`;
+
+  let focus = "";
+  function render() {
+    const q = $("q").value.trim().toLowerCase();
+    const list = D.scrolls.filter(s => (!st.tier || s.tier === st.tier) &&
+      (!q || [s.name, ...s.desc, ...s.effects, ...s.into, ...s.from.flat().map(i => i.n)].join(" ").toLowerCase().includes(q)));
+    const cmp = { name: () => 0, sell: (a, b) => b.sell - a.sell, quality: (a, b) => QUALITY.indexOf(b.quality) - QUALITY.indexOf(a.quality) }[st.sort] || (() => 0);
+    list.sort((a, b) => cmp(a, b) || a.name.localeCompare(b.name));
+    $("cards").innerHTML = list.length ? list.map(s => `<div class="card${s.name === focus ? " hit" : ""}" id="s-${esc(s.name.replace(/\W+/g, "-"))}">
+      ${s.img ? `<img src="${esc(s.img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">` : "<span></span>"}
+      <div style="min-width:0"><h3><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>
+        <span class="q q-${esc(s.quality)}">${esc(s.quality)}</span><span class="tag">${esc(s.tier)}</span></h3>
+        <div class="meta">${esc(s.sell)} sulf &middot; ${esc(s.grid)} grid</div>
+        ${s.desc.map(d => `<p class="desc">${esc(d)}</p>`).join("")}
+        ${s.effects.length ? `<ul class="eff">${s.effects.map(e => `<li>${esc(e)}</li>`).join("")}</ul>` : ""}
+        ${s.flavor ? `<p class="desc meta"><i>${esc(s.flavor)}</i></p>` : ""}
+        ${s.from.map(f => `<div class="row"><b>Made from:</b>${f.flatMap(i => Array(i.q).fill(i.n)).map(chip).join('<span class="plus">+</span>')}</div>`).join("")}
+        ${s.into.length ? `<div class="row"><b>Combines into:</b>${s.into.map(chip).join("")}</div>` : ""}
+      </div></div>`).join("") : `<div class="empty">No scroll matches.</div>`;
+    $("count").textContent = `${list.length} of ${D.scrolls.length} scrolls`;
+  }
+  const go = n => {
+    focus = n; $("q").value = ""; st.tier = ""; save(); renderTiers(); render();
+    document.getElementById("s-" + n.replace(/\W+/g, "-"))?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+  document.addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) go(b.dataset.go); });
+  $("tiers").addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (b) { st.tier = b.dataset.t; save(); renderTiers(); render(); } });
+  $("sort").addEventListener("change", () => { st.sort = $("sort").value; save(); render(); });
+  $("q").addEventListener("input", () => { focus = ""; render(); });
+  $("theme").addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    st.theme = dark ? "light" : "dark"; document.documentElement.dataset.theme = st.theme; save();
+  });
+
+  $("sort").value = st.sort;
+  $("sub").textContent = `${D.scrolls.length} scrolls read from the game files (built ${D.built})`;
+  $("foot").innerHTML = `Drag a scroll onto a weapon with an empty enchantment slot to enchant it. Descriptions and effects are the text the game's tooltip shows. ` +
+    `Weapon oils are enchantments too, but they are not elemental and are not listed here. Scroll names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. ` +
+    `Rebuild after a game update with <code>py -I build_scrolls.py</code>.`;
+  renderTiers(); render();
+})();
+</script>
+</body>
+</html>
