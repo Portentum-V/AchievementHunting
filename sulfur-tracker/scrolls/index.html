@@ -162,7 +162,10 @@
   const renderTiers = () => {
     $("tiers").innerHTML = tiers.map(([k, l]) => `<button class="chip" data-t="${k}" aria-pressed="${st.tier === k}">${l}<b>${counts[k] || 0}</b></button>`).join("");
   };
-  const chip = n => `<button class="ing" data-go="${esc(n)}" title="Show ${esc(n)}">${icon(n)}${esc(n)}</button>`;
+  // Effect lines that repeat a description line show once.
+  const flat = t => t.replace(/\.$/, "").toLowerCase();
+  const extra = s => s.effects.filter(e => !s.desc.some(d => flat(d) === flat(e)));
+  const chip = n =>`<button class="ing" data-go="${esc(n)}" title="Show ${esc(n)}">${icon(n)}${esc(n)}</button>`;
 
   let focus = "";
   function render() {
@@ -177,7 +180,7 @@
         <span class="q q-${esc(s.quality)}">${esc(s.quality)}</span><span class="tag">${esc(s.tier)}</span></h3>
         <div class="meta">${esc(s.sell)} sulf &middot; ${esc(s.grid)} grid</div>
         ${s.desc.map(d => `<p class="desc">${esc(d)}</p>`).join("")}
-        ${s.effects.length ? `<ul class="eff">${s.effects.map(e => `<li>${esc(e)}</li>`).join("")}</ul>` : ""}
+        ${extra(s).length ? `<ul class="eff">${extra(s).map(e => `<li>${esc(e)}</li>`).join("")}</ul>` : ""}
         ${s.flavor ? `<p class="desc meta"><i>${esc(s.flavor)}</i></p>` : ""}
         ${s.from.map(f => `<div class="row"><b>Made from:</b>${f.flatMap(i => Array(i.q).fill(i.n)).map(chip).join('<span class="plus">+</span>')}</div>`).join("")}
         ${s.into.length ? `<div class="row"><b>Combines into:</b>${s.into.map(chip).join("")}</div>` : ""}
@@ -198,7 +201,7 @@
   });
 
   $("sort").value = st.sort;
-  $("sub").textContent = `${D.scrolls.length} scrolls read from the game files (built ${D.built})`;
+  $("sub").textContent = `${D.scrolls.length} scrolls read from the game files (${D.version ? "version " + D.version + ", " : ""}built ${D.built})`;
   $("foot").innerHTML = `Drag a scroll onto a weapon with an empty enchantment slot to enchant it. Descriptions and effects are the text the game's tooltip shows. ` +
     `Weapon oils are enchantments too, but they are not elemental and are not listed here. Scroll names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. ` +
     `Rebuild after a game update with <code>py -I build_scrolls.py</code>.`;

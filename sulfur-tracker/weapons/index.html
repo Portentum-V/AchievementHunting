@@ -266,7 +266,7 @@
     document.documentElement.dataset.theme = st.theme; save();
   });
 
-  $("sub").innerHTML = `Every weapon in one table &middot; ${W.length} weapons read from the game files (built ${esc(D.built)})`;
+  $("sub").innerHTML = `Every weapon in one table &middot; ${W.length} weapons read from the game files (${D.version ? "version " + esc(D.version) + ", " : ""}built ${esc(D.built)})`;
   if (hasPity) {
     $("pity").value = ["todo", "done"].includes(st.pity) ? st.pity : "";
     $("pity").addEventListener("change", () => { st.pity = $("pity").value; save(); render(); });

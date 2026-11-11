@@ -60,11 +60,30 @@ def enums(managed):
     return out
 
 
+def game_version(data):
+    """The version the game reports as Application.version, such as "1.0.6".
+
+    Unity keeps it as PlayerSettings.bundleVersion in globalgamemanagers.
+    Its type tree does not read cleanly, so this scans the object's
+    length-prefixed strings: the version is the most specific "1.0.x" one
+    (the other two are platform build numbers, "1.0").
+    """
+    env = UnityPy.load(str(Path(data) / "globalgamemanagers"))
+    raw = next(o for o in env.objects if o.type.name == "PlayerSettings").get_raw_data()
+    found = []
+    for m in re.finditer(rb"(?=(.{4})(\d+(?:\.\d+)+)\x00)", raw, re.S):
+        n = int.from_bytes(m.group(1), "little")
+        if n == len(m.group(2)):
+            found.append(m.group(2).decode())
+    return max(found, key=lambda v: (v.count("."), [int(x) for x in v.split(".")]), default=None)
+
+
 class Game:
     """The startup bundle, enums, and English text of one SULFUR install."""
 
     def __init__(self, root):
         data = Path(root) / "Sulfur_Data"
+        self.version = game_version(data)
         self.enums = enums(data / "Managed")
         aa = data / "StreamingAssets" / "aa" / "StandaloneWindows64"
         names = {p.name: p for p in aa.glob("*.bundle")}

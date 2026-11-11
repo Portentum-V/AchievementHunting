@@ -631,7 +631,7 @@
   });
 
   $("sort").value = st.sort;
-  $("sub").innerHTML = `Cooking calculator &middot; ${D.recipes.length} recipes for ${outputs.length} dishes and items, read from the game files (built ${esc(D.built)})`;
+  $("sub").innerHTML = `Cooking calculator &middot; ${D.recipes.length} recipes for ${outputs.length} dishes and items, read from the game files (${D.version ? "version " + esc(D.version) + ", " : ""}built ${esc(D.built)})`;
   $("foot").innerHTML = `Recipes, effects, and icons come from the installed game. The game lists one recipe per ingredient combination; a dashed slot stands for recipes that differ only in that ingredient, so fill it with any one of the items it names (hover it for the list). "Learn on a 4x4 stove": the ingredients do not fit a 3x3 stove, but once you know the recipe you can quick-cook it at any stove. "Quick-cook only": the ingredients fit no stove, so learn it from a recipe manual. Dish names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. Rebuild after a game update with <code>py -I build_recipes.py</code>.`;
   renderPantry();
   render();

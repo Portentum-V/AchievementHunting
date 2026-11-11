@@ -18763,5 +18763,6 @@ window.SULFUR_RECIPES = {
 "qty": 1
 }
 ],
-"source": "SULFUR game files"
+"source": "SULFUR game files",
+"version": "1.0.6"
 };
