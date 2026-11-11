@@ -213,6 +213,14 @@
     { k: "throw", label: "Throwables", test: i => i.kind === "throwable" },
     { k: "other", label: "Other", test: i => !["consumable", "throwable"].includes(i.kind) },
   ];
+  // A saved choice can outlive the page version that offered it, such as the
+  // old Scrolls kind; reset any value the page no longer has.
+  const keep = (key, allowed) => { if (!allowed.includes(st[key])) st[key] = allowed[0]; };
+  keep("kind", KINDS.map(k => k.k));
+  keep("pf", ["all", "have", "raw", "cooked"]);
+  keep("tab", ["cook", "next", "short", "all"]);
+  keep("sort", ["name", "yield", "heal", "buffs", "sell"]);
+  keep("rank", ["heal", "buffs", "sell"]);
   const kindOf = name => (KINDS.find(k => k.test && k.test(D.items[name] || {})) || {}).k;
   D.recipes.forEach((r, idx) => { r.id = idx; r.kind = kindOf(r.out); });
   const byOut = {};
