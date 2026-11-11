@@ -108,9 +108,9 @@ py -m pip install UnityPy dnfile
 ```
 
 Each builder writes its data file and an `icons/` folder beside its page.
-The game's text, stats, and art belong to its makers, so git ignores both,
-and they stay on your machine. Run a page's builder once before you open
-it; until then the page says which command to run.
+The repo keeps the data files. Git ignores the icon folders, because
+someone could reuse the game's art elsewhere, so a page shows icons only
+after you run its builder.
 
 ## Not in the repo
 
