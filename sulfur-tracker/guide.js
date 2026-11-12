@@ -59,6 +59,8 @@ window.GUIDE = {
       description: "Every weapon in one sortable table: sell value, quality, damage, DPS, and grid size." },
     { label: "Scrolls", href: "scrolls/index.html",
       description: "Every scroll with its description and effects, and a chart of what two scrolls combine into." },
+    { label: "Oils", href: "oils/index.html",
+      description: "Every weapon oil, grouped by what it improves, with its benefits and drawbacks." },
   ],
   flags: {
     rare: { label: "Rare gun", tone: "accent2" },

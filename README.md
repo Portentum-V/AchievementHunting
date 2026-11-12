@@ -66,10 +66,22 @@ py -I sulfur-tracker/recipes/build_recipes.py
 weapon effects it adds, as the game's tooltip shows them. A chart shows
 what the Scholar makes from each pair of scrolls, and each card shows what
 makes the scroll and what it combines into. Weapon oils are enchantments
-too, but the page leaves them out. After a game update, rebuild it:
+too, and they have their own page. After a game update, rebuild it:
 
 ```
 py -I sulfur-tracker/scrolls/build_scrolls.py
+```
+
+## SULFUR oils
+
+`sulfur-tracker/oils/` lists every weapon oil with the effects it adds, as
+the game's tooltip shows them. Green marks a benefit and red a drawback.
+The groups are the game's own tags for each oil's main effect, such as
+Spread or Multishot. Toggle several groups at once, or show only oils with
+no drawback. After a game update, rebuild it:
+
+```
+py -I sulfur-tracker/oils/build_oils.py
 ```
 
 ## SULFUR weapon table
@@ -99,7 +111,7 @@ py -I sulfur-tracker/weapons/build_weapons.py
 
 ### Building the SULFUR pages
 
-All three builders read the game through `sulfur-tracker/game_files.py`.
+All four builders read the game through `sulfur-tracker/game_files.py`.
 They find SULFUR through Steam; pass the install folder if that fails.
 Install their two packages once:
 

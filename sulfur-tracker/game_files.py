@@ -1,6 +1,7 @@
 """Read SULFUR's installed game files: the shared code behind the SULFUR builders.
 
-build_weapons.py, build_recipes.py, and build_scrolls.py import this module.
+build_weapons.py, build_recipes.py, build_scrolls.py, and build_oils.py
+import this module.
 It finds the game through Steam, reads enum names from the game's DLLs with
 dnfile, opens the startup Addressables bundle with UnityPy, and turns item
 definitions into the same text the in-game tooltip shows.
@@ -232,7 +233,18 @@ class Game:
         return [l.rstrip(".") for l in lines if l], heal
 
     def enchant_effects(self, item):
-        """ItemDescription's lines for the enchantment a scroll applies to a weapon."""
+        """ItemDescription's lines for the enchantment a scroll or oil applies to a weapon."""
+        ench, lines = self.enchant_lines(item)
+        return ench, [l["text"] for l in lines]
+
+    def enchant_lines(self, item):
+        """The tooltip lines with what each one changes: attribute name, value, and text.
+
+        A line from a weapon modifier has key (an ItemAttributes name), value, and
+        modType (100 flat, 200 or 300 percent);
+        the line for an enchantment that adds no durability cost has key
+        "NoExtraDurabilityCost" and value None.
+        """
         ench = self.enchants.get(item["appliesEnchantment"]["value"])
         if not ench:
             return None, []
@@ -245,9 +257,9 @@ class Game:
             label = self.text(f"ItemAttributes/{key}_itemDescription") or a["itemDescriptionName"]
             if a["simplifiedModAmount"]:
                 which = "Increase" if m["value"] > 0 else "Decrease"
-                lines.append(self.text(f"ItemAttributes/{key}_simplified{which}") or a[f"simplified{which}String"])
+                text = self.text(f"ItemAttributes/{key}_simplified{which}") or a[f"simplified{which}String"]
             elif a["isBooleanAttribute"]:
-                lines.append(label)
+                text = label
             else:
                 if a["showPercentageAsFactor"]:
                     val = "x" + self._num(m["value"])
@@ -255,7 +267,9 @@ class Game:
                     val = ("+" if m["value"] >= 0 else "") + self._num(m["value"] * 100) + "%"
                 else:
                     val = ("+" if m["value"] >= 0 else "") + self._num(m["value"]) + a["unitMeasure"]
-                lines.append(f"{label}: {val}{a['overrideUnitName']}")
+                text = f"{label}: {val}{a['overrideUnitName']}"
+            lines.append({"key": key, "value": m["value"], "modType": m["modType"], "text": text})
         if not ench["CostsDurability"]:
-            lines.append(self.text("ItemDescriptions/Label_NoExtraDurabilityCost"))
-        return ench, [l for l in lines if l]
+            lines.append({"key": "NoExtraDurabilityCost", "value": None, "modType": None,
+                          "text": self.text("ItemDescriptions/Label_NoExtraDurabilityCost")})
+        return ench, [l for l in lines if l["text"]]

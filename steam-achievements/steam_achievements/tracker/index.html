@@ -204,7 +204,8 @@
 
   if (store.theme) document.documentElement.dataset.theme = store.theme;
   let steam = window.STEAM || null;
-  let ui = { q: "", cat: "all" };
+  // Chosen category chips. Empty means All; several show every one of them.
+  let ui = { q: "", cats: new Set() };
 
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -310,9 +311,13 @@
     const missLeft = miss.filter(a => !a.done).length;
     // "~missable" is a cross-category filter; the tilde keeps it apart from category ids.
     const inChip = (a, id) => id === "all" || (id === "~missable" ? !!a.missable : a.cat === id);
+    // Drop picks that no longer exist, such as Other once every achievement has a category.
+    const ids = new Set(shownCats.map(c => c[0]).concat(miss.length ? ["~missable"] : []));
+    ui.cats.forEach(id => ids.has(id) || ui.cats.delete(id));
+    const picked = id => id === "all" ? !ui.cats.size : ui.cats.has(id);
     $("#chips").innerHTML = [["all", "All"]].concat(shownCats, miss.length ? [["~missable", "Missable"]] : []).map(([id, label]) => {
       const inCat = all.filter(a => inChip(a, id));
-      return `<button class="chip ${id === "~missable" ? "warn" : ""}" data-cat="${esc(id)}" aria-pressed="${ui.cat === id}">${esc(label)}<b>${inCat.filter(a => a.done).length}/${inCat.length}</b></button>`;
+      return `<button class="chip ${id === "~missable" ? "warn" : ""}" data-cat="${esc(id)}" aria-pressed="${picked(id)}">${esc(label)}<b>${inCat.filter(a => a.done).length}/${inCat.length}</b></button>`;
     }).join("");
 
     // The summary banner: the guide's missables note, plus how many are still open.
@@ -323,7 +328,7 @@
 
     const q = ui.q.trim().toLowerCase();
     const shown = sorted(all.filter(a =>
-      inChip(a, ui.cat) &&
+      (!ui.cats.size || [...ui.cats].some(id => inChip(a, id))) &&
       (store.status === "all" || (store.status === "done") === a.done) &&
       (!q || [a.name, a.desc, a.missable, ...a.tip, ...a.steps].join(" ").toLowerCase().includes(q))));
 
@@ -420,7 +425,11 @@
   $("#sort").addEventListener("change", e => { store.sort = e.target.value; save(); render(); });
   $("#chips").addEventListener("click", e => {
     const b = e.target.closest(".chip"); if (!b) return;
-    ui.cat = b.dataset.cat; render();
+    // All clears the picks; any other chip toggles on or off.
+    const id = b.dataset.cat;
+    if (id === "all") ui.cats.clear();
+    else if (!ui.cats.delete(id)) ui.cats.add(id);
+    render();
   });
   $("#list").addEventListener("change", e => {
     const el = e.target;

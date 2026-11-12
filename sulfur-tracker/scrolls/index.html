@@ -94,6 +94,7 @@
     <div class="bar-r">
       <a class="btn" href="../recipes/index.html">Recipes</a>
       <a class="btn" href="../weapons/index.html">Weapons</a>
+      <a class="btn" href="../oils/index.html">Oils</a>
       <a class="btn" href="../index.html">Achievements</a>
       <button class="btn" id="theme">Theme</button>
     </div>
@@ -203,7 +204,7 @@
   $("sort").value = st.sort;
   $("sub").textContent = `${D.scrolls.length} scrolls read from the game files (${D.version ? "version " + D.version + ", " : ""}built ${D.built})`;
   $("foot").innerHTML = `Drag a scroll onto a weapon with an empty enchantment slot to enchant it. Descriptions and effects are the text the game's tooltip shows. ` +
-    `Weapon oils are enchantments too, but they are not elemental and are not listed here. Scroll names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. ` +
+    `Weapon oils are enchantments too, but they are not elemental: see the <a href="../oils/index.html">Oils</a> page. Scroll names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. ` +
     `Rebuild after a game update with <code>py -I build_scrolls.py</code>.`;
   renderTiers(); render();
 })();

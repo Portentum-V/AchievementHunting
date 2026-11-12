@@ -11,6 +11,7 @@ steam_status.js
 sulfur-tracker/weapons/icons/
 sulfur-tracker/recipes/icons/
 sulfur-tracker/scrolls/icons/
+sulfur-tracker/oils/icons/
 
 # Playwright screenshots and snapshots of tracker pages, which show unlocks
 .playwright-mcp/
