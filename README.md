@@ -142,6 +142,93 @@ The repo keeps the data files. Git ignores the icon folders, because
 someone could reuse the game's art elsewhere, so a page shows icons only
 after you run its builder.
 
+## SULFUR save editor
+
+`sulfur-tracker/save-editor/save_edit.py` changes a SULFUR save slot. It
+sets the amulet charge, the stamps, and the ammo in the backpack or the
+church stash. For stamps, `stamps 50` sets the count, and `stamps +20`
+adds to it.
+The script also adds, removes, moves, and repairs items in the backpack and
+each stash. Every command that changes a save is a dry run until you add
+`--apply`.
+
+The game reads a save only when you pick its slot, and then overwrites the
+file each time it saves. During a run, the next save wipes out an edit.
+To apply a change, quit to the main menu and add `--game-open`, or quit the
+game. Without the flag, the script refuses to write while SULFUR runs.
+
+```
+py -I sulfur-tracker/save-editor/save_edit.py -s 3 show
+py -I sulfur-tracker/save-editor/save_edit.py -s 3 amulet 5 --apply
+py -I sulfur-tracker/save-editor/save_edit.py -s 3 add stash "Low Fat Milk" --apply
+```
+
+Run it with `-h` for every command. Every command but `slots` and `find`
+needs `-s N` (or `--slot N`), before or after the command. The `grid`
+command draws a grid with the item number in each filled cell. `remove`
+and `move` take the same numbers, and `--x` marks filled cells with x
+instead. In a terminal, item names and grid cells show in their item
+type's color, and the `grid` command prints a key of the types. For plain
+text, add `--no-color` before the command or set `NO_COLOR`.
+
+To find an item to add, search its name with `find`, or list a type of item
+with `find --type`, such as `attachment`, `oil`, or `crafting`. Run
+`find --types` for every type.
+
+To swap items for another item, use `convert`. The new items fill the space
+each old item used. For example, `convert backpack "Health Potion" --type food`
+turns each food in the backpack into Health Potions, one per cell, so a 1x2
+food becomes two potions. Give `all` in place of a grid for every grid, or
+item numbers in place of `--type`. For one new item per old item, add
+`--one`.
+
+To ready the backpack for a run in one write, use `restock`:
+
+```powershell
+py .\save-editor\save_edit.py -s 3 restock --apply
+```
+
+It takes the food and organs out of the backpack, repairs every grid, and sets
+carried ammo to the caps. Each empty hotbar slot (the gadget slots
+on keys 3 to 5) gets a First Aid Kit, and full ones keep their item.
+`--hotbar NAME` picks another item, and `--hotbar none` skips the step.
+
+Then `restock` tops the backpack up to 3 repair kits
+and fills every free cell with Health Potions. The kits go in before the
+potions, so they always get room. To keep a different number of kits, add
+`--kits N`, and `--kits 0` skips them. For another item than Health Potion,
+add `--item NAME`.
+
+To get the Escape card, the one Endless card that sends you back to the
+church, use `endless escape`. It banishes every other card for the rest of
+the run, so the next level-up deals Escape. Taking the card in game also
+updates the Endless records. `endless` alone shows the card pool and the
+odds. `endless rerolls N` and `endless banishes N` set what the run has left.
+
+To end an Endless run without the Escape card, use `leave-endless`. It clears the same run state the card clears, so the slot
+loads at the church with the backpack as the game last saved it. The run's
+card upgrades end, as they do with the card. The Endless records keep their
+old values, since the game updates them only during a run.
+
+Before each write, the script copies the slot to `save-editor/backups/`.
+To undo an edit or a bad run, `revert` lists every earlier copy of the slot.
+It finds the script's backups and the game's own, newest first, and
+`revert N --apply` puts copy N back.
+
+A loadout is a saved set of equipped items, or the contents of one
+container. `loadout save NAME` keeps what a slot has equipped, and
+`loadout save NAME GRID` keeps a container. `loadout apply NAME` puts
+copies of those items back, each with its enchantments, attachments, and
+durability. Items it displaces move to the stash, or to the grid that
+`--to` names. With a container, `--replace` empties it first. The amulet
+stays out of loadouts.
+
+The script keeps the game's limits: the amulet holds 5 charges, and the backpack
+holds a set amount of each caliber. It places new
+items only in free cells, because the game drops an item that overlaps
+another. Leave achievement progress alone: an edit there can unlock
+achievements on your Steam account.
+
 ## Not in the repo
 
 The tracker writes each game's Steam snapshot (`steam_status.js`), icons,

@@ -14,6 +14,12 @@ sulfur-tracker/scrolls/icons/
 sulfur-tracker/oils/icons/
 sulfur-tracker/gear/icons/
 
+# The SULFUR save editor's copies of your saves, and its item-name cache
+sulfur-tracker/save-editor/backups/
+sulfur-tracker/save-editor/item-cache.json
+sulfur-tracker/save-editor/card-cache.json
+sulfur-tracker/save-editor/loadouts/
+
 # Playwright screenshots and snapshots of tracker pages, which show unlocks
 .playwright-mcp/
 
