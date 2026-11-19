@@ -114,8 +114,11 @@ scratchpad.
     edits from step 9. Ask before you commit.
 
 11. **When the user asks, commit and push.**
-   - Run `git add -A`, then `git status --short`. Expect only `guide.js`, the
-     READMEs and any code fixes.
+   - Stage by path: the new `guide.js`, the READMEs and any code fixes. Do
+     not run `git add -A`; the tree often holds unrelated uncommitted work.
+     Run `git status --short` and `git diff --cached --stat` to confirm.
+   - A README may hold uncommitted edits from before this run. Then ask
+     whether to commit them too.
    - Grep the staged diff for the SteamID, the username, `eyJ` (JWT tokens)
      and `password`. Expect no matches.
    - Commit on `main` with the attribution line.

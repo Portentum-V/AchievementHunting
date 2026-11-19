@@ -21,6 +21,7 @@ game details included.
 | `dawnwalker-tracker` | The Blood of Dawnwalker | IGN wiki |
 | `dragonwilds-tracker` | RuneScape: Dragonwilds | RuneScape: Dragonwilds wiki |
 | `megabonk-tracker` | Megabonk | Steam community guides |
+| `queensdomain-tracker` | Queen's Domain | Whisper of the House, GAMES.GG, Steam community guides and patch notes |
 | `ror2-tracker` | Risk of Rain 2 | Risk of Rain 2 wiki, Hallowed Concepts patch notes |
 | `sulfur-tracker` | SULFUR | SULFUR wiki, Steam community guides and patch notes |
 | `valheim-tracker` | Valheim | Steam community guide and its tracking sheet |

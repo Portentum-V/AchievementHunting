@@ -46,7 +46,8 @@ and discussions, and patch notes, through WebSearch and WebFetch. When
 WebFetch returns 429, 403 or a JavaScript-only page, use `curl` with a browser
 user agent. Save each download in a new, empty folder in the scratchpad
 (`<SCRATCHPAD>`). Where sources disagree or are thin, say so in the tip.
-Never invent a detail.
+Never invent a detail. A Steam guide may show a "removed" banner. Back its
+claims with a second source, or hedge the tip.
 
 Collect the practical catches, not only the rules. A player who follows a
 tip must not fail on something the tip left out. For each remaining
@@ -91,6 +92,8 @@ Create `<REPO>\<slug>-tracker\guide.js`:
   Mark entries with long checklists `wide: true`.
 - When several achievements stack in one run, write a plan. Put it in a tip
   or a checklist on the most relevant card.
+  - Check each plan step against the item locations. No step may need an
+    item from an area a later step opens.
 
 ## Validate
 Run `node <SKILL>\scripts\validate_guide.js <guide.js> <LIST.json>`. Fix the
