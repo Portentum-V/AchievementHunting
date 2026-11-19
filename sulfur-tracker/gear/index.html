@@ -1,0 +1,293 @@
+<!doctype html>
+<!-- SULFUR armor and trinkets. Items come from gear-data.js, which
+     build_gear.py generates from the installed game's files. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SULFUR Armor &amp; Trinkets</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l11 4v8c0 7-5 12-11 14C10 27 5 22 5 15V7z' fill='%237d6b00'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f4efe9; --panel: #fffaf4; --panel-2: #efe6dc; --ink: #241a1a; --muted: #6f5f5a;
+    --line: #dccfc3; --accent: #7d6b00; --accent-soft: #7d6b0018; --accent-2: #8e2a5c; --accent-2-soft: #8e2a5c1c;
+    --good: #2f7d3a; --bad: #b0303f;
+    --shadow: 0 1px 2px #0000000f, 0 4px 14px #0000000a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+      --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+      --good: #7fd08a; --bad: #f08a96;
+      --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #120d0e; --panel: #1c1516; --panel-2: #251c1d; --ink: #eee3dc; --muted: #a9958f;
+    --line: #3a2c2d; --accent: #e8d44a; --accent-soft: #e8d44a1f; --accent-2: #f07ab0; --accent-2-soft: #f07ab022;
+    --good: #7fd08a; --bad: #f08a96;
+    --shadow: 0 1px 2px #0006, 0 6px 20px #0004;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 30px; margin: 0; letter-spacing: .3px; }
+  h1 span { color: var(--accent); }
+  h2 { font-family: Georgia, serif; font-weight: 600; font-size: 19px; margin: 22px 0 8px; display: flex; gap: 10px; align-items: baseline; }
+  h2 small { color: var(--muted); font-family: "Segoe UI", system-ui, sans-serif; font-size: 13px; font-weight: 400; }
+  h3.slot { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 8px 0 2px; }
+  .sub { color: var(--muted); margin: 4px 0 0; font-size: 14px; }
+  .top { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; margin-bottom: 14px; }
+  .bar-r { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button { font: inherit; cursor: pointer; }
+  .btn { border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 5px 12px; border-radius: 8px; font-size: 13px; text-decoration: none; }
+  .btn:hover { border-color: var(--accent); }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 6px 0 12px; }
+  .search { flex: 1 1 220px; max-width: 340px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; }
+  .search:focus, select:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+  select { padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+  .chip { border: 1px solid var(--line); background: var(--panel); color: var(--muted); padding: 3px 10px; border-radius: 999px; font-size: 13px; }
+  .chip b { font-weight: 600; margin-left: 3px; }
+  .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .meta { color: var(--muted); font-size: 13px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 10px; }
+  @media (max-width: 420px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+  .card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-content: start; min-width: 0; }
+  .card > img { width: 44px; height: 44px; border-radius: 8px; background: var(--panel-2); object-fit: contain; padding: 3px; }
+  .card h3 { margin: 0; font-size: 15px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; padding-right: 76px; }
+  .card h3 a { color: inherit; text-decoration: none; }
+  .card h3 a:hover { text-decoration: underline; }
+  .acts { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; }
+  .acts .btn { padding: 1px 9px; font-size: 12px; }
+  .acts .on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .acts .btn:disabled { opacity: .45; cursor: not-allowed; }
+  ul.eff { margin: 4px 0 0; padding: 0; list-style: none; font-size: 13px; }
+  ul.eff li { padding-left: 16px; position: relative; }
+  ul.eff li::before { position: absolute; left: 2px; font-weight: 700; }
+  ul.eff li.good { color: var(--good); } ul.eff li.good::before { content: "+"; }
+  ul.eff li.bad { color: var(--bad); } ul.eff li.bad::before { content: "-"; }
+  ul.eff li.side { color: var(--muted); } ul.eff li.side::before { content: "~"; }
+  ul.eff li small { color: var(--muted); font-weight: 400; }
+  .desc { margin: 4px 0 0; font-size: 13px; }
+  .tag { font-size: 11px; padding: 1px 7px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--line); border-radius: 12px; }
+  .foot { color: var(--muted); font-size: 12.5px; margin-top: 24px; }
+  .foot a { color: inherit; }
+
+  /* The worn outfit and its total sit beside the list on a wide screen, above it on a narrow one. */
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+  @media (max-width: 1000px) { .layout { grid-template-columns: minmax(0, 1fr); } .layout > aside { order: -1; } }
+  aside.stack { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow); }
+  @media (max-width: 1000px) { aside.stack { position: static; max-height: none; } }
+  aside.stack h2 { margin: 0 0 6px; font-size: 17px; justify-content: space-between; }
+  .picked { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+  .picked li { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+  .picked li img { width: 22px; height: 22px; object-fit: contain; }
+  .picked li span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .x { border: 0; background: none; color: var(--muted); padding: 0 4px; font-size: 16px; line-height: 1; }
+  .x:hover { color: var(--bad); }
+  .slot-empty { color: var(--muted); font-style: italic; }
+  .stack .note { color: var(--muted); font-size: 12px; margin: 8px 0 0; }
+  table.res { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+  table.res td { padding: 2px 0; border-bottom: 1px solid var(--line); }
+  table.res td:last-child { text-align: right; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>SUL<span>FUR</span> Armor &amp; Trinkets</h1>
+      <p class="sub" id="sub">Every armor piece and trinket, and what an outfit adds up to</p>
+    </div>
+    <div class="bar-r">
+      <a class="btn" href="../recipes/index.html">Recipes</a>
+      <a class="btn" href="../weapons/index.html">Weapons</a>
+      <a class="btn" href="../scrolls/index.html">Scrolls</a>
+      <a class="btn" href="../oils/index.html">Oils</a>
+      <a class="btn" href="../index.html">Achievements</a>
+      <button class="btn" id="theme">Theme</button>
+    </div>
+  </div>
+
+  <div class="chips" id="groups" role="group" aria-label="Slot"></div>
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="Search items or effects, such as fire" aria-label="Search armor and trinkets">
+    <button class="chip" id="clean" aria-pressed="false" title="Only items with no drawback">No drawback</button>
+    <select id="sort" aria-label="Sort">
+      <option value="name">Sort: name</option>
+      <option value="armor">Sort: armor</option>
+      <option value="sell">Sort: sell value</option>
+    </select>
+    <span class="meta" id="count"></span>
+  </div>
+  <div class="layout">
+    <div id="list"></div>
+    <aside class="stack" id="stack" aria-live="polite"></aside>
+  </div>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script src="gear-data.js"></script>
+<script src="../stack.js"></script>
+<script>
+(() => {
+  const D = window.SULFUR_GEAR;
+  // The data file is built from the installed game.
+  if (!D) {
+    document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="empty">No gear data yet. It is read from your SULFUR install: run <code>py -I sulfur-tracker/gear/build_gear.py</code>, then reload.</p>`);
+    return;
+  }
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const num = v => String(Math.round(v * 100) / 100);
+
+  const GROUPS = D.groups.map(g => g.name);
+  const SLOTS = Object.fromEntries(D.groups.map(g => [g.name, g.count]));  // how many of each a player wears
+  const SLOT_LABEL = { Head: ["Head"], Chest: ["Chest"], Feet: ["Left foot", "Right foot"], Trinkets: ["Trinket 1", "Trinket 2", "Trinket 3", "Trinket 4"] };
+  const byKey = new Map(D.items.map(o => [o.key, o]));
+
+  const LS = "sulfur-gear-v1";
+  const st = { groups: [], clean: false, sort: "name", worn: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(LS)) || {}); } catch {}
+  // Saved picks can outlive a game update; keep only items the data still has, in the slot each goes in.
+  st.groups = (Array.isArray(st.groups) ? st.groups : []).filter(g => GROUPS.includes(g));
+  if (!["name", "armor", "sell"].includes(st.sort)) st.sort = "name";
+  const worn = {};
+  for (const g of GROUPS) {
+    const keys = Array.isArray(st.worn?.[g]) ? st.worn[g] : [];
+    worn[g] = keys.filter(k => byKey.get(k)?.group === g).slice(0, SLOTS[g]);
+  }
+  st.worn = worn;
+  const save = () => { try { localStorage.setItem(LS, JSON.stringify(st)); } catch {} };
+  if (st.theme) document.documentElement.dataset.theme = st.theme;
+
+  const clean = o => !o.effects.some(e => e.kind === "bad");
+  const counts = {};
+  D.items.forEach(o => counts[o.group] = (counts[o.group] || 0) + 1);
+
+  const renderGroups = () => {
+    $("groups").innerHTML = [`<button class="chip" data-g="" aria-pressed="${!st.groups.length}">All<b>${D.items.length}</b></button>`]
+      .concat(GROUPS.map(g => `<button class="chip" data-g="${esc(g)}" aria-pressed="${st.groups.includes(g)}">${esc(g)}<b>${counts[g] || 0}</b></button>`)).join("");
+    $("clean").setAttribute("aria-pressed", st.clean);
+  };
+
+  // Wear an item: a one-slot group swaps the old item out; a two- or four-slot
+  // group takes another copy while it has room, since each slot counts on its own.
+  const wearing = o => st.worn[o.group].filter(k => k === o.key).length;
+  const acts = o => {
+    const n = wearing(o), room = st.worn[o.group].length < SLOTS[o.group];
+    const single = SLOTS[o.group] === 1;
+    const wear = single ? (n ? "" : `<button class="btn" data-wear="${esc(o.key)}">Wear</button>`)
+      : `<button class="btn${n ? " on" : ""}" data-wear="${esc(o.key)}" ${room ? "" : `disabled title="All ${SLOTS[o.group]} ${esc(o.group.toLowerCase())} slots are full"`}>${n ? `Wear another (${n})` : "Wear"}</button>`;
+    const off = n ? `<button class="btn${single ? " on" : ""}" data-off="${esc(o.key)}">${single ? "Worn" : "Remove"}</button>` : "";
+    return `<div class="acts">${wear}${off}</div>`;
+  };
+
+  const card = o => `<div class="card">
+    ${acts(o)}
+    ${o.img ? `<img src="${esc(o.img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">` : "<span></span>"}
+    <div style="min-width:0"><h3><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.name)}</a>
+      <span class="tag">${esc(o.quality)}</span></h3>
+      <div class="meta">${esc(o.sell)} sulf &middot; ${esc(o.grid)} grid${o.durability ? ` &middot; ${esc(o.durability)} durability` : ""}</div>
+      ${o.effects.length ? `<ul class="eff">${o.effects.map(e => `<li class="${esc(e.kind)}">${esc(e.text)}</li>`).join("")}</ul>`
+        : `<p class="desc meta">The game lists no effect for this item.</p>`}
+      ${o.flavor ? `<p class="desc meta"><i>${esc(o.flavor)}</i></p>` : ""}
+    </div></div>`;
+
+  function render() {
+    const q = $("q").value.trim().toLowerCase();
+    const list = D.items.filter(o => (!st.groups.length || st.groups.includes(o.group)) && (!st.clean || clean(o)) &&
+      (!q || [o.name, ...o.effects.map(e => e.text)].join(" ").toLowerCase().includes(q)));
+    const cmp = st.sort === "sell" ? (a, b) => b.sell - a.sell || a.name.localeCompare(b.name)
+      : st.sort === "armor" ? (a, b) => b.armor - a.armor || a.name.localeCompare(b.name)
+      : (a, b) => a.name.localeCompare(b.name);
+    list.sort(cmp);
+    const html = GROUPS.map(g => {
+      const items = list.filter(o => o.group === g);
+      return items.length ? `<section><h2>${esc(g)} <small>${items.length} item${items.length > 1 ? "s" : ""}, ${SLOTS[g]} slot${SLOTS[g] > 1 ? "s" : ""}</small></h2><div class="cards">${items.map(card).join("")}</div></section>` : "";
+    }).join("");
+    $("list").innerHTML = html || `<div class="empty">No item matches.</div>`;
+    $("count").textContent = `${list.length} of ${D.items.length} items`;
+  }
+
+  // The outfit, slot by slot, and what it adds up to.
+  function renderStack() {
+    const wornItems = GROUPS.flatMap(g => st.worn[g].map(k => byKey.get(k)));
+    const rows = SulfurStack.combine(wornItems.flatMap(o => o.mods || []), D.attrs || {});
+    const order = { good: 0, bad: 1, side: 2 };
+    rows.sort((a, b) => order[a.kind] - order[b.kind]);
+    const slots = GROUPS.map(g => `<h3 class="slot">${esc(g)}</h3><ul class="picked">` + SLOT_LABEL[g].map((label, i) => {
+      const o = byKey.get(st.worn[g][i]);
+      return o ? `<li>${o.img ? `<img src="${esc(o.img)}" alt="">` : ""}<span title="${esc(o.name)}">${esc(o.name)}</span>
+          <button class="x" data-slot="${esc(g)}" data-i="${i}" title="Take off ${esc(o.name)}" aria-label="Take off ${esc(o.name)}">&times;</button></li>`
+        : `<li class="slot-empty">${esc(label)}: empty</li>`;
+    }).join("") + `</ul>`).join("");
+    // Each resistance point cuts that kind of damage by 1%: the game multiplies it by (100 - resistance) / 100.
+    const res = rows.filter(r => D.attrs[r.a]?.resists).map(r => {
+      const v = r.flat * r.factor, left = Math.max(0, 100 - v);
+      return `<tr><td>${esc(D.attrs[r.a].resists)}</td><td>${left > 0 ? `takes ${num(left)}%` : "takes none"}</td></tr>`;
+    }).join("");
+    $("stack").innerHTML = `<h2>Outfit <small>${wornItems.length}/${Object.values(SLOTS).reduce((a, b) => a + b, 0)}</small></h2>
+      ${slots}
+      ${wornItems.length ? `<p style="margin:8px 0 0"><button class="btn" id="off-all">Take everything off</button></p>
+        <h2 style="margin-top:12px">Total</h2>
+        ${rows.length ? `<ul class="eff">${rows.map(r => `<li class="${r.kind}">${esc(r.text)}${r.n > 1 ? ` <small>(${r.n} items)</small>` : ""}${r.clamped ? ` <small>(the game caps this sum)</small>` : ""}</li>`).join("")}</ul>` : ""}
+        ${res ? `<h3 class="slot">Damage taken</h3><table class="res">${res}</table>` : ""}`
+      : `<p class="note">Wear items from the list to see what an outfit adds up to.</p>`}
+      <p class="note">Totals stack as the game does: flat values add, percents add into one multiplier, and multiplying percents
+        multiply on top. Two of the same boot or trinket both count. Armor and each resistance cut that damage by 1% a point.
+        Broken armor gives nothing until it is repaired.</p>`;
+  }
+
+  const setWorn = (g, keys) => { st.worn[g] = keys; save(); render(); renderStack(); };
+  $("list").addEventListener("click", e => {
+    const w = e.target.closest("[data-wear]"), off = e.target.closest("[data-off]");
+    const o = byKey.get((w || off)?.dataset.wear || (w || off)?.dataset.off);
+    if (!o) return;
+    const cur = st.worn[o.group];
+    if (w) {
+      if (SLOTS[o.group] === 1) setWorn(o.group, [o.key]);
+      else if (cur.length < SLOTS[o.group]) setWorn(o.group, cur.concat(o.key));
+    } else {
+      const i = cur.lastIndexOf(o.key);
+      if (i >= 0) setWorn(o.group, cur.filter((_, j) => j !== i));
+    }
+  });
+  $("stack").addEventListener("click", e => {
+    if (e.target.closest("#off-all")) {
+      GROUPS.forEach(g => st.worn[g] = []); save(); render(); renderStack(); return;
+    }
+    const b = e.target.closest("[data-slot]");
+    if (b) setWorn(b.dataset.slot, st.worn[b.dataset.slot].filter((_, j) => j !== +b.dataset.i));
+  });
+  $("groups").addEventListener("click", e => {
+    const b = e.target.closest("[data-g]"); if (!b) return;
+    const g = b.dataset.g;
+    if (!g) st.groups = [];
+    else st.groups = st.groups.includes(g) ? st.groups.filter(x => x !== g) : st.groups.concat(g);
+    save(); renderGroups(); render();
+  });
+  $("clean").addEventListener("click", () => { st.clean = !st.clean; save(); renderGroups(); render(); });
+  $("sort").addEventListener("change", () => { st.sort = $("sort").value; save(); render(); });
+  $("q").addEventListener("input", render);
+  $("theme").addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    st.theme = dark ? "light" : "dark"; document.documentElement.dataset.theme = st.theme; save();
+  });
+
+  $("sort").value = st.sort;
+  $("sub").textContent = `${D.items.length} armor pieces and trinkets read from the game files (${D.version ? "version " + D.version + ", " : ""}built ${D.built})`;
+  $("foot").innerHTML = `A player wears a head piece, a chest piece, two feet, and four trinkets. Effects are the text the game's tooltip shows: ` +
+    `<b style="color:var(--good)">+</b> marks a benefit, <b style="color:var(--bad)">-</b> a drawback, and ~ a side effect. ` +
+    `Item names link to the <a href="https://sulfur.wiki.gg/" target="_blank" rel="noopener">SULFUR wiki</a>. ` +
+    `Rebuild after a game update with <code>py -I build_gear.py</code>.`;
+  renderGroups(); render(); renderStack();
+})();
+</script>
+</body>
+</html>

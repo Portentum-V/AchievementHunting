@@ -2,7 +2,7 @@
 window.SULFUR_OILS = {
 "source": "SULFUR game files",
 "version": "1.0.6",
-"built": "2026-11-11",
+"built": "2026-11-18",
 "groups": [
 "Damage %",
 "Flat damage",
@@ -24,6 +24,276 @@ window.SULFUR_OILS = {
 "Mystery",
 "No listed effect"
 ],
+"attrs": {
+"MaxDurability": {
+"label": "Max Durability",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ProjectileAmount": {
+"label": "Projectile amount",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"Damage": {
+"label": "Damage",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"Spread": {
+"label": "Spread",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": -1
+},
+"ItemStat_LootChanceMultiplier": {
+"label": "Loot Chance",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ProjectileTimeScale": {
+"label": "Bullet speed",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"DisableLootOrgans": {
+"label": "No organs drop",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": true,
+"dir": -1
+},
+"RPM": {
+"label": "RPM",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ConsumeExtraAmmoChance": {
+"label": "Chance to consume extra ammo",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": -1
+},
+"KnockbackPower": {
+"label": "Knockback",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"NoExtraDurabilityCost": {
+"label": "Does not increase durability loss",
+"bool": true,
+"dir": 1
+},
+"ConsumeAmmoChance": {
+"label": "Ammo consume chance",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": -1
+},
+"CritChance": {
+"label": "Crit chance",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ReloadSpeed": {
+"label": "Reload speed",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"KickMultiplier": {
+"label": "Recoil",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": -1
+},
+"DisableADS": {
+"label": "Disables aiming",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": true,
+"dir": -1
+},
+"ProjectileScale": {
+"label": "Bullet size",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"DisableLootMoney": {
+"label": "No Money drops",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": true,
+"dir": -1
+},
+"ProjectileMass": {
+"label": "Bullet weight",
+"pct": true,
+"factor": true,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 0
+},
+"ItemStat_JumpPower": {
+"label": "Jump power",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ProjectileBounce": {
+"label": "Bullet bounces",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ItemStat_MoveSpeed": {
+"label": "Move speed",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ProjectileForce": {
+"label": "Muzzle Velocity",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ProjectilePenetration": {
+"label": "Bullets penetrate",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"ProjectileDrag": {
+"label": "Projectile drag multiplier",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"inc": "More drag",
+"dec": "Less drag",
+"dir": 0
+},
+"DurabilityLoss": {
+"label": "Durability Loss",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": -1
+},
+"ProjectileBehaviourTimeout": {
+"label": "Resets bullet speed",
+"pct": false,
+"factor": false,
+"unit": "seconds",
+"unitName": "",
+"bool": false,
+"dir": 0
+},
+"EnchantmentDurabilityCost": {
+"label": "Durability per shot",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": -1
+},
+"AimMovingBonus": {
+"label": "Accuracy when moving",
+"pct": true,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": false,
+"dir": 1
+},
+"EnchantmentAddRandomOilAttributes": {
+"label": "What could it be...?",
+"pct": false,
+"factor": false,
+"unit": "",
+"unitName": "",
+"bool": true,
+"dir": 1
+}
+},
 "oils": [
 {
 "name": "Action Oil",
@@ -44,6 +314,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": 0.800000011920929,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -59,6 +341,13 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: +15",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 15.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -80,6 +369,18 @@ window.SULFUR_OILS = {
 {
 "text": "Disables aiming",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.30000001192092896,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -107,6 +408,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -15.0,
+"t": 100
+},
+{
+"a": "ProjectileDrag",
+"v": 7.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": 1.2000000476837158,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -126,6 +444,18 @@ window.SULFUR_OILS = {
 {
 "text": "Loot Chance: -30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Spread",
+"v": -0.699999988079071,
+"t": 100
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.30000001192092896,
+"t": 200
 }
 ],
 "flavor": null
@@ -153,6 +483,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileForce",
+"v": 17.0,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -172,6 +519,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -80%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.800000011920929,
+"t": 100
 }
 ],
 "flavor": null
@@ -195,6 +554,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.10000000149011612,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": -0.5,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -214,6 +585,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet weight: x15",
 "kind": "side"
+}
+],
+"mods": [
+{
+"a": "Spread",
+"v": -2.0,
+"t": 100
+},
+{
+"a": "ProjectileMass",
+"v": 15.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -237,6 +620,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 30.0,
+"t": 100
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -252,6 +647,13 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: +20%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "RPM",
+"v": 0.20000000298023224,
+"t": 200
 }
 ],
 "flavor": null
@@ -275,6 +677,18 @@ window.SULFUR_OILS = {
 "kind": "side"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.25,
+"t": 100
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -294,6 +708,18 @@ window.SULFUR_OILS = {
 {
 "text": "Jump power: -30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.30000001192092896,
+"t": 200
 }
 ],
 "flavor": null
@@ -317,6 +743,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -336,6 +774,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet size: -70%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "RPM",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "ProjectileScale",
+"v": -0.699999988079071,
+"t": 300
 }
 ],
 "flavor": null
@@ -367,6 +817,28 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileMass",
+"v": 20.0,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.20000000298023224,
+"t": 100
+},
+{
+"a": "Damage",
+"v": 35.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": 0.25,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -390,6 +862,23 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -417,6 +906,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 0.5,
+"t": 300
+},
+{
+"a": "ProjectileMass",
+"v": 20.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": 0.25,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -440,6 +946,23 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 3.0,
+"t": 200
+},
+{
+"a": "MaxDurability",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -471,6 +994,28 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 0.30000001192092896,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -492,6 +1037,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.20000000298023224,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 2.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -511,6 +1068,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -20%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "RPM",
+"v": 0.4000000059604645,
+"t": 200
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.20000000298023224,
+"t": 100
 }
 ],
 "flavor": null
@@ -540,6 +1109,28 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +1.4",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": -0.10000000149011612,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 1.399999976158142,
+"t": 100
 }
 ],
 "flavor": null
@@ -575,6 +1166,33 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 1.5,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -600,6 +1218,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.20000000298023224,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "ProjectileBounce",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -615,6 +1250,13 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet bounces: +1",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -638,6 +1280,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -0.75,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.20000000298023224,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -657,6 +1311,18 @@ window.SULFUR_OILS = {
 {
 "text": "Jump power: -20%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.20000000298023224,
+"t": 200
 }
 ],
 "flavor": null
@@ -680,6 +1346,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 30.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 0.699999988079071,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -699,6 +1377,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet weight: x15",
 "kind": "side"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.4000000059604645,
+"t": 100
+},
+{
+"a": "ProjectileMass",
+"v": 15.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -722,6 +1412,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -743,6 +1445,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.20000000298023224,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -762,6 +1476,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Spread",
+"v": -0.699999988079071,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -797,6 +1523,33 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 3.0,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "MaxDurability",
+"v": -0.75,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -816,6 +1569,18 @@ window.SULFUR_OILS = {
 {
 "text": "Recoil: +200%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 6.0,
+"t": 100
+},
+{
+"a": "KickMultiplier",
+"v": 2.0,
+"t": 200
 }
 ],
 "flavor": null
@@ -839,6 +1604,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.20000000298023224,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -858,6 +1635,18 @@ window.SULFUR_OILS = {
 {
 "text": "Ammo consume chance: -30%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "ConsumeAmmoChance",
+"v": -0.30000001192092896,
+"t": 100
 }
 ],
 "flavor": null
@@ -885,6 +1674,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 0.30000001192092896,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -904,6 +1710,18 @@ window.SULFUR_OILS = {
 {
 "text": "Move speed: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.699999988079071,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -931,6 +1749,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -954,6 +1789,23 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ItemStat_JumpPower",
+"v": -0.15000000596046448,
+"t": 200
+},
+{
+"a": "KnockbackPower",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -981,6 +1833,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.30000001192092896,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1002,6 +1871,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "KickMultiplier",
+"v": 1.0,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1021,6 +1902,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": -0.25,
+"t": 300
 }
 ],
 "flavor": null
@@ -1052,6 +1945,28 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ReloadSpeed",
+"v": 1.600000023841858,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.6000000238418579,
+"t": 200
+},
+{
+"a": "Spread",
+"v": -0.10000000149011612,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": -0.10000000149011612,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1071,6 +1986,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.20000000298023224,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.25,
+"t": 300
 }
 ],
 "flavor": null
@@ -1098,6 +2025,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.5,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1117,6 +2061,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -25",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -25.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -1140,6 +2096,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.44999998807907104,
+"t": 200
+},
+{
+"a": "MaxDurability",
+"v": -0.10000000149011612,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1157,6 +2125,13 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.20000000298023224,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1172,6 +2147,13 @@ window.SULFUR_OILS = {
 {
 "text": "Crit chance: +15%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.15000000596046448,
+"t": 100
 }
 ],
 "flavor": null
@@ -1195,6 +2177,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": 0.8999999761581421,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1212,6 +2206,13 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.5,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1227,6 +2228,13 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: +20%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.20000000298023224,
+"t": 200
 }
 ],
 "flavor": null
@@ -1250,6 +2258,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -2.0,
+"t": 100
+},
+{
+"a": "KickMultiplier",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1269,6 +2289,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -50%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.5,
+"t": 200
 }
 ],
 "flavor": null
@@ -1296,6 +2328,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1321,6 +2370,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1342,6 +2408,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 30.0,
+"t": 100
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.30000001192092896,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1361,6 +2439,18 @@ window.SULFUR_OILS = {
 {
 "text": "Max Durability: -75%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 50.0,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.75,
+"t": 200
 }
 ],
 "flavor": null
@@ -1392,6 +2482,28 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 1.7000000476837158,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": -0.699999988079071,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -1411,6 +2523,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.20000000298023224,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -1434,6 +2558,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.25,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1453,6 +2589,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -20%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ReloadSpeed",
+"v": 0.6000000238418579,
+"t": 200
+},
+{
+"a": "RPM",
+"v": -0.20000000298023224,
+"t": 200
 }
 ],
 "flavor": null
@@ -1484,6 +2632,28 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 0.699999988079071,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1503,6 +2673,18 @@ window.SULFUR_OILS = {
 {
 "text": "No organs drop",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.2199999988079071,
+"t": 200
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -1526,6 +2708,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -15.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": 1.0,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1547,6 +2741,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1566,6 +2772,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet weight: x5",
 "kind": "side"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.6499999761581421,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 5.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -1609,6 +2827,43 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileAmount",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": 0.10000000149011612,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.5,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 2.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1621,6 +2876,7 @@ window.SULFUR_OILS = {
 "grid": "1x2",
 "group": "No listed effect",
 "effects": [],
+"mods": [],
 "flavor": null
 },
 {
@@ -1646,6 +2902,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 6.0,
+"t": 100
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.20000000298023224,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1665,6 +2938,18 @@ window.SULFUR_OILS = {
 {
 "text": "Durability Loss: +1",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 6.0,
+"t": 100
+},
+{
+"a": "DurabilityLoss",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -1688,6 +2973,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -2.0,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.25,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1707,6 +3004,18 @@ window.SULFUR_OILS = {
 {
 "text": "No organs drop",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 20.0,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -1730,6 +3039,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.30000001192092896,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1751,6 +3072,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.3499999940395355,
+"t": 100
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1770,6 +3103,18 @@ window.SULFUR_OILS = {
 {
 "text": "Durability per shot: +0",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "EnchantmentDurabilityCost",
+"v": 0.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -1797,6 +3142,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1816,6 +3178,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: +140%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.4000000059604645,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": 1.399999976158142,
+"t": 200
 }
 ],
 "flavor": null
@@ -1839,6 +3213,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 20.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.25,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -1858,6 +3244,18 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +1",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -1885,6 +3283,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": 0.20000000298023224,
+"t": 200
+},
+{
+"a": "ProjectileForce",
+"v": 8.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -1908,6 +3323,23 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 8.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -1935,6 +3367,23 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 4.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": -0.5,
+"t": 300
+},
+{
+"a": "Damage",
+"v": -0.5,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -1954,6 +3403,18 @@ window.SULFUR_OILS = {
 {
 "text": "Loot Chance: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.5,
+"t": 100
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -1981,6 +3442,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 0.699999988079071,
+"t": 200
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.10000000149011612,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2000,6 +3478,18 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +3",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.6499999761581421,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 3.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2023,6 +3513,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "ConsumeAmmoChance",
+"v": -0.20000000298023224,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2038,6 +3540,13 @@ window.SULFUR_OILS = {
 {
 "text": "Muzzle Velocity: +200%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileForce",
+"v": 2.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2061,6 +3570,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "MaxDurability",
+"v": -0.15000000596046448,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2080,6 +3601,18 @@ window.SULFUR_OILS = {
 {
 "text": "No Money drops",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.20000000298023224,
+"t": 200
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2107,6 +3640,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileForce",
+"v": 6.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2128,6 +3678,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 25.0,
+"t": 100
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.3499999940395355,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2147,6 +3709,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -10%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.20000000298023224,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -0.10000000149011612,
+"t": 200
 }
 ],
 "flavor": null
@@ -2174,6 +3748,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": -0.5,
+"t": 300
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2197,6 +3788,23 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +0.7",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": -30.0,
+"t": 100
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 0.699999988079071,
+"t": 100
 }
 ],
 "flavor": null
@@ -2224,6 +3832,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "ProjectileScale",
+"v": -0.30000001192092896,
+"t": 300
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2245,6 +3870,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "MaxDurability",
+"v": -0.25,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2264,6 +3901,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet weight: x20",
 "kind": "side"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "ProjectileMass",
+"v": 20.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2291,6 +3940,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileMass",
+"v": 35.0,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.20000000298023224,
+"t": 100
+},
+{
+"a": "Damage",
+"v": 0.6000000238418579,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2312,6 +3978,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.15000000596046448,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2331,6 +4009,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: +75%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": 0.75,
+"t": 200
 }
 ],
 "flavor": null
@@ -2362,6 +4052,28 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileForce",
+"v": 13.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2383,6 +4095,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.15000000596046448,
+"t": 100
+},
+{
+"a": "KickMultiplier",
+"v": 0.4000000059604645,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2402,6 +4126,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet weight: x20",
 "kind": "side"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 4.0,
+"t": 100
+},
+{
+"a": "ProjectileMass",
+"v": 20.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2429,6 +4165,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.6000000238418579,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": 0.5,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -2448,6 +4201,18 @@ window.SULFUR_OILS = {
 {
 "text": "Ammo consume chance: -20%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ItemStat_JumpPower",
+"v": -1.0,
+"t": 200
+},
+{
+"a": "ConsumeAmmoChance",
+"v": -0.20000000298023224,
+"t": 100
 }
 ],
 "flavor": null
@@ -2475,6 +4240,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.44999998807907104,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2494,6 +4276,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -40%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.4000000059604645,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.4000000059604645,
+"t": 200
 }
 ],
 "flavor": null
@@ -2517,6 +4311,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2536,6 +4342,18 @@ window.SULFUR_OILS = {
 {
 "text": "Disables aiming",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2559,6 +4377,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -0.800000011920929,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2578,6 +4408,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet weight: x10",
 "kind": "side"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 4.0,
+"t": 100
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2601,6 +4443,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.15000000596046448,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.30000001192092896,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2620,6 +4474,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -15",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.25,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -15.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2647,6 +4513,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.4000000059604645,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 40.0,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2668,6 +4551,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.15000000596046448,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2687,6 +4582,18 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +2",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 2.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -2714,6 +4621,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -1.0,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2735,6 +4659,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 1.5,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2754,6 +4690,18 @@ window.SULFUR_OILS = {
 {
 "text": "Move speed: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 25.0,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -2781,6 +4729,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 12.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.5,
+"t": 300
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2800,6 +4765,18 @@ window.SULFUR_OILS = {
 {
 "text": "Move speed: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -2823,6 +4800,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.20000000298023224,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2844,6 +4833,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 20.0,
+"t": 100
+},
+{
+"a": "KickMultiplier",
+"v": 0.5,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -2863,6 +4864,18 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -2890,6 +4903,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 6.0,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2909,6 +4939,18 @@ window.SULFUR_OILS = {
 {
 "text": "Max Durability: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.30000001192092896,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -2932,6 +4974,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 30.0,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.30000001192092896,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -2951,6 +5005,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -20%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "RPM",
+"v": -0.20000000298023224,
+"t": 200
 }
 ],
 "flavor": null
@@ -2974,6 +5040,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.15000000596046448,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -2989,6 +5067,13 @@ window.SULFUR_OILS = {
 {
 "text": "Recoil: -20%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.20000000298023224,
+"t": 200
 }
 ],
 "flavor": null
@@ -3012,6 +5097,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": 0.5,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -3031,6 +5128,18 @@ window.SULFUR_OILS = {
 {
 "text": "Disables aiming",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -3054,6 +5163,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -2.0,
+"t": 100
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.30000001192092896,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3073,6 +5194,18 @@ window.SULFUR_OILS = {
 {
 "text": "No Money drops",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.10000000149011612,
+"t": 100
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -3096,6 +5229,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.6000000238418579,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.30000001192092896,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -3115,6 +5260,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: +80%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": 0.800000011920929,
+"t": 200
 }
 ],
 "flavor": null
@@ -3138,6 +5295,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": 0.5,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -3157,6 +5326,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: -50%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.25,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.5,
+"t": 300
 }
 ],
 "flavor": null
@@ -3182,6 +5363,23 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 15.0,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.699999988079071,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -3221,6 +5419,38 @@ window.SULFUR_OILS = {
 "kind": "side"
 }
 ],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": -0.8999999761581421,
+"t": 100
+},
+{
+"a": "ProjectileAmount",
+"v": 3.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "ProjectileDrag",
+"v": 40.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 4.0,
+"t": 100
+},
+{
+"a": "ProjectileBehaviourTimeout",
+"v": 3.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3250,6 +5480,28 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 15.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": 5.0,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 30.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3271,6 +5523,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.800000011920929,
+"t": 100
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.20000000298023224,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3290,6 +5554,18 @@ window.SULFUR_OILS = {
 {
 "text": "Chance to consume extra ammo: +10%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.3499999940395355,
+"t": 200
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.10000000149011612,
+"t": 100
 }
 ],
 "flavor": null
@@ -3317,6 +5593,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 8.0,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.5,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3340,6 +5633,23 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.4000000059604645,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -0.15000000596046448,
+"t": 200
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.30000001192092896,
+"t": 200
 }
 ],
 "flavor": null
@@ -3367,6 +5677,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "KickMultiplier",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3390,6 +5717,23 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +100%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 200
 }
 ],
 "flavor": null
@@ -3417,6 +5761,23 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.699999988079071,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 0.4000000059604645,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -3438,6 +5799,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileForce",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3457,6 +5830,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -3484,6 +5869,23 @@ window.SULFUR_OILS = {
 "kind": "side"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.10000000149011612,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": 1.2000000476837158,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 5.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3503,6 +5905,18 @@ window.SULFUR_OILS = {
 {
 "text": "Disables aiming",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "RPM",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -3526,6 +5940,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.15000000596046448,
+"t": 100
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.25,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -3545,6 +5971,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -3572,6 +6010,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileForce",
+"v": 13.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -20.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3591,6 +6046,18 @@ window.SULFUR_OILS = {
 {
 "text": "Max Durability: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.20000000298023224,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -3618,6 +6085,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3639,6 +6123,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.4000000059604645,
+"t": 200
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.30000001192092896,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3658,6 +6154,18 @@ window.SULFUR_OILS = {
 {
 "text": "Max Durability: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -3685,6 +6193,23 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": -0.5,
+"t": 300
+},
+{
+"a": "Spread",
+"v": 0.699999988079071,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3706,6 +6231,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "ProjectileScale",
+"v": -1.0,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -3723,6 +6260,13 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3738,6 +6282,13 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet bounces: +1",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -3761,6 +6312,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3780,6 +6343,18 @@ window.SULFUR_OILS = {
 {
 "text": "Jump power: -20%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.5,
+"t": 100
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.20000000298023224,
+"t": 200
 }
 ],
 "flavor": null
@@ -3803,6 +6378,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -0.8999999761581421,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -0.20000000298023224,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -3824,6 +6411,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": 1.25,
+"t": 200
+},
+{
+"a": "ConsumeAmmoChance",
+"v": -0.20000000298023224,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3843,6 +6442,18 @@ window.SULFUR_OILS = {
 {
 "text": "Move speed: -30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 5.0,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.30000001192092896,
+"t": 200
 }
 ],
 "flavor": null
@@ -3870,6 +6481,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 1.5,
+"t": 200
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3889,6 +6517,18 @@ window.SULFUR_OILS = {
 {
 "text": "Disables aiming",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 35.0,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -3916,6 +6556,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ReloadSpeed",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "ProjectileForce",
+"v": 8.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3935,6 +6592,18 @@ window.SULFUR_OILS = {
 {
 "text": "Recoil: +150%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": 1.5,
+"t": 200
 }
 ],
 "flavor": null
@@ -3958,6 +6627,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.15000000596046448,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -3977,6 +6658,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: -30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.3499999940395355,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": -0.30000001192092896,
+"t": 300
 }
 ],
 "flavor": null
@@ -4004,6 +6697,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 6.0,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4025,6 +6735,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.15000000596046448,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -4040,6 +6762,13 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: +25",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "RPM",
+"v": 25.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -4063,6 +6792,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.44999998807907104,
+"t": 200
+},
+{
+"a": "RPM",
+"v": -0.30000001192092896,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -4084,6 +6825,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -15.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4099,6 +6852,13 @@ window.SULFUR_OILS = {
 {
 "text": "Ammo consume chance: -15%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.15000000596046448,
+"t": 100
 }
 ],
 "flavor": null
@@ -4120,6 +6880,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -20%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.5,
+"t": 200
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.20000000298023224,
+"t": 100
 }
 ],
 "flavor": null
@@ -4147,6 +6919,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.4000000059604645,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": 1.5,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4162,6 +6951,13 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: +40%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ReloadSpeed",
+"v": 0.4000000059604645,
+"t": 200
 }
 ],
 "flavor": null
@@ -4183,6 +6979,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -10%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -0.10000000149011612,
+"t": 200
 }
 ],
 "flavor": null
@@ -4210,6 +7018,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.4000000059604645,
+"t": 200
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.20000000298023224,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4229,6 +7054,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -50%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.5,
+"t": 100
 }
 ],
 "flavor": null
@@ -4256,6 +7093,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 8.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4281,6 +7135,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.3499999940395355,
+"t": 200
+},
+{
+"a": "RPM",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4300,6 +7171,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: -75%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "RPM",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": -0.75,
+"t": 300
 }
 ],
 "flavor": null
@@ -4327,6 +7210,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -10.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4346,6 +7246,18 @@ window.SULFUR_OILS = {
 {
 "text": "Chance to consume extra ammo: +30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ReloadSpeed",
+"v": 1.2999999523162842,
+"t": 200
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.30000001192092896,
+"t": 100
 }
 ],
 "flavor": null
@@ -4369,6 +7281,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.44999998807907104,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.07999999821186066,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -4388,6 +7312,18 @@ window.SULFUR_OILS = {
 {
 "text": "Loot Chance: -100%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.30000001192092896,
+"t": 100
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -1.0,
+"t": 200
 }
 ],
 "flavor": null
@@ -4415,6 +7351,23 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.15000000596046448,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 1.7000000476837158,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4434,6 +7387,18 @@ window.SULFUR_OILS = {
 {
 "text": "No organs drop",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -4461,6 +7426,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.699999988079071,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4480,6 +7462,18 @@ window.SULFUR_OILS = {
 {
 "text": "Jump power: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 30.0,
+"t": 100
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -4503,6 +7497,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4522,6 +7528,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 25.0,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.25,
+"t": 200
 }
 ],
 "flavor": null
@@ -4549,6 +7567,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4568,6 +7603,18 @@ window.SULFUR_OILS = {
 {
 "text": "Max Durability: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ReloadSpeed",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "MaxDurability",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -4591,6 +7638,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -0.699999988079071,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.25,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -4610,6 +7669,18 @@ window.SULFUR_OILS = {
 {
 "text": "RPM: -50%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 5.0,
+"t": 100
+},
+{
+"a": "RPM",
+"v": -0.5,
+"t": 200
 }
 ],
 "flavor": null
@@ -4637,6 +7708,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 5.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -10.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4656,6 +7744,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet weight: x10",
 "kind": "side"
+}
+],
+"mods": [
+{
+"a": "RPM",
+"v": 0.6000000238418579,
+"t": 200
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -4687,6 +7787,28 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 1.7000000476837158,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4706,6 +7828,18 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -4729,6 +7863,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.25,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -4748,6 +7894,18 @@ window.SULFUR_OILS = {
 {
 "text": "Jump power: -10%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Spread",
+"v": -0.6000000238418579,
+"t": 100
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.10000000149011612,
+"t": 200
 }
 ],
 "flavor": null
@@ -4775,6 +7933,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4796,6 +7971,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.25,
+"t": 100
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.20000000298023224,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4811,6 +7998,13 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -80%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": -0.800000011920929,
+"t": 100
 }
 ],
 "flavor": null
@@ -4834,6 +8028,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.5,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4853,6 +8059,18 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: -60%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "CritChance",
+"v": 0.20000000298023224,
+"t": 100
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.6000000238418579,
+"t": 100
 }
 ],
 "flavor": null
@@ -4880,6 +8098,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 3.0,
+"t": 200
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4903,6 +8138,23 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.30000001192092896,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -4930,6 +8182,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "ProjectileForce",
+"v": 8.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -4955,6 +8224,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 40.0,
+"t": 100
+},
+{
+"a": "ProjectileMass",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": 0.5,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -4974,6 +8260,18 @@ window.SULFUR_OILS = {
 {
 "text": "Max Durability: -10%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.699999988079071,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.10000000149011612,
+"t": 200
 }
 ],
 "flavor": null
@@ -4997,6 +8295,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": 0.20000000298023224,
+"t": 200
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.5,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -5016,6 +8326,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: +80%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": -0.30000001192092896,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": 0.800000011920929,
+"t": 200
 }
 ],
 "flavor": null
@@ -5047,6 +8369,28 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileForce",
+"v": 17.0,
+"t": 100
+},
+{
+"a": "ProjectileScale",
+"v": -0.5,
+"t": 200
+},
+{
+"a": "ProjectileTimeScale",
+"v": -0.5,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5068,6 +8412,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.3499999940395355,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5083,6 +8439,13 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: -0.5",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "Spread",
+"v": -0.5,
+"t": 100
 }
 ],
 "flavor": null
@@ -5106,6 +8469,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.44999998807907104,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -10.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5125,6 +8500,18 @@ window.SULFUR_OILS = {
 {
 "text": "Disables aiming",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.6200000047683716,
+"t": 200
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -5156,6 +8543,28 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.800000011920929,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.8999999761581421,
+"t": 200
+},
+{
+"a": "ItemStat_JumpPower",
+"v": -0.8999999761581421,
+"t": 200
+},
+{
+"a": "KickMultiplier",
+"v": -0.8500000238418579,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -5181,6 +8590,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.44999998807907104,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": -0.5,
+"t": 300
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5200,6 +8626,18 @@ window.SULFUR_OILS = {
 {
 "text": "No Money drops",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Spread",
+"v": -0.6000000238418579,
+"t": 100
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -5225,6 +8663,23 @@ window.SULFUR_OILS = {
 {
 "text": "Does not increase durability loss",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 8.0,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
 }
 ],
 "flavor": null
@@ -5256,6 +8711,28 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "AimMovingBonus",
+"v": -2.0,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 3.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.4000000059604645,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 2.0999999046325684,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5275,6 +8752,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 3.0,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -0.30000001192092896,
+"t": 200
 }
 ],
 "flavor": null
@@ -5298,6 +8787,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 4.0,
+"t": 100
+},
+{
+"a": "ConsumeExtraAmmoChance",
+"v": 0.25,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5317,6 +8818,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: +110%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": -0.10000000149011612,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": 1.100000023841858,
+"t": 200
 }
 ],
 "flavor": null
@@ -5344,6 +8857,23 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.15000000596046448,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 0.699999988079071,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5363,6 +8893,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: +60%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": 0.6000000238418579,
+"t": 200
 }
 ],
 "flavor": null
@@ -5386,6 +8928,18 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ItemStat_JumpPower",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "ReloadSpeed",
+"v": 0.800000011920929,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -5405,6 +8959,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.5,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.15000000596046448,
+"t": 300
 }
 ],
 "flavor": null
@@ -5428,6 +8994,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.3499999940395355,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.15000000596046448,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -5447,6 +9025,18 @@ window.SULFUR_OILS = {
 {
 "text": "Move speed: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": 0.30000001192092896,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -5470,6 +9060,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.20000000298023224,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.4000000059604645,
+"t": 300
+}
+],
 "flavor": null
 },
 {
@@ -5489,6 +9091,18 @@ window.SULFUR_OILS = {
 {
 "text": "Move speed: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Spread",
+"v": -0.800000011920929,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -5516,6 +9130,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "RPM",
+"v": -0.10000000149011612,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5535,6 +9166,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -15%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.800000011920929,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -0.15000000596046448,
+"t": 200
 }
 ],
 "flavor": null
@@ -5558,6 +9201,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.6000000238418579,
+"t": 100
+},
+{
+"a": "Damage",
+"v": -15.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5573,6 +9228,13 @@ window.SULFUR_OILS = {
 {
 "text": "Bullet speed: +25%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.25,
+"t": 100
 }
 ],
 "flavor": null
@@ -5596,6 +9258,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5611,6 +9285,13 @@ window.SULFUR_OILS = {
 {
 "text": "Ammo consume chance: -30%",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.30000001192092896,
+"t": 100
 }
 ],
 "flavor": null
@@ -5632,6 +9313,18 @@ window.SULFUR_OILS = {
 {
 "text": "Damage: -50%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileAmount",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "Damage",
+"v": -0.5,
+"t": 200
 }
 ],
 "flavor": null
@@ -5659,6 +9352,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "MaxDurability",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5678,6 +9388,18 @@ window.SULFUR_OILS = {
 {
 "text": "No organs drop",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.4000000059604645,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -5703,6 +9425,23 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +0.7",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "Damage",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 1.0,
+"t": 200
+},
+{
+"a": "Spread",
+"v": 0.699999988079071,
+"t": 100
 }
 ],
 "flavor": null
@@ -5734,6 +9473,28 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Damage",
+"v": -0.10000000149011612,
+"t": 200
+},
+{
+"a": "ProjectileAmount",
+"v": 2.0,
+"t": 200
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 4.400000095367432,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5749,6 +9510,13 @@ window.SULFUR_OILS = {
 {
 "text": "What could it be...?",
 "kind": "good"
+}
+],
+"mods": [
+{
+"a": "EnchantmentAddRandomOilAttributes",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -5770,6 +9538,18 @@ window.SULFUR_OILS = {
 {
 "text": "Reload speed: -25%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "ReloadSpeed",
+"v": -0.25,
+"t": 300
 }
 ],
 "flavor": null
@@ -5797,6 +9577,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "KnockbackPower",
+"v": 10.0,
+"t": 100
+},
+{
+"a": "MaxDurability",
+"v": -0.20000000298023224,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5816,6 +9613,18 @@ window.SULFUR_OILS = {
 {
 "text": "Loot Chance: -50%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectilePenetration",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -0.5,
+"t": 200
 }
 ],
 "flavor": null
@@ -5839,6 +9648,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "Spread",
+"v": -0.6000000238418579,
+"t": 100
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5858,6 +9679,18 @@ window.SULFUR_OILS = {
 {
 "text": "No organs drop",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "KickMultiplier",
+"v": -0.30000001192092896,
+"t": 200
+},
+{
+"a": "DisableLootOrgans",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -5881,6 +9714,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.15000000596046448,
+"t": 100
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.10000000149011612,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -5900,6 +9745,18 @@ window.SULFUR_OILS = {
 {
 "text": "Recoil: +30%",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.5,
+"t": 100
+},
+{
+"a": "KickMultiplier",
+"v": 0.30000001192092896,
+"t": 200
 }
 ],
 "flavor": null
@@ -5923,6 +9780,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.25,
+"t": 200
+},
+{
+"a": "DisableLootMoney",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5944,6 +9813,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "ConsumeAmmoChance",
+"v": -0.25,
+"t": 100
+},
+{
+"a": "DisableADS",
+"v": 1.0,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -5963,6 +9844,18 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +1",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileBounce",
+"v": 2.0,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null
@@ -5990,6 +9883,23 @@ window.SULFUR_OILS = {
 "kind": "good"
 }
 ],
+"mods": [
+{
+"a": "ProjectileScale",
+"v": 3.0,
+"t": 200
+},
+{
+"a": "ItemStat_MoveSpeed",
+"v": -0.25,
+"t": 200
+},
+{
+"a": "NoExtraDurabilityCost",
+"v": 1,
+"t": 100
+}
+],
 "flavor": null
 },
 {
@@ -6011,6 +9921,18 @@ window.SULFUR_OILS = {
 "kind": "bad"
 }
 ],
+"mods": [
+{
+"a": "RPM",
+"v": 0.5,
+"t": 200
+},
+{
+"a": "ItemStat_LootChanceMultiplier",
+"v": -1.0,
+"t": 200
+}
+],
 "flavor": null
 },
 {
@@ -6030,6 +9952,18 @@ window.SULFUR_OILS = {
 {
 "text": "Spread: +1",
 "kind": "bad"
+}
+],
+"mods": [
+{
+"a": "ProjectileTimeScale",
+"v": 0.800000011920929,
+"t": 100
+},
+{
+"a": "Spread",
+"v": 1.0,
+"t": 100
 }
 ],
 "flavor": null

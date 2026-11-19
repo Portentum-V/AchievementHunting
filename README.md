@@ -78,10 +78,28 @@ py -I sulfur-tracker/scrolls/build_scrolls.py
 the game's tooltip shows them. Green marks a benefit and red a drawback.
 The groups are the game's own tags for each oil's main effect, such as
 Spread or Multishot. Toggle several groups at once, or show only oils with
-no drawback. After a game update, rebuild it:
+no drawback.
+
+To plan one weapon, click Add on up to 5 oils, since a rank 5 weapon holds
+5. The side panel totals them the way the game stacks modifiers: flat
+values add, percents add into one multiplier, and multiplying percents
+multiply on top. After a game update, rebuild it:
 
 ```
 py -I sulfur-tracker/oils/build_oils.py
+```
+
+## SULFUR armor and trinkets
+
+`sulfur-tracker/gear/` lists every armor piece and trinket with what it
+changes while worn. Click Wear to build an outfit: a head piece, a chest
+piece, two feet, and four trinkets. The side panel totals the outfit with the
+same stacking rules as the oils page. It also shows how much of each damage
+type gets through, since each point of armor or resistance cuts that damage
+by 1%. After a game update, rebuild it:
+
+```
+py -I sulfur-tracker/gear/build_gear.py
 ```
 
 ## SULFUR weapon table
@@ -111,7 +129,7 @@ py -I sulfur-tracker/weapons/build_weapons.py
 
 ### Building the SULFUR pages
 
-All four builders read the game through `sulfur-tracker/game_files.py`.
+All five builders read the game through `sulfur-tracker/game_files.py`.
 They find SULFUR through Steam; pass the install folder if that fails.
 Install their two packages once:
 

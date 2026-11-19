@@ -1,7 +1,7 @@
 """Read SULFUR's installed game files: the shared code behind the SULFUR builders.
 
-build_weapons.py, build_recipes.py, build_scrolls.py, and build_oils.py
-import this module.
+build_weapons.py, build_recipes.py, build_scrolls.py, build_oils.py, build_gear.py, and
+save-editor/save_edit.py import this module.
 It finds the game through Steam, reads enum names from the game's DLLs with
 dnfile, opens the startup Addressables bundle with UnityPy, and turns item
 definitions into the same text the in-game tooltip shows.
@@ -240,8 +240,8 @@ class Game:
     def enchant_lines(self, item):
         """The tooltip lines with what each one changes: attribute name, value, and text.
 
-        A line from a weapon modifier has key (an ItemAttributes name), value, and
-        modType (100 flat, 200 or 300 percent);
+        A line from a weapon modifier has key (an ItemAttributes name), attribute
+        (its id), value, and modType (100 flat, 200 or 300 percent);
         the line for an enchantment that adds no durability cost has key
         "NoExtraDurabilityCost" and value None.
         """
@@ -268,8 +268,53 @@ class Game:
                 else:
                     val = ("+" if m["value"] >= 0 else "") + self._num(m["value"]) + a["unitMeasure"]
                 text = f"{label}: {val}{a['overrideUnitName']}"
-            lines.append({"key": key, "value": m["value"], "modType": m["modType"], "text": text})
+            lines.append({"key": key, "attribute": m["attribute"], "value": m["value"], "modType": m["modType"], "text": text})
         if not ench["CostsDurability"]:
-            lines.append({"key": "NoExtraDurabilityCost", "value": None, "modType": None,
+            lines.append({"key": "NoExtraDurabilityCost", "attribute": None, "value": None, "modType": None,
                           "text": self.text("ItemDescriptions/Label_NoExtraDurabilityCost")})
         return ench, [l for l in lines if l["text"]]
+
+    def item_attr_info(self, attr_id):
+        """How the tooltip words a weapon attribute, for a page that totals several modifiers."""
+        a = self.item_attrs[attr_id]
+        key = self.enums["ItemAttributes"].get(attr_id, str(attr_id))
+        info = {"label": self.text(f"ItemAttributes/{key}_itemDescription") or a["itemDescriptionName"],
+                "pct": bool(a["isPercentageAttribute"]), "factor": bool(a["showPercentageAsFactor"]),
+                "unit": a["unitMeasure"] or "", "unitName": a["overrideUnitName"] or "",
+                "bool": bool(a["isBooleanAttribute"])}
+        if a["simplifiedModAmount"]:
+            info["inc"] = self.text(f"ItemAttributes/{key}_simplifiedIncrease") or a["simplifiedIncreaseString"]
+            info["dec"] = self.text(f"ItemAttributes/{key}_simplifiedDecrease") or a["simplifiedDecreaseString"]
+        return info
+
+    def entity_attr_info(self, attr_id):
+        """How the tooltip words a player attribute (EntityAttributes), as item_attr_info does."""
+        a = self.entity_attrs.get(attr_id, {})
+        return {"label": self._entity_label(attr_id), "pct": bool(a.get("isPercentageAttribute")),
+                "unit": a.get("unitMeasure") or "", "bool": bool(a.get("isBooleanAttribute"))}
+
+    def equip_lines(self, item):
+        """The tooltip lines for what wearing an item changes, from its modifiersOnEquipNew.
+
+        Each line has key (an EntityAttributes name), attribute (its id),
+        value, modType, and text, worded as ItemDescription does. The tooltip
+        leaves out attributes marked hideFromItemDescriptions, and so does this.
+        """
+        lines = []
+        for m in item.get("modifiersOnEquipNew") or []:
+            a = self.entity_attrs.get(m["attribute"])
+            if not a or a.get("hideFromItemDescriptions") or self._entity(m["attribute"]) == "None":
+                continue
+            label = self._entity_label(m["attribute"])
+            if a.get("isBooleanAttribute"):
+                text = label
+            else:
+                sign = "+" if m["value"] >= 0 else ""
+                if a.get("isPercentageAttribute") or m["modType"] in (200, 300):
+                    val = f"{sign}{self._num(m['value'] * 100)}%"
+                else:
+                    val = f"{sign}{self._num(m['value'])}{a.get('unitMeasure') or ''}"
+                text = f"{label}: {val}"
+            lines.append({"key": self._entity(m["attribute"]), "attribute": m["attribute"],
+                          "value": m["value"], "modType": m["modType"], "text": text})
+        return lines

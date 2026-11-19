@@ -60,7 +60,9 @@ window.GUIDE = {
     { label: "Scrolls", href: "scrolls/index.html",
       description: "Every scroll with its description and effects, and a chart of what two scrolls combine into." },
     { label: "Oils", href: "oils/index.html",
-      description: "Every weapon oil, grouped by what it improves, with its benefits and drawbacks." },
+      description: "Every weapon oil, grouped by what it improves, and the total of up to 5 on one weapon." },
+    { label: "Armor & Trinkets", href: "gear/index.html",
+      description: "Every armor piece and trinket, and what a full outfit adds up to." },
   ],
   flags: {
     rare: { label: "Rare gun", tone: "accent2" },
